@@ -55,7 +55,7 @@ class CreateInvoice extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.orderId._id}</span>
+              <span>{params.data.cus_orderId}</span>
             </div>
           );
         },
@@ -68,9 +68,20 @@ class CreateInvoice extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>
-                {moment(this.state.data?.cartId?.createdAt).format("ll")}
-              </span>
+              <span>{moment(this.state.data?.createdAt).format("ll")}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Payment Type",
+        field: "orderId.payment_type",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center">
+              <span>{params.data?.payment_type}</span>
             </div>
           );
         },
@@ -84,22 +95,9 @@ class CreateInvoice extends React.Component {
           return (
             <div>
               <span>
-                {params.data?.cartId[0]?.customer?.firstname}{" "}
-                {params.data?.cartId[0]?.customer?.lastname}
+                {params.data?.customer?.firstname}{" "}
+                {params.data?.customer?.lastname}
               </span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Shipping Date",
-        field: "orderId.shipping_date",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.orderId?.shipping_date}</span>
             </div>
           );
         },
@@ -159,15 +157,19 @@ class CreateInvoice extends React.Component {
 
   async componentDidMount() {
     await axiosConfig
-      .get("/getorderProductbyseller", {
+      .get("/orderbyseller", {
         headers: {
           "auth-adtoken": localStorage.getItem("auth-adtoken"),
         },
       })
       .then((response) => {
+        console.log(response);
         let rowData = response.data.data;
-        console.log(rowData);
+
         this.setState({ rowData });
+      })
+      .catch((error) => {
+        console.log(error.response);
       });
   }
 

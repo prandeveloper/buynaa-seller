@@ -10,8 +10,15 @@ import Footer from "./Footer";
 import { Button, Col, Row } from "reactstrap";
 import banner2 from "../../../assets/img/landing/banner.png";
 import "../../../assets/style/style.css";
+import { history } from "../../../history";
 
 export class Home extends Component {
+  async componentDidMount() {
+    var token = localStorage.getItem("auth-adtoken");
+    if (token != null && token != undefined && token != "") {
+      this.props.history.push("/analyticsDashboard");
+    }
+  }
   render() {
     return (
       <>

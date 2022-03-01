@@ -227,18 +227,20 @@ class ViewOrder extends React.Component {
                             <td>
                               <h5>{this.state.detail?.product_qty}</h5>
                             </td>
-                            <td>{/* <h5>{cart?.product_price}</h5> */}</td>
+                            <td>
+                              <h5>{this.state.detail?.product_price}</h5>
+                            </td>
                           </tr>
                         </tbody>
                       </Table>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col lg="6" md="6" sm="12">
-                      <h5>GRAND TOTAL</h5>
-                    </Col>
-                    <Col lg="6" md="6" sm="12">
+                  <Row className="mt-3">
+                    <Col lg="10" md="10" sm="12">
                       <h5 className="text-right">GRAND TOTAL</h5>
+                    </Col>
+                    <Col lg="2" md="2" sm="12">
+                      <h5 className="">{this.state.detail?.product_price}</h5>
                     </Col>
                   </Row>
                 </Card>

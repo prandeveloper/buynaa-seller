@@ -61,7 +61,7 @@ class EditProduct extends React.Component {
       pBrand: [],
       productC: [],
       productSC: [],
-      pUnit: [],
+      units: [],
       pMaterial: [],
       gsts: [],
 
@@ -81,7 +81,7 @@ class EditProduct extends React.Component {
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.data.data);
         this.setState({
           product_name: response.data.data.product_name,
           sku_no: response.data.data.sku_no,
@@ -348,11 +348,11 @@ class EditProduct extends React.Component {
     data.append("hsn_sac_no", this.state.hsn_sac_no);
     data.append("short_desc", this.state.short_desc);
     data.append("long_desc", this.state.long_desc);
-    data.append("brand", this.state.brand);
+    data.append("brand", this.state.brand._id);
     data.append("tag", this.state.tag);
-    data.append("productcategory", this.state.productcategory);
-    data.append("productsubcategory", this.state.productsubcategory);
-    data.append("unit", this.state.unit);
+    data.append("productcategory", this.state.productcategory._id);
+    data.append("productsubcategory", this.state.productsubcategory._id);
+    data.append("unit", this.state.unit._id);
     data.append("gstrate", this.state.gstrate);
     data.append("cost_price", this.state.cost_price);
     data.append("sell_price", this.state.sell_price);
@@ -388,6 +388,7 @@ class EditProduct extends React.Component {
     for (var value of data.values()) {
       console.log(value);
     }
+    console.log(data);
     let { id } = this.props.match.params;
     axiosConfig
       .post(`/editproduct/${id}`, data, {
@@ -672,7 +673,7 @@ class EditProduct extends React.Component {
                   value={this.state.unit}
                   onChange={this.changeHandler}
                 >
-                  {this.state.pUnit?.map((dUnits) => (
+                  {this.state.units?.map((dUnits) => (
                     <option value={dUnits._id} key={dUnits._id}>
                       {dUnits.units_title}
                     </option>
