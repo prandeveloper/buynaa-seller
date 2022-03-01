@@ -82,19 +82,7 @@ class AllOrder extends React.Component {
           );
         },
       },
-      // {
-      //   headerName: "Order Type",
-      //   field: "orderId.order_type",
-      //   filter: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center">
-      //         <span>{params.data?.orderId?.order_type}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
+
       {
         headerName: "Payment Type",
         field: "orderId.payment_type",
@@ -124,33 +112,6 @@ class AllOrder extends React.Component {
           );
         },
       },
-
-      // {
-      //   headerName: "Quantity",
-      //   field: "qty",
-      //   filter: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <span>{params.data?.cartId[0]?.product_qty}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "Shipping Date",
-      //   field: "orderId.shipping_date",
-      //   filter: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <span>{params.data.orderId?.shipping_date}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
 
       {
         headerName: "Status",
