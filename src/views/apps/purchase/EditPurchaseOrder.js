@@ -46,21 +46,21 @@ class EditPurchaseOrder extends React.Component {
     super(props);
     this.state = {
       status: "",
-      detail: {},
+      purchase: {},
     };
   }
 
   componentDidMount() {
     let { id } = this.props.match.params;
     axiosConfig
-      .get(`/getoneorderbyseller/${id}`, {
+      .get(`/getonepurchaseorder/${id}`, {
         headers: {
           "auth-adtoken": localStorage.getItem("auth-adtoken"),
         },
       })
       .then((response) => {
         console.log(response.data.data);
-        this.setState({ detail: response.data.data });
+        this.setState({ purchase: response.data.data });
       })
       .catch((error) => {
         console.log(error);
@@ -148,50 +148,52 @@ class EditPurchaseOrder extends React.Component {
                       <h5 className="m-2">ORDER ID</h5>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
-                      <h6 className="m-2">{this.state.detail?.cus_orderId}</h6>
+                      <h6 className="m-2">{this.state.purchase?.orderId}</h6>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
                       <h5 className="m-2">ORDER STATUS</h5>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
-                      <h6 className="m-2">{this.state.detail?.status}</h6>
+                      <h6 className="m-2">{this.state.purchase?.status}</h6>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
                       <h5 className="m-2">ORDER DATE</h5>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
                       <h6 className="m-2">
-                        {moment(this.detail?.createdAt).format("ll")}
+                        {moment(this.purchase?.createdAt).format("ll")}
                       </h6>
                     </Col>
                     {/* <Col lg="6" md="6" sm="12" className="shadow">
                       <h5 className="m-2">SHIPPING DATE</h5>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
-                      <h6 className="m-2">{detail?.orderId.shipping_date}</h6>
+                      <h6 className="m-2">{purchase?.orderId.shipping_date}</h6>
                     </Col> */}
                     {/* <Col lg="6" md="6" sm="12" className="shadow">
                       <h5 className="m-2">ORDER TYPE</h5>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
-                      <h6 className="m-2">{detail?.orderId.order_type}</h6>
+                      <h6 className="m-2">{purchase?.orderId.order_type}</h6>
                     </Col> */}
-                    <Col lg="6" md="6" sm="12" className="shadow">
+                    {/* <Col lg="6" md="6" sm="12" className="shadow">
                       <h5 className="m-2">PAYMENT TYPE</h5>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
-                      <h6 className="m-2">{this.state.detail?.payment_type}</h6>
-                    </Col>
+                      <h6 className="m-2">
+                        {this.state.purchase?.payment_type}
+                      </h6>
+                    </Col> */}
                   </Row>
                   <div>
                     <Row>
                       <Col lg="6" md="6" sm="12" className="shadow">
-                        <h5 className="m-2">CUSTOMER NAME</h5>
+                        <h5 className="m-2">SUPPLIER NAME</h5>
                       </Col>
                       <Col lg="6" md="6" sm="12" className="shadow">
                         <h6 className="m-2">
-                          {this.state.detail?.customer?.lastname}{" "}
-                          {this.state.detail?.customer?.lastname}
+                          {this.state.purchase?.supplier?.first_name}{" "}
+                          {this.state.purchase?.supplier?.last_name}
                         </h6>
                       </Col>
                       <Col lg="6" md="6" sm="12" className="shadow">
@@ -199,7 +201,15 @@ class EditPurchaseOrder extends React.Component {
                       </Col>
                       <Col lg="6" md="6" sm="12" className="shadow">
                         <h6 className="m-2">
-                          {this.state.detail?.customer?.email}
+                          {this.state.purchase?.supplier?.email}
+                        </h6>
+                      </Col>
+                      <Col lg="6" md="6" sm="12" className="shadow">
+                        <h5 className="m-2">COMPANY</h5>
+                      </Col>
+                      <Col lg="6" md="6" sm="12" className="shadow">
+                        <h6 className="m-2">
+                          {this.state.purchase?.supplier?.company}
                         </h6>
                       </Col>
                       <Col lg="6" md="6" sm="12" className="shadow">
@@ -207,36 +217,76 @@ class EditPurchaseOrder extends React.Component {
                       </Col>
                       <Col lg="6" md="6" sm="12" className="shadow">
                         <h6 className="m-2">
-                          {this.state.detail?.customer?.mobile}
+                          {this.state.purchase?.supplier?.phone_no}
                         </h6>
                       </Col>
                     </Row>
                   </div>
                   <Row>
                     <Col lg="6" md="6" sm="12" className="shadow">
-                      <h5 className="m-2">ADDRESS</h5>
+                      <h5 className="m-2">STOCK DUE</h5>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h6 className="m-2">{this.state.purchase?.stock_due}</h6>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h5 className="m-2">GSTIN NO.</h5>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h6 className="m-2">{this.state.purchase?.gstIn}</h6>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h5 className="m-2">PAYMENT DUE</h5>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
                       <h6 className="m-2">
-                        {this.state.detail?.shipping_address?.address} ,
-                        {this.state.detail?.shipping_address?.locality}
+                        {this.state.purchase?.payment_due}
                       </h6>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
-                      <h5 className="m-2">CITY/STATE</h5>
+                      <h5 className="m-2">TRANSPORT COST</h5>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
                       <h6 className="m-2">
-                        {this.state.detail?.shipping_address?.city} /
-                        {this.state.detail?.shipping_address?.state}
+                        {this.state.purchase?.transportation_cost}
                       </h6>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
-                      <h5 className="m-2">PINCODE</h5>
+                      <h5 className="m-2">TRANSPORT COST</h5>
                     </Col>
                     <Col lg="6" md="6" sm="12" className="shadow">
                       <h6 className="m-2">
-                        {this.state.detail?.shipping_address?.pincode}
+                        {this.state.purchase?.transportation_cost}
+                      </h6>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h5 className="m-2">TRANSPORT COST</h5>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h6 className="m-2">
+                        {this.state.purchase?.transportation_cost}
+                      </h6>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h5 className="m-2">AMOUNT</h5>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h6 className="m-2">{this.state.purchase?.amount}</h6>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h5 className="m-2">INSTRUCTION</h5>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h6 className="m-2">
+                        {this.state.purchase?.instructions}
+                      </h6>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h5 className="m-2">GRAND TOTAL</h5>
+                    </Col>
+                    <Col lg="6" md="6" sm="12" className="shadow">
+                      <h6 className="m-2">
+                        {this.state.purchase?.grand_total}
                       </h6>
                     </Col>
                   </Row>
@@ -273,23 +323,23 @@ class EditPurchaseOrder extends React.Component {
                           <tr>
                             <td>
                               <h5>
-                                {this.state.detail?.product?.product_name}
+                                {this.state.purchase?.product?.product_name}
                               </h5>
                             </td>
                             <td>
-                              <h5>{this.state.detail?.product?.sku_no}</h5>
+                              <h5>{this.state.purchase?.product?.sku_no}</h5>
                             </td>
                             <td>
-                              <h5>{this.state.detail?.color}</h5>
+                              <h5>{this.state.purchase?.color}</h5>
                             </td>
                             <td>
-                              <h5>{this.state.detail?.size}</h5>
+                              <h5>{this.state.purchase?.size}</h5>
                             </td>
                             <td>
-                              <h5>{this.state.detail?.product_qty}</h5>
+                              <h5>{this.state.purchase?.product_qty}</h5>
                             </td>
                             <td>
-                              <h5>{this.state.detail?.product_price}</h5>
+                              <h5>{this.state.purchase?.product_price}</h5>
                             </td>
                           </tr>
                         </tbody>
@@ -301,7 +351,7 @@ class EditPurchaseOrder extends React.Component {
                       <h5 className="text-right">GRAND TOTAL</h5>
                     </Col>
                     <Col lg="2" md="2" sm="12">
-                      <h5 className="">{this.state.detail?.product_price}</h5>
+                      <h5 className="">{this.state.purchase?.product_price}</h5>
                     </Col>
                   </Row>
                 </Card>

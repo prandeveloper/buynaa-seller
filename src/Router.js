@@ -729,7 +729,7 @@ class AppRouter extends React.Component {
                     component={newPurchaseOrder}
                   />
                   <AppRoute
-                    path="/app/purchase/editPurchaseOrder"
+                    path="/app/purchase/editPurchaseOrder/:id"
                     component={editPurchaseOrder}
                   />
                   <AppRoute
