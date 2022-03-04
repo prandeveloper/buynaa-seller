@@ -102,7 +102,11 @@ class NewPurchaseOrder extends React.Component {
     option.product = product;
     console.log("Option", option);
     axiosConfig
-      .post("/addnewpurchaseorder", option)
+      .post("/addnewpurchaseorder", option, {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
       .then((response) => {
         console.log(response);
         this.props.history.push("/app/purchase/purchaseOrderList");
@@ -128,7 +132,7 @@ class NewPurchaseOrder extends React.Component {
       });
 
     axiosConfig
-      .get("/getproduct", {
+      .get("/productbysellerbytoken", {
         headers: {
           "auth-adtoken": localStorage.getItem("auth-adtoken"),
         },
@@ -266,7 +270,7 @@ class NewPurchaseOrder extends React.Component {
                           this.changeHandlerG(e, index);
                         }}
                       >
-                        <option>Add Supplier</option>
+                        <option>Add Product</option>
                         {this.state.productC?.map((prod) => (
                           <option key={prod._id} value={prod._id}>
                             {prod.product_name}

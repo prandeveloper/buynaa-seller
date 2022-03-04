@@ -52,7 +52,7 @@ class PurchaseOrderList extends React.Component {
         field: "orderId",
         //filter: true,
         filter: "agSetColumnFilter",
-        width: 400,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
@@ -65,55 +65,59 @@ class PurchaseOrderList extends React.Component {
           );
         },
       },
-      // {
-      //     headerName: "Status",
-      //     field: "status",
-      //     filter: true,
-      //     width: 150,
-      //     cellRendererFramework: (params) => {
-      //       return params.value === "Active" ? (
-      //         <div className="badge badge-pill badge-success">
-      //           {params.data.status}
-      //         </div>
-      //       ) : params.value === "Inactive" ? (
-      //         <div className="badge badge-pill badge-warning">
-      //           {params.data.status}
-      //         </div>
-      //       ) : null;
-      //     },
-      //   },
+      {
+        headerName: "Status",
+        field: "status",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return params.value === "Pending" ? (
+            <div className="badge badge-pill badge-warning">
+              {params.data.status}
+            </div>
+          ) : params.value === "Approved" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data.status}
+            </div>
+          ) : params.value === "Decline" ? (
+            <div className="badge badge-pill badge-danger">
+              {params.data.status}
+            </div>
+          ) : null;
+        },
+      },
 
       {
-        headerName: "Actions",
-        field: "transactions",
-        width: 500,
+        headerName: "Invoice",
+        field: "invoice",
+        width: 250,
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              <Button color="primary" outline className="mr-2">
+              <Button color="primary" className="mr-2">
                 Create Invoice
               </Button>
-              {/* <Button color="primary" outline className="mr-2">
-                Destroy
-              </Button>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Action",
+        field: "action",
+        width: 300,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="actions cursor-pointer">
               <Edit
                 className="mr-50"
                 size="25px"
                 color="blue"
-                onClick={() => history.push("/app/myStore/editStore")}
-              /> */}
-              <Button
-                size="25px"
-                color="red"
-                onClick={() => {
-                  let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
-                  this.gridApi.updateRowData({ remove: selectedData });
-                }}
-              >
-                {" "}
-                Destroy Invoice
-              </Button>
+                onClick={() =>
+                  history.push(
+                    `/app/purchase/editPurchaseOrder/${params.data._id}`
+                  )
+                }
+              />
             </div>
           );
         },

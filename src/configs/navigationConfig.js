@@ -181,30 +181,30 @@ const navigationConfig = [
       },
     ],
   },
-  // {
-  //   id: "coupons",
-  //   title: "Coupons",
-  //   type: "collapse",
-  //   icon: <Icon.Gift size={20} />,
-  //   children: [
-  //     // {
-  //     //   id: "specialOfferList",
-  //     //   title: "Offers",
-  //     //   type: "item",
-  //     //   icon: <Icon.Circle size={12} />,
-  //     //   permissions: ["admin", "editor"],
-  //     //   navLink: "/app/offerAndCoupon/specialOffer/specialOfferList",
-  //     // },
-  //     {
-  //       id: "couponsList",
-  //       title: "Coupons",
-  //       type: "item",
-  //       icon: <Icon.Circle size={12} />,
-  //       permissions: ["admin", "editor"],
-  //       navLink: "/app/offerAndCoupon/coupons/couponsList",
-  //     },
-  //   ],
-  // },
+  {
+    id: "coupons",
+    title: "Coupons",
+    type: "collapse",
+    icon: <Icon.Gift size={20} />,
+    children: [
+      //     // {
+      //     //   id: "specialOfferList",
+      //     //   title: "Offers",
+      //     //   type: "item",
+      //     //   icon: <Icon.Circle size={12} />,
+      //     //   permissions: ["admin", "editor"],
+      //     //   navLink: "/app/offerAndCoupon/specialOffer/specialOfferList",
+      //     // },
+      {
+        id: "couponsList",
+        title: "Coupons",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/offerAndCoupon/coupons/couponsList",
+      },
+    ],
+  },
 
   {
     id: "billing",
@@ -498,6 +498,22 @@ const navigationConfig = [
         icon: <Icon.Circle size={12} />,
         permissions: ["admin", "editor"],
         navLink: "/app/reason/reasonList",
+      },
+      {
+        id: "color",
+        title: "Colour",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/colour/colourList",
+      },
+      {
+        id: "size",
+        title: "Size",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/size/sizeList",
       },
       // {
       //   id: "transferTypeList",

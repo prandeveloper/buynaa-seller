@@ -73,7 +73,7 @@ export class Home extends Component {
         <OurVision />
         <OurMission />
         <FunData />
-        <FooterHeader />
+        {/* <FooterHeader /> */}
         <Footer />
       </>
     );

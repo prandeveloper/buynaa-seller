@@ -3,6 +3,7 @@ import { Navbar } from "reactstrap";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import { useAuth0 } from "../../../authServices/auth0/auth0Service";
+import "../../../views/pages/profile/UserProfile";
 import {
   logoutWithJWT,
   logoutWithFirebase,

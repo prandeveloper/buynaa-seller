@@ -40,13 +40,14 @@ class Register extends React.Component {
 
     axios
       .post("http://35.154.86.59/api/admin/verifyOtp", {
-        email: this.state.email,
+        mobile: this.state.mobile,
         otp: this.state.otpnumber,
       })
+
       .then((response) => {
         console.log(response);
         //localStorage.setItem("user", response.data.data._id);
-        localStorage.setItem("auth-adtoken", this.state.token || "null");
+        localStorage.setItem("auth-adtoken", this.state.token);
         localStorage.setItem("hasSubscribed", true); //change false with parameter
         // const location = this.props.location;
         // if (location.state && location.state.nextPathname) {
@@ -85,7 +86,7 @@ class Register extends React.Component {
         console.log(response);
         // localStorage.setItem("token", response.data.token);
         this.setState({
-          "auth-adtoken": response.data.token,
+          token: response.data.token,
         });
         //this.props.history.push("/");
       })
@@ -94,8 +95,8 @@ class Register extends React.Component {
       });
 
     axios
-      .post("http://35.154.86.59/api/admin/sendotp", {
-        email: this.state.email,
+      .post("http://35.154.86.59/api/admin/sendOtp", {
+        mobile: this.state.mobile,
       })
       .then((response) => {
         console.log(response);

@@ -9,7 +9,7 @@ import logo6 from "../../../assets/img/landing/order.png";
 import logo7 from "../../../assets/img/landing/purchase.png";
 import logo8 from "../../../assets/img/landing/visibility.png";
 import logo9 from "../../../assets/img/landing/location.png";
-//import w13 from "../assets/img/w13.jpg";
+
 import {
   Row,
   Col,
@@ -42,8 +42,8 @@ const About = () => {
                 <CardBody>
                   <CardTitle tag="h5">Role Based Accessibility</CardTitle>
                   <CardText>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content.
+                    Give access to features based upon employee role or
+                    designation.
                   </CardText>
                 </CardBody>
               </Card>
@@ -58,8 +58,8 @@ const About = () => {
                 <CardBody>
                   <CardTitle tag="h5">Customer Management</CardTitle>
                   <CardText>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content.
+                    Manage your customers, send timely reminders & promotions,
+                    and increase your sales.
                   </CardText>
                 </CardBody>
               </Card>
@@ -75,10 +75,7 @@ const About = () => {
                   <CardTitle tag="h5">
                     Subscriptions Management and Billing
                   </CardTitle>
-                  <CardText>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content.
-                  </CardText>
+                  <CardText>Start managing your business right away</CardText>
                 </CardBody>
               </Card>
             </Col>
@@ -92,8 +89,8 @@ const About = () => {
                 <CardBody>
                   <CardTitle tag="h5">Inventory & Stock Management</CardTitle>
                   <CardText>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content.
+                    Manage your inventory and control your stock on a real -
+                    time basis.
                   </CardText>
                 </CardBody>
               </Card>
@@ -107,10 +104,7 @@ const About = () => {
                 />
                 <CardBody>
                   <CardTitle tag="h5">Automated order workflow</CardTitle>
-                  <CardText>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content.
-                  </CardText>
+                  <CardText>Fewer clicks, faster order processing.</CardText>
                 </CardBody>
               </Card>
             </Col>
@@ -124,8 +118,8 @@ const About = () => {
                 <CardBody>
                   <CardTitle tag="h5">Order Billing</CardTitle>
                   <CardText>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content.
+                    Process Unlimited orders & create GST based professional
+                    invoices.
                   </CardText>
                 </CardBody>
               </Card>
@@ -140,8 +134,8 @@ const About = () => {
                 <CardBody>
                   <CardTitle tag="h5">Purchase Order Management</CardTitle>
                   <CardText>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content.
+                    Create PO, reach out to your suppliers and replenish your
+                    inventory. Never regret low stocks or go out of stock again!
                   </CardText>
                 </CardBody>
               </Card>
@@ -156,8 +150,7 @@ const About = () => {
                 <CardBody>
                   <CardTitle tag="h5">Visibility</CardTitle>
                   <CardText>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content.
+                    Dedicated Store Profile with revlews& ratings.
                   </CardText>
                 </CardBody>
               </Card>
@@ -174,8 +167,7 @@ const About = () => {
                     Location based profile discovery by customer
                   </CardTitle>
                   <CardText>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content.
+                    Make better decisions based on 10+ reports.
                   </CardText>
                 </CardBody>
               </Card>

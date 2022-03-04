@@ -2,6 +2,7 @@ import React from "react";
 import {
   Card,
   CardBody,
+  Form,
   Row,
   Col,
   Media,
@@ -10,10 +11,14 @@ import {
   Input,
   InputGroupAddon,
   Button,
+  FormGroup,
+  CustomInput,
+  Label,
 } from "reactstrap";
-import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
+//import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import axiosConfig from "../../../axiosConfig";
 import { history } from "../../../history";
+
 import "moment-timezone";
 import moment from "moment";
 import logo from "../../../assets/img/logo/ilogo.png";
@@ -36,10 +41,11 @@ const params = {
     prevEl: ".swiper-button-prev",
   },
 };
-class ViewOrder extends React.Component {
+class EditPurchaseOrder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      status: "",
       detail: {},
     };
   }
@@ -61,26 +67,81 @@ class ViewOrder extends React.Component {
       });
   }
 
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  submitHandler = (e) => {
+    e.preventDefault();
+    console.log(this.props.match.params, this.state);
+
+    let { id } = this.props.match.params;
+    axiosConfig
+      .post(`/updateOrderStatusbyseller/${id}`, this.state, {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        this.props.history.push("/app/order/allOrder");
+      })
+      .catch((error) => {
+        console.log(error.error);
+      });
+  };
+
   render() {
     return (
       <React.Fragment>
+        {/* <Breadcrumbs breadCrumbTitle="Invoice" /> */}
+
         <Row>
           <Col className="" sm="12">
             <Card className="">
               <CardBody>
                 <Row>
                   <Col md="6" sm="12" className="pt-1">
-                    <h1>Order Detail</h1>
+                    <h1>Edit Purchase Order</h1>
                   </Col>
                   <Col>
                     <Button
                       className=" btn btn-danger float-right"
-                      onClick={() => history.push("/app/order/allOrder")}
+                      onClick={() =>
+                        history.push("/app/purchase/purchaseOrderList")
+                      }
                     >
                       Back
                     </Button>
                   </Col>
                 </Row>
+                <Form onSubmit={this.submitHandler}>
+                  <Row className="my-3">
+                    <Col md="8" sm="12">
+                      <FormGroup>
+                        <Label>Change Order Status</Label>
+                        <CustomInput
+                          type="select"
+                          placeholder="Order Status"
+                          name="status"
+                          value={this.state.status}
+                          onChange={this.changeHandler}
+                        >
+                          <option>Select Status.....</option>
+                          <option value="Pending">Pending</option>
+                          <option value="Approved">Approved</option>
+                          <option value="Decline">Decline</option>
+                        </CustomInput>
+                      </FormGroup>
+                    </Col>
+                    <Col md="8" sm="12">
+                      <Button color="primary" type="submit">
+                        Update
+                      </Button>
+                    </Col>
+                  </Row>
+                </Form>
+
                 <Card>
                   <Row className="mt-3">
                     <Col lg="6" md="6" sm="12" className="shadow">
@@ -129,7 +190,7 @@ class ViewOrder extends React.Component {
                       </Col>
                       <Col lg="6" md="6" sm="12" className="shadow">
                         <h6 className="m-2">
-                          {this.state.detail?.customer?.firstname}{" "}
+                          {this.state.detail?.customer?.lastname}{" "}
                           {this.state.detail?.customer?.lastname}
                         </h6>
                       </Col>
@@ -253,4 +314,4 @@ class ViewOrder extends React.Component {
   }
 }
 
-export default ViewOrder;
+export default EditPurchaseOrder;
