@@ -63,11 +63,28 @@ const navigationConfig = [
   {
     id: "subscription",
     title: "Subscriptions",
-    type: "item",
-    icon: <Icon.Youtube size={20} />,
-    permissions: ["admin", "editor"],
-    navLink: "/app/subscription/addSubscription",
+    type: "collapse",
+    icon: <Icon.ShoppingCart size={20} />,
+    children: [
+      {
+        id: "subscription",
+        title: "Add Subscriptions",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/subscription/choosePaymentOption",
+      },
+      {
+        id: "subsList",
+        title: "Subscription List",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/subscription/subsList",
+      },
+    ],
   },
+
   {
     id: "contacts",
     title: "Contacts",
@@ -220,14 +237,14 @@ const navigationConfig = [
         permissions: ["admin", "editor"],
         navLink: "/app/billing/createInvoice",
       },
-      {
-        id: "invoiceList",
-        title: "Invoice List",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/billing/invoiceList",
-      },
+      // {
+      //   id: "invoiceList",
+      //   title: "Invoice List",
+      //   type: "item",
+      //   icon: <Icon.Circle size={12} />,
+      //   permissions: ["admin", "editor"],
+      //   navLink: "/app/billing/invoiceList",
+      // },
     ],
   },
 
@@ -294,6 +311,14 @@ const navigationConfig = [
         permissions: ["admin", "editor"],
         navLink: "/app/purchase/purchaseOrderList",
       },
+      {
+        id: "purchaseInvoiceList",
+        title: "Purchase Invoice List",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/purchase/purchaseInvoice/purchaseInvoiceList",
+      },
 
       // {
       //   id: "purchaseInvoice",
@@ -303,22 +328,22 @@ const navigationConfig = [
       //   permissions: ["admin", "editor"],
       //   navLink: "/app/purchase/purchaseInvoice",
       // },
-      {
-        id: "purchaseInvoice",
-        title: "Purchase Invoice",
-        type: "collapse",
-        icon: <Icon.Flag size={20} />,
-        children: [
-          {
-            id: "purchaseInvoiceList",
-            title: "Purchase Invoice List",
-            type: "item",
-            icon: <Icon.Circle size={12} />,
-            permissions: ["admin", "editor"],
-            navLink: "/app/purchase/purchaseInvoice/purchaseInvoiceList",
-          },
-        ],
-      },
+      // {
+      //   id: "purchaseInvoice",
+      //   title: "Purchase Invoice",
+      //   type: "collapse",
+      //   icon: <Icon.Flag size={20} />,
+      //   children: [
+      //     {
+      //       id: "purchaseInvoiceList",
+      //       title: "Purchase Invoice List",
+      //       type: "item",
+      //       icon: <Icon.Circle size={12} />,
+      //       permissions: ["admin", "editor"],
+      //       navLink: "/app/purchase/purchaseInvoice/purchaseInvoiceList",
+      //     },
+      //   ],
+      // },
       // {
       //   id: "invoiceSetting",
       //   title: "Invoice Setting ",

@@ -21,13 +21,16 @@ export class EditCoupon extends Component {
 
     this.state = {
       CouponTitle: "",
-
+      product: "",
       description: "",
       startDate: "",
       expireOn: "",
-
+      usage_limit: "",
       amount: "",
       status: "",
+    };
+    this.state = {
+      productS: [],
     };
   }
 
@@ -51,6 +54,21 @@ export class EditCoupon extends Component {
           amount: response.data.data.amount,
           status: response.data.data.status,
         });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    //Product List
+    axiosConfig
+      .get("/productbysellerbytoken", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ productS: response.data.data });
       })
       .catch((error) => {
         console.log(error);
@@ -114,6 +132,22 @@ export class EditCoupon extends Component {
                     onChange={this.changeHandler}
                   />
                 </Col>
+                <Col lg="6" md="6" className="mb-2">
+                  <Label>Product </Label>
+                  <CustomInput
+                    type="select"
+                    name="product"
+                    value={this.state.product}
+                    onChange={this.changeHandler}
+                  >
+                    <option>Select Product</option>
+                    {this.state.productS.map((productH) => (
+                      <option key={productH._id} value={productH._id}>
+                        {productH.product_name}
+                      </option>
+                    ))}
+                  </CustomInput>
+                </Col>
 
                 <Col lg="6" md="6" className="mb-2">
                   <Label>Description </Label>
@@ -141,6 +175,15 @@ export class EditCoupon extends Component {
                     type="date"
                     name="expireOn"
                     value={this.state.expireOn}
+                    onChange={this.changeHandler}
+                  />
+                </Col>
+                <Col lg="6" md="6" className="mb-2">
+                  <Label>Usage Limit</Label>
+                  <Input
+                    type="text"
+                    name="usage_limit"
+                    value={this.state.usage_limit}
                     onChange={this.changeHandler}
                   />
                 </Col>
@@ -195,7 +238,7 @@ export class EditCoupon extends Component {
                   type="submit"
                   color="primary"
                 >
-                  Add Coupon
+                  Update Coupon
                 </Button.Ripple>
               </Row>
             </Form>

@@ -38,6 +38,8 @@ class AddMyProduct extends React.Component {
       long_desc: "",
       productcategory: "",
       productsubcategory: "",
+      qty: "",
+      reorder_level: "",
       unit: "",
       cost_price: "",
       sell_price: "",
@@ -627,7 +629,7 @@ class AddMyProduct extends React.Component {
                 <Label>Re-Order Level</Label>
                 <Input
                   type="number"
-                  placeholder="Stock Quantity"
+                  placeholder="Re-Order"
                   name="reorder_level"
                   value={this.state.reorder_level}
                   onChange={this.changeHandler}

@@ -46,6 +46,8 @@ class EditPurchaseOrder extends React.Component {
     super(props);
     this.state = {
       status: "",
+      selectedFile: null,
+      selectedName: "",
       purchase: {},
     };
   }
@@ -67,24 +69,41 @@ class EditPurchaseOrder extends React.Component {
       });
   }
 
+  onChangeHandler = (event) => {
+    this.setState({ selectedFile: event.target.files[0] });
+    this.setState({ selectedName: event.target.files[0].name });
+    console.log(event.target.files[0]);
+  };
+
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   submitHandler = (e) => {
     e.preventDefault();
-    console.log(this.props.match.params, this.state);
+    const data = new FormData();
+
+    data.append("status", this.state.status);
+    if (this.state.selectedFile !== null) {
+      data.append(
+        "upload_Invoice",
+        this.state.selectedFile,
+        this.state.selectedName
+      );
+    }
 
     let { id } = this.props.match.params;
     axiosConfig
-      .post(`/updateOrderStatusbyseller/${id}`, this.state, {
+      .post(`/updateOrderStatusbyseller/${id}`, data, {
         headers: {
           "auth-adtoken": localStorage.getItem("auth-adtoken"),
         },
       })
       .then((response) => {
         console.log(response);
-        this.props.history.push("/app/order/allOrder");
+        this.props.history.push(
+          "/app/purchase/purchaseInvoice/purchaseInvoiceList"
+        );
       })
       .catch((error) => {
         console.log(error.error);
@@ -117,7 +136,7 @@ class EditPurchaseOrder extends React.Component {
                 </Row>
                 <Form onSubmit={this.submitHandler}>
                   <Row className="my-3">
-                    <Col md="8" sm="12">
+                    <Col md="6" sm="12">
                       <FormGroup>
                         <Label>Change Order Status</Label>
                         <CustomInput
@@ -129,9 +148,18 @@ class EditPurchaseOrder extends React.Component {
                         >
                           <option>Select Status.....</option>
                           <option value="Pending">Pending</option>
-                          <option value="Approved">Approved</option>
+                          <option value="Approve">Approve</option>
                           <option value="Decline">Decline</option>
                         </CustomInput>
+                      </FormGroup>
+                    </Col>
+                    <Col md="6" sm="12">
+                      <FormGroup>
+                        <Label>Upload Image</Label>
+                        <CustomInput
+                          type="file"
+                          onChange={this.onChangeHandler}
+                        />
                       </FormGroup>
                     </Col>
                     <Col md="8" sm="12">
@@ -303,45 +331,45 @@ class EditPurchaseOrder extends React.Component {
                               <h6>PRODUCT NAME</h6>
                             </th>
                             <th>
-                              <h6>SKU NO.</h6>
-                            </th>
-                            <th>
-                              <h6>COLOR</h6>
-                            </th>
-                            <th>
-                              <h6>SIZE</h6>
+                              <h6>HSN</h6>
                             </th>
                             <th>
                               <h6>QUANTITY</h6>
                             </th>
                             <th>
-                              <h6>PRICE</h6>
+                              <h6>DISCOUNT</h6>
+                            </th>
+                            <th>
+                              <h6>GST%</h6>
+                            </th>
+                            <th>
+                              <h6>COST PRICE</h6>
                             </th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>
-                              <h5>
-                                {this.state.purchase?.product?.product_name}
-                              </h5>
-                            </td>
-                            <td>
-                              <h5>{this.state.purchase?.product?.sku_no}</h5>
-                            </td>
-                            <td>
-                              <h5>{this.state.purchase?.color}</h5>
-                            </td>
-                            <td>
-                              <h5>{this.state.purchase?.size}</h5>
-                            </td>
-                            <td>
-                              <h5>{this.state.purchase?.product_qty}</h5>
-                            </td>
-                            <td>
-                              <h5>{this.state.purchase?.product_price}</h5>
-                            </td>
-                          </tr>
+                          {this.state.purchase?.product?.map((produ) => (
+                            <tr>
+                              <td>
+                                <h5>{produ?.productname}</h5>
+                              </td>
+                              <td>
+                                <h5>{produ?.hsn}</h5>
+                              </td>
+                              <td>
+                                <h5>{produ?.qty}</h5>
+                              </td>
+                              <td>
+                                <h5>{produ?.discount}</h5>
+                              </td>
+                              <td>
+                                <h5>{produ?.gst}</h5>
+                              </td>
+                              <td>
+                                <h5>{produ?.cost_price}</h5>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </Table>
                     </Col>

@@ -8,6 +8,7 @@ import { ChevronRight } from "react-feather";
 import { FormattedMessage } from "react-intl";
 import { history } from "../../../../../history";
 import Axios from "axios";
+import swal from "sweetalert";
 
 class SideMenuContent extends React.Component {
   constructor(props) {
@@ -188,7 +189,7 @@ class SideMenuContent extends React.Component {
               item.id !== "store" &&
               item.id !== "subscription"
             ) {
-              alert("You are not subscribed yet!!");
+              swal("Please Subscribe", "Subscribe To Access This Tab");
               history.push("/analyticsDashboard");
             } else {
               e.stopPropagation();

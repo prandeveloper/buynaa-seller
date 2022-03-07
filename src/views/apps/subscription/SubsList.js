@@ -5,25 +5,33 @@ import {
   Input,
   Row,
   Col,
+  Button,
   UncontrolledDropdown,
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
-  Button,
 } from "reactstrap";
-import axiosConfig from "../../../../axiosConfig";
-import ReactHtmlParser from "react-html-parser";
-import { ContextLayout } from "../../../../utility/context/Layout";
+import axiosConfig from "../../../axiosConfig";
+import { ContextLayout } from "../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/dist/styles/ag-grid.css";
-import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
+import {
+  Edit,
+  Trash2,
+  // Clipboard,
+  // Printer,
+  // Download,
+  ChevronDown,
+  Eye,
+} from "react-feather";
 //import classnames from "classnames";
-import { history } from "../../../../history";
-import "../../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
-import "../../../../assets/scss/pages/users.scss";
+import { history } from "../../../history";
+import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
+import "../../../assets/scss/pages/users.scss";
 import Moment from "react-moment";
 import "moment-timezone";
-class PurchaceInvoiceList extends React.Component {
+import moment from "moment";
+
+class SubsList extends React.Component {
   state = {
     rowData: [],
     paginationPageSize: 20,
@@ -35,192 +43,71 @@ class PurchaceInvoiceList extends React.Component {
       resizable: true,
       suppressMenu: true,
     },
+
     columnDefs: [
       {
-        headerName: "S.no",
+        headerName: "S.No",
         valueGetter: "node.rowIndex + 1",
-        field: "sortorder",
-        width: 100,
+        field: "node.rowIndex + 1",
+        width: 80,
         filter: true,
         // checkboxSelection: true,
         // headerCheckboxSelectionFilteredOnly: true,
         // headerCheckboxSelection: true,
       },
+
       {
-        headerName: "Invoice Number",
-        field: "invoiceNo",
-        //filter: true,
-        filter: "agSetColumnFilter",
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.invoiceNo}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Invoice date",
-        field: "invoice_date",
-        filter: "agSetColumnFilter",
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.invoice_date}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        // headerName: "Cost price ₹",
-        headerName: "Stock Due",
-        field: "stock_due",
-        filter: "agSetColumnFilter",
+        headerName: "Order ID",
+        field: "cus_orderId",
+        filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.stock_due}</span>
-              </div>
+              <span>{params.data.cus_orderId}</span>
             </div>
           );
         },
       },
       {
-        // headerName: "Gst ₹",
-        headerName: "gstIn ",
-        field: "gstIn",
-        //filter: true,
-        filter: "agSetColumnFilter",
-        width: 180,
+        headerName: "Order Date",
+        field: "createdAt",
+        filter: true,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.gstIn}</span>
-              </div>
+              <span>{moment(this.state.data?.createdAt).format("ll")}</span>
             </div>
           );
         },
       },
-      {
-        headerName: "Transportation Cost",
-        field: "transportation_cost",
-        filter: "agSetColumnFilter",
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.transportation_cost}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Instructions",
-        field: "instructions",
-        //filter: true,
-        filter: "agSetColumnFilter",
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.instructions}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Grand total ₹",
-        field: "grand_total",
-        //filter: true,
-        filter: "agSetColumnFilter",
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.grand_total}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      // {
-      //   headerName: "Material",
-      //   field: "material",
-      //   filter: true,
-      //   width: 180,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex justify-content-center">
-      //         {params.data.material.map((i) => (
-      //           <span>{i.materialname}</span>
-      //         ))}
-
-      //       </div>
-      //     );
-      //   },
-      // },
 
       {
-        headerName: "Supplier",
-        field: "supplier?._id",
-        //filter: true,
-        filter: "agSetColumnFilter",
-        width: 180,
+        headerName: "Payment Type",
+        field: "orderId.payment_type",
+        filter: true,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>
-                  {params.data.supplier?.first_name}{" "}
-                  {params.data.supplier?.last_name}
-                </span>
-              </div>
+            <div className="d-flex align-items-center">
+              <span>{params.data?.payment_type}</span>
             </div>
           );
         },
       },
       {
-        headerName: "Payment Due",
-        field: "payment_due",
-        //filter: true,
-        filter: "agSetColumnFilter",
-        width: 180,
+        headerName: "Customer Name",
+        field: "cartId.customer.firstname",
+        filter: true,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.payment_due}</span>
-              </div>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Amount",
-        field: "amount",
-        //filter: true,
-        filter: "agSetColumnFilter",
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <div className="">
-                <span>{params.data.amount}</span>
-              </div>
+            <div>
+              <span>
+                {params.data?.customer?.firstname}{" "}
+                {params.data?.customer?.lastname}
+              </span>
             </div>
           );
         },
@@ -232,18 +119,29 @@ class PurchaceInvoiceList extends React.Component {
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
-          return params.value === "Approve" ? (
+          return params.value === "Order Placed" ? (
             <div className="badge badge-pill badge-success">
               {params.data.status}
             </div>
-          ) : params.value === "Decline" ? (
+          ) : params.value === "Delivered" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data.status}
+            </div>
+          ) : params.value === "Pending" ? (
+            <div className="badge badge-pill badge-primary">
+              {params.data.status}
+            </div>
+          ) : params.value === "Cancelled" ? (
+            <div className="badge badge-pill badge-danger">
+              {params.data.status}
+            </div>
+          ) : params.value === "Completed" ? (
             <div className="badge badge-pill badge-warning">
               {params.data.status}
             </div>
           ) : null;
         },
       },
-
       {
         headerName: "Actions",
         field: "transactions",
@@ -251,28 +149,24 @@ class PurchaceInvoiceList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              {/* <Eye
-                size="25px"
-                color="green"
+              <Eye
                 className="mr-50"
+                size={20}
                 onClick={() =>
-                  history.push(
-                    `/app/purchase/purchaseInvoice/view/${params.data._id}`
-                  )
+                  history.push(`/app/order/viewOrder/${params.data._id}`)
                 }
-              /> */}
-              {/* <Edit
+              />
+              <Edit
                 className="mr-50"
-                size="25px"
-                color="blue"
-                onClick={() => history.push("/app/purchase/purchaseInvoice/edit")}
-              /> */}
+                size={20}
+                onClick={() =>
+                  history.push(`/app/order/editOrder/${params.data._id}`)
+                }
+              />
               <Trash2
-                size="25px"
-                color="red"
+                size={20}
                 onClick={() => {
                   let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
                   this.gridApi.updateRowData({ remove: selectedData });
                 }}
               />
@@ -282,28 +176,24 @@ class PurchaceInvoiceList extends React.Component {
       },
     ],
   };
-  // Purchase Order Invoice Number, Supplier, Purchase Order Invoice Date, SKU, HSN, Cost Price, GST, Grand Total, Payment Mode, Action - View, Edit, Destroy. Pagination, Next Button
 
   async componentDidMount() {
     await axiosConfig
-      .get("/getpurchaseorder", {
+      .get("/orderbyseller", {
         headers: {
           "auth-adtoken": localStorage.getItem("auth-adtoken"),
         },
       })
       .then((response) => {
+        console.log(response);
         let rowData = response.data.data;
+
         this.setState({ rowData });
-        console.log(rowData);
+      })
+      .catch((error) => {
+        console.log(error.response);
       });
   }
-
-  // async runthisfunction(id) {
-  //   console.log(id);
-  //   await axiosConfig.get(`/delprivacypolicy/${id}`).then((response) => {
-  //     console.log(response);
-  //   });
-  // }
 
   onGridReady = (params) => {
     this.gridApi = params.api;
@@ -328,10 +218,8 @@ class PurchaceInvoiceList extends React.Component {
       });
     }
   };
-
   render() {
     const { rowData, columnDefs, defaultColDef } = this.state;
-
     return (
       <Row className="app-user-list">
         <Col sm="12"></Col>
@@ -340,19 +228,15 @@ class PurchaceInvoiceList extends React.Component {
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                  Purchase Order Invoice List
+                  Subscription
                 </h1>
               </Col>
               {/* <Col>
                 <Button
                   className=" btn btn-danger float-right"
-                  onClick={() =>
-                    history.push(
-                      "/app/purchase/purchaseInvoice/addpurchaseInvoice"
-                    )
-                  }
+                  onClick={() => history.push("/app/order/addorder")}
                 >
-                  Add Purchase Invoice
+                  Add New Order
                 </Button>
               </Col> */}
             </Row>
@@ -404,19 +288,7 @@ class PurchaceInvoiceList extends React.Component {
                         </DropdownMenu>
                       </UncontrolledDropdown>
                     </div>
-                    {/* <div className="d-flex flex-wrap justify-content-between mb-1">
-                      <div className="mr-1 mt-sm-1">
-                        <h3>Order Date</h3>
-                      </div>
-                      <div className="table-input mr-1">
-                        <Input
-                          type="date"
-                          onChange={(e) =>
-                            this.updateSearchQuery(e.target.value)
-                          }
-                          value={this.state.value}
-                        />
-                      </div>
+                    <div className="d-flex flex-wrap justify-content-between mb-1">
                       <div className="table-input mr-1">
                         <Input
                           placeholder="search..."
@@ -434,7 +306,7 @@ class PurchaceInvoiceList extends React.Component {
                           Export as CSV
                         </Button.Ripple>
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                   <ContextLayout.Consumer>
                     {(context) => (
@@ -465,4 +337,4 @@ class PurchaceInvoiceList extends React.Component {
   }
 }
 
-export default PurchaceInvoiceList;
+export default SubsList;

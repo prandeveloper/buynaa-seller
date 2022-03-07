@@ -37,7 +37,11 @@ export class AddCoupons extends Component {
   async componentDidMount() {
     //Product List
     axiosConfig
-      .get("/getproduct")
+      .get("/productbysellerbytoken", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
       .then((response) => {
         console.log(response);
         this.setState({ productS: response.data.data });

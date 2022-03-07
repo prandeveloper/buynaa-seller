@@ -17,6 +17,8 @@ export class Home extends Component {
     var token = localStorage.getItem("auth-adtoken");
     if (token != null && token != undefined && token != "") {
       this.props.history.push("/analyticsDashboard");
+    } else {
+      this.props.history.push("/");
     }
   }
   render() {
