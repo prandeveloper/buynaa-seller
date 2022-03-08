@@ -272,7 +272,7 @@ class NewPurchaseOrder extends React.Component {
                       >
                         <option>Add Product</option>
                         {this.state.productC?.map((prod) => (
-                          <option key={prod._id} value={prod._id}>
+                          <option key={prod._id} value={prod.product_name}>
                             {prod.product_name}
                           </option>
                         ))}

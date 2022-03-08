@@ -94,7 +94,13 @@ class PurchaseOrderList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              <Button color="primary" className="mr-2">
+              <Button
+                color="primary"
+                className="mr-2"
+                onClick={() =>
+                  history.push(`/app/purchase/invoiceDesign/${params.data._id}`)
+                }
+              >
                 Create Invoice
               </Button>
             </div>
@@ -127,7 +133,7 @@ class PurchaseOrderList extends React.Component {
 
   async componentDidMount() {
     await axiosConfig
-      .get("/getpurchaseorder", {
+      .get("/pendingpurchaseorderlist", {
         headers: {
           "auth-adtoken": localStorage.getItem("auth-adtoken"),
         },

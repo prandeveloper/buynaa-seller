@@ -32,12 +32,17 @@ class AddMyProduct extends React.Component {
       product_name: "",
       sku_no: "",
       hsn_sac_no: "",
-      discount_perc: 12,
+      store: "",
+      discount_perc: "",
       short_desc: "",
       long_desc: "",
       productcategory: "",
       productsubcategory: "",
+      qty: "",
+      reorder_level: "",
       unit: "",
+      cost_price: "",
+      sell_price: "",
       gstrate: "",
       material: "",
       stock: "",
@@ -52,6 +57,7 @@ class AddMyProduct extends React.Component {
       selectedName: "",
       pColour: [],
       pBrand: [],
+      storeL: [],
       productC: [],
       productSC: [],
       units: [],
@@ -65,6 +71,21 @@ class AddMyProduct extends React.Component {
     this.onChangeHandler = this.onChangeHandler.bind(this);
   }
   async componentDidMount() {
+    //Store
+    axiosConfig
+      .get("/storebyseller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ storeL: response.data.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     //Product Category
     axiosConfig
       .get("/allcatByseller", {
@@ -274,6 +295,7 @@ class AddMyProduct extends React.Component {
     data.append("product_name", this.state.product_name);
     data.append("sku_no", this.state.sku_no);
     data.append("hsn_sac_no", this.state.hsn_sac_no);
+    data.append("store", this.state.store);
     data.append("short_desc", this.state.short_desc);
     data.append("long_desc", this.state.long_desc);
     data.append("brand", this.state.brand);
@@ -282,6 +304,7 @@ class AddMyProduct extends React.Component {
     data.append("productsubcategory", this.state.productsubcategory);
     data.append("unit", this.state.unit);
     data.append("gstrate", this.state.gstrate);
+    data.append("discount_perc", this.state.discount_perc);
     data.append("cost_price", this.state.cost_price);
     data.append("sell_price", this.state.sell_price);
     for (var i = 0; i < this.state.color.length; i++) {
@@ -382,6 +405,26 @@ class AddMyProduct extends React.Component {
             </Col>
             <Col md="6" sm="12">
               <FormGroup>
+                <Label>Store</Label>
+                <CustomInput
+                  type="select"
+                  name="store"
+                  placeholder="Store"
+                  value={this.state.store}
+                  onChange={this.changeHandler}
+                  required
+                >
+                  <option>Select Store.....</option>
+                  {this.state.storeL?.map((stor) => (
+                    <option value={stor?._id} key={stor?._id}>
+                      {stor?.store_name}
+                    </option>
+                  ))}
+                </CustomInput>
+              </FormGroup>
+            </Col>
+            <Col md="6" sm="12">
+              <FormGroup>
                 <Label>Short Description</Label>
                 <Input
                   type="textarea"
@@ -415,6 +458,7 @@ class AddMyProduct extends React.Component {
                   onChange={this.changeHandler}
                   required
                 >
+                  <option>Select Brand.....</option>
                   {this.state.pBrand?.map((brandp) => (
                     <option value={brandp?._id} key={brandp?._id}>
                       {brandp?.name}
@@ -479,6 +523,7 @@ class AddMyProduct extends React.Component {
                   value={this.state.material}
                   onChange={this.changeHandler}
                 >
+                  <option>Select Material.....</option>
                   {this.state.pMaterial?.map((materialp) => (
                     <option value={materialp.materialname} key={materialp._id}>
                       {materialp.materialname}
@@ -533,6 +578,7 @@ class AddMyProduct extends React.Component {
                   value={this.state.productcategory}
                   onChange={this.changeHandler}
                 >
+                  <option>Select Category.....</option>
                   {this.state.productC.map((productCategory) => (
                     <option
                       value={productCategory._id}
@@ -554,6 +600,7 @@ class AddMyProduct extends React.Component {
                   value={this.state.productsubcategory}
                   onChange={this.changeHandler}
                 >
+                  <option>Select SubCategory.....</option>
                   {this.state.productSC.map((productSCategory) => (
                     <option
                       value={productSCategory._id}
@@ -582,7 +629,7 @@ class AddMyProduct extends React.Component {
                 <Label>Re-Order Level</Label>
                 <Input
                   type="number"
-                  placeholder="Stock Quantity"
+                  placeholder="Re-Order"
                   name="reorder_level"
                   value={this.state.reorder_level}
                   onChange={this.changeHandler}
@@ -639,6 +686,18 @@ class AddMyProduct extends React.Component {
                 </InputGroup>
               </FormGroup>
             </Col>
+            <Col md="6" sm="12">
+              <FormGroup>
+                <Label>Discount Percent</Label>
+                <Input
+                  type="text"
+                  placeholder="Discount Percent (In Percent %)"
+                  name="discount_perc"
+                  value={this.state.discount_perc}
+                  onChange={this.changeHandler}
+                />
+              </FormGroup>
+            </Col>
 
             <Col lg="6" md="6" sm="6" className="mb-2">
               <Label>GST Rate</Label>
@@ -649,6 +708,7 @@ class AddMyProduct extends React.Component {
                 value={this.state.gstrate}
                 onChange={this.changeHandler}
               >
+                <option>Select GST.....</option>
                 {this.state.gsts.map((dGsts) => (
                   <option key={dGsts._id} value={dGsts._id}>
                     {dGsts.gst_title}

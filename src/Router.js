@@ -141,6 +141,7 @@ const addSubscription = lazy(() =>
 const choosePaymentOption = lazy(() =>
   import("./views/apps/subscription/ChoosePaymentOption")
 );
+const subsList = lazy(() => import("./views/apps/subscription/SubsList"));
 
 const pageLayout = lazy(() => import("./views/apps/pageLayout/PageLayout"));
 const stockReport = lazy(() => import("./views/apps/report/StockReport"));
@@ -729,7 +730,7 @@ class AppRouter extends React.Component {
                     component={newPurchaseOrder}
                   />
                   <AppRoute
-                    path="/app/purchase/editPurchaseOrder"
+                    path="/app/purchase/editPurchaseOrder/:id"
                     component={editPurchaseOrder}
                   />
                   <AppRoute
@@ -745,7 +746,7 @@ class AppRouter extends React.Component {
                     component={addpurchaseInvoice}
                   />
                   <AppRoute
-                    path="/app/purchase/invoiceDesign"
+                    path="/app/purchase/invoiceDesign/:id"
                     component={invoiceDesign}
                   />
                   <AppRoute
@@ -786,6 +787,10 @@ class AppRouter extends React.Component {
                   <AppRoute
                     path="/app/subscription/choosePaymentOption"
                     component={choosePaymentOption}
+                  />
+                  <AppRoute
+                    path="/app/subscription/subsList"
+                    component={subsList}
                   />
                   <AppRoute
                     path="/app/report/stockReport"

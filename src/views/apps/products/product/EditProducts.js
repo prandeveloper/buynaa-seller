@@ -32,14 +32,16 @@ class EditProduct extends React.Component {
       product_name: "",
       sku_no: "",
       hsn_sac_no: "",
+      store: "",
       discount_perc: 12,
       short_desc: "",
       long_desc: "",
       productcategory: "",
       productsubcategory: "",
       qty: "",
+      reorder_level: "",
       unit: "",
-      gst: "",
+      gstrate: "",
       material: "",
       cost_price: "",
       sell_price: "",
@@ -59,6 +61,7 @@ class EditProduct extends React.Component {
       pSize: [],
       pSizeselected: [],
       pBrand: [],
+      storeL: [],
       productC: [],
       productSC: [],
       units: [],
@@ -86,6 +89,7 @@ class EditProduct extends React.Component {
           product_name: response.data.data.product_name,
           sku_no: response.data.data.sku_no,
           hsn_sac_no: response.data.data.hsn_sac_no,
+          store: response.data.data.store,
           discount_perc: response.data.data.discount_perc,
           short_desc: response.data.data.short_desc,
           long_desc: response.data.data.long_desc,
@@ -134,6 +138,21 @@ class EditProduct extends React.Component {
 
         // this.setState({ pSizeselected: newresultarray });
         // console.log(this.state.pSizeselected);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    //Store
+    axiosConfig
+      .get("/storebyseller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ storeL: response.data.data });
       })
       .catch((error) => {
         console.log(error);
@@ -346,6 +365,7 @@ class EditProduct extends React.Component {
     data.append("product_name", this.state.product_name);
     data.append("sku_no", this.state.sku_no);
     data.append("hsn_sac_no", this.state.hsn_sac_no);
+    data.append("store", this.state.store);
     data.append("short_desc", this.state.short_desc);
     data.append("long_desc", this.state.long_desc);
     data.append("brand", this.state.brand._id);
@@ -354,6 +374,7 @@ class EditProduct extends React.Component {
     data.append("productsubcategory", this.state.productsubcategory._id);
     data.append("unit", this.state.unit._id);
     data.append("gstrate", this.state.gstrate);
+    data.append("discount_perc", this.state.discount_perc);
     data.append("cost_price", this.state.cost_price);
     data.append("sell_price", this.state.sell_price);
     for (var i = 0; i < this.state.color.length; i++) {
@@ -457,6 +478,26 @@ class EditProduct extends React.Component {
                   value={this.state.hsn_sac_no}
                   onChange={this.changeHandler}
                 />
+              </FormGroup>
+            </Col>
+            <Col md="6" sm="12">
+              <FormGroup>
+                <Label>Store</Label>
+                <CustomInput
+                  type="select"
+                  name="store"
+                  placeholder="Store"
+                  value={this.state.store}
+                  onChange={this.changeHandler}
+                  required
+                >
+                  <option>Select Store.....</option>
+                  {this.state.storeL?.map((stor) => (
+                    <option value={stor?._id} key={stor?._id}>
+                      {stor?.store_name}
+                    </option>
+                  ))}
+                </CustomInput>
               </FormGroup>
             </Col>
             <Col md="6" sm="12">
@@ -712,7 +753,18 @@ class EditProduct extends React.Component {
                 </InputGroup>
               </FormGroup>
             </Col>
-
+            <Col md="6" sm="12">
+              <FormGroup>
+                <Label>Discount Percent</Label>
+                <Input
+                  type="text"
+                  placeholder="Discount Percent (In Percent %)"
+                  name="discount_perc"
+                  value={this.state.discount_perc}
+                  onChange={this.changeHandler}
+                />
+              </FormGroup>
+            </Col>
             <Col lg="6" md="6" sm="6" className="mb-2">
               <Label>GST Rate</Label>
               <CustomInput
