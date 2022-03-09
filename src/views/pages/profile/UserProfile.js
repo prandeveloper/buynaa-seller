@@ -22,6 +22,8 @@ export class UserProfile extends Component {
       name: "",
       email: "",
       mobile: "",
+      password: "",
+      cnfrm_password: "",
       image: "",
       selectedFile: null,
       selectedName: "",
@@ -41,6 +43,8 @@ export class UserProfile extends Component {
           name: response.data.data.name,
           email: response.data.data.email,
           mobile: response.data.data.mobile,
+          password: response.data.data.password,
+          cnfrm_password: response.data.data.cnfrm_password,
           image: response.data.data.image,
         });
       })
@@ -49,38 +53,11 @@ export class UserProfile extends Component {
       });
   }
 
-  // changeHandler1 = (e) => {
-  //   this.setState({ status: e.target.value });
-  // };
   onChangeHandler = (event) => {
-    //var imgSrc1 = [];
-    let path = event.target.files[0];
-    console.log(path);
+    this.setState({ selectedFile: event.target.files[0] });
+    this.setState({ selectedName: event.target.files[0].name });
+    console.log(event.target.files[0]);
   };
-
-  // //for (var i = 0; i < event.target.files.length; i++) {
-  //  let file = event.target.files[0];
-  //    let reader = new FileReader();
-  // //   console.log(file);
-  //    let url = reader.readAsDataURL(file);
-  //    reader.onloadend = function (e) {
-  // //     this.fileArrayLogo.push(reader.result);
-  // //     imgSrc1.push([reader.result]);
-  // //     this.setState({
-  // //       imgSrc1: [reader.result],
-  // //     });
-  // //   }.bind(this);
-  // // }
-
-  // console.log(imgSrc1);
-  // this.setState({
-  //   selectedFile1: event.target.files,
-  //   imgSrc1,
-  // });
-  // this.setState({
-  //   selectedName1: event.target.files.name,
-  // });
-  // console.log(event.target.files);
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -163,6 +140,30 @@ export class UserProfile extends Component {
                       placeholder="Email"
                       name="email"
                       value={this.state.email}
+                      onChange={this.changeHandler}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="6" md="6">
+                  <FormGroup>
+                    <Label>Password</Label>
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.changeHandler}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="6" md="6">
+                  <FormGroup>
+                    <Label>Confirm Password</Label>
+                    <Input
+                      type="password"
+                      placeholder="Confirm Password"
+                      name="cnfrm_password"
+                      value={this.state.cnfrm_password}
                       onChange={this.changeHandler}
                     />
                   </FormGroup>

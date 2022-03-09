@@ -523,7 +523,7 @@ class AppRouter extends React.Component {
                     path="/ecommerce-dashboard"
                     component={ecommerceDashboard}
                   />
-
+                  <AppRoute exact={true} path="/" component={home} fullLayout />
                   {/* <AppRoute path="/pages/home" component={home} fullLayout /> */}
                   {/* <AppRoute exact path="/seller-dashboard" component={sellerDashboard} /> */}
                   {/* My components starts all my app components*/}
@@ -1020,9 +1020,10 @@ class AppRouter extends React.Component {
                 </>
               ) : (
                 <>
-                  {/* <Redirect to="/" /> */}
-                  <AppRoute exact={true} path="/" component={home} fullLayout />
+                  <Redirect to="/pages/login" />
+
                   <AppRoute path="/pages/login" component={Login} fullLayout />
+
                   <AppRoute
                     path="/pages/forgot-password"
                     component={forgotPassword}
