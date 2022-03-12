@@ -9,6 +9,7 @@ import {
   Label,
   Button,
   FormGroup,
+  CustomInput,
 } from "reactstrap";
 import { history } from "../../../history";
 import axiosConfig from "../../../axiosConfig";
@@ -68,16 +69,18 @@ export class UserProfile extends Component {
     const data = new FormData();
     data.append("name", this.state.name);
     data.append("email", this.state.email);
+    data.append("password", this.state.password);
+    data.append("cnfrm_password", this.state.cnfrm_password);
     data.append("mobile", this.state.mobile);
     if (this.state.selectedFile !== null) {
       data.append("image", this.state.selectedFile, this.state.selectedName);
     }
-    //   for (var value of data.values()) {
-    //     console.log(value);
-    //  }
-    //   for (var value of data.values()) {
-    //     console.log(value);
-    //  }
+    for (var value of data.values()) {
+      console.log(value);
+    }
+    for (var value of data.values()) {
+      console.log(value);
+    }
     axiosConfig
       .post("/editseller", data, {
         headers: {
@@ -106,80 +109,82 @@ export class UserProfile extends Component {
           <CardBody>
             <Form className="m-1" onSubmit={this.submitHandler}>
               <Row className="mb-2">
-                <Col lg="12" md="6">
+                <Col lg="4" md="6">
                   <img
                     src={this.state.image || img}
-                    className="round"
+                    className="rounded mb-3"
                     height="240"
                     width="240"
                     alt="avatar"
                   />
                   <FormGroup>
                     <Label>User Image</Label>
-                    <Input type="file" onChange={this.onChangeHandler} />
+                    <CustomInput type="file" onChange={this.onChangeHandler} />
                   </FormGroup>
                 </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Name</Label>
-                    <Input
-                      type="text"
-                      placeholder="Name"
-                      name="name"
-                      value={this.state.name}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
+                <Col lg="8" md="6" sm="12">
+                  <Col lg="12" md="6">
+                    <FormGroup>
+                      <Label>Name</Label>
+                      <Input
+                        type="text"
+                        placeholder="Name"
+                        name="name"
+                        value={this.state.name}
+                        onChange={this.changeHandler}
+                      />
+                    </FormGroup>
+                  </Col>
 
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Email</Label>
-                    <Input
-                      type="email"
-                      placeholder="Email"
-                      name="email"
-                      value={this.state.email}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Password</Label>
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      name="password"
-                      value={this.state.password}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Confirm Password</Label>
-                    <Input
-                      type="password"
-                      placeholder="Confirm Password"
-                      name="cnfrm_password"
-                      value={this.state.cnfrm_password}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
-                </Col>
+                  <Col lg="12" md="6">
+                    <FormGroup>
+                      <Label>Email</Label>
+                      <Input
+                        type="email"
+                        placeholder="Email"
+                        name="email"
+                        value={this.state.email}
+                        onChange={this.changeHandler}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col lg="12" md="6">
+                    <FormGroup>
+                      <Label>Password</Label>
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        value={this.state.password}
+                        onChange={this.changeHandler}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col lg="12" md="6">
+                    <FormGroup>
+                      <Label>Confirm Password</Label>
+                      <Input
+                        type="password"
+                        placeholder="Confirm Password"
+                        name="cnfrm_password"
+                        value={this.state.cnfrm_password}
+                        onChange={this.changeHandler}
+                      />
+                    </FormGroup>
+                  </Col>
 
-                <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Mobile</Label>
-                    <Input
-                      type="number"
-                      placeholder="Mobile No."
-                      name="mobile"
-                      value={this.state.mobile}
-                      onChange={this.changeHandler}
-                    />
-                  </FormGroup>
+                  <Col lg="12" md="6">
+                    <FormGroup>
+                      <Label>Mobile</Label>
+                      <Input
+                        type="number"
+                        placeholder="Mobile No."
+                        name="mobile"
+                        value={this.state.mobile}
+                        onChange={this.changeHandler}
+                      />
+                    </FormGroup>
+                  </Col>
                 </Col>
 
                 {/* <Col lg="6" md="6">
