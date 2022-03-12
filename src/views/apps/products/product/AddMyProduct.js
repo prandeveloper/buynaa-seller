@@ -33,9 +33,14 @@ class AddMyProduct extends React.Component {
       sku_no: "",
       hsn_sac_no: "",
       store: "",
-      discount_perc: "",
       short_desc: "",
       long_desc: "",
+      brand: "",
+      tag: "",
+      color: "",
+      size: "",
+      material: "",
+      stock: "",
       productcategory: "",
       productsubcategory: "",
       qty: "",
@@ -43,16 +48,10 @@ class AddMyProduct extends React.Component {
       unit: "",
       cost_price: "",
       sell_price: "",
+      discount_perc: "",
       gstrate: "",
-      material: "",
-      stock: "",
-      size: "",
-      color: "",
-      brand: "",
-      tag: "",
       product_img: "",
       status: "",
-      sortorder: "",
       selectedFile: undefined,
       selectedName: "",
       pColour: [],
@@ -300,27 +299,26 @@ class AddMyProduct extends React.Component {
     data.append("long_desc", this.state.long_desc);
     data.append("brand", this.state.brand);
     data.append("tag", this.state.tag);
-    data.append("productcategory", this.state.productcategory);
-    data.append("productsubcategory", this.state.productsubcategory);
-    data.append("unit", this.state.unit);
-    data.append("gstrate", this.state.gstrate);
-    data.append("discount_perc", this.state.discount_perc);
-    data.append("cost_price", this.state.cost_price);
-    data.append("sell_price", this.state.sell_price);
     for (var i = 0; i < this.state.color.length; i++) {
       data.append("color", this.state.color[i]);
     }
     for (var i = 0; i < this.state.size.length; i++) {
       data.append("size", this.state.size[i]);
     }
-    //data.append("color", JSON.stringify(this.state.color));
-    //data.append("size", JSON.stringify(this.state.size));
     data.append("material", this.state.material);
     data.append("stock", this.state.stock);
+    data.append("productcategory", this.state.productcategory);
+    data.append("productsubcategory", this.state.productsubcategory);
     data.append("qty", this.state.qty);
     data.append("reorder_level", this.state.reorder_level);
+    data.append("unit", this.state.unit);
+    data.append("cost_price", this.state.cost_price);
+    data.append("sell_price", this.state.sell_price);
+    data.append("discount_perc", this.state.discount_perc);
+    data.append("gstrate", this.state.gstrate);
+    //data.append("color", JSON.stringify(this.state.color));
+    //data.append("size", JSON.stringify(this.state.size));
     data.append("status", this.state.status);
-    data.append("sortorder", this.state.sortorder);
     for (const file of this.state.selectedFile) {
       if (this.state.selectedFile !== null) {
         data.append("product_img", file, file.name);
@@ -343,7 +341,7 @@ class AddMyProduct extends React.Component {
       .then((response) => {
         console.log(response);
         swal("Success!", "Submitted SuccessFull!", "success");
-        this.props.history.push("/app/products/product/productList");
+        this.props.history.push("/app/products/product/productsList");
       })
       .catch((error) => {
         console.log(error);
@@ -383,7 +381,8 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>SKU Code</Label>
                 <Input
-                  type="number"
+                  required
+                  type="text"
                   placeholder="SKU Code"
                   name="sku_no"
                   value={this.state.sku_no}
@@ -395,7 +394,8 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>HSN / SAC Number</Label>
                 <Input
-                  type="number"
+                  required
+                  type="text"
                   placeholder="HSN/SAC"
                   name="hsn_sac_no"
                   value={this.state.hsn_sac_no}
@@ -427,6 +427,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Short Description</Label>
                 <Input
+                  required
                   type="textarea"
                   name="short_desc"
                   placeholder="Short Description"
@@ -439,6 +440,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Long Description</Label>
                 <Input
+                  required
                   type="textarea"
                   name="long_desc"
                   placeholder="Long Description"
@@ -489,6 +491,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Colour</Label>
                 <Select
+                  required
                   isMulti
                   name="color"
                   className="React"
@@ -503,6 +506,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Size</Label>
                 <Select
+                  required
                   isMulti
                   className="React"
                   classNamePrefix="size"
@@ -517,6 +521,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Material</Label>
                 <CustomInput
+                  required
                   type="select"
                   placeholder="Material"
                   name="material"
@@ -572,6 +577,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Product Category</Label>
                 <CustomInput
+                  required
                   type="select"
                   name="productcategory"
                   placeholder="category"
@@ -594,6 +600,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Product Sub Category</Label>
                 <CustomInput
+                  required
                   type="select"
                   name="productsubcategory"
                   placeholder="Subcategory"
@@ -616,6 +623,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Stock Quantity</Label>
                 <Input
+                  required
                   type="number"
                   placeholder="Stock Quantity"
                   name="qty"
@@ -628,6 +636,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Re-Order Level</Label>
                 <Input
+                  required
                   type="number"
                   placeholder="Re-Order"
                   name="reorder_level"
@@ -640,6 +649,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Units</Label>
                 <CustomInput
+                  required
                   type="select"
                   placeholder="Unit"
                   name="unit"
@@ -662,6 +672,7 @@ class AddMyProduct extends React.Component {
                 <InputGroup>
                   <InputGroupText>₹</InputGroupText>
                   <Input
+                    required
                     type="number"
                     name="cost_price"
                     placeholder="Cost Price"
@@ -677,6 +688,7 @@ class AddMyProduct extends React.Component {
                 <InputGroup>
                   <InputGroupText>₹</InputGroupText>
                   <Input
+                    required
                     type="number"
                     name="sell_price"
                     placeholder="Selling Price"
@@ -690,7 +702,8 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Discount Percent</Label>
                 <Input
-                  type="text"
+                  required
+                  type="number"
                   placeholder="Discount Percent (In Percent %)"
                   name="discount_perc"
                   value={this.state.discount_perc}
@@ -702,6 +715,7 @@ class AddMyProduct extends React.Component {
             <Col lg="6" md="6" sm="6" className="mb-2">
               <Label>GST Rate</Label>
               <CustomInput
+                required
                 type="select"
                 placeholder="GST Rate"
                 name="gstrate"
@@ -727,6 +741,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Product Image</Label>
                 <CustomInput
+                  required
                   type="file"
                   onChange={this.onChangeHandler}
                   multiple
@@ -743,18 +758,6 @@ class AddMyProduct extends React.Component {
                     />
                   ))}
                 </div>
-              </FormGroup>
-            </Col>
-            <Col md="6" sm="12">
-              <FormGroup>
-                <Label>SortOrder</Label>
-                <Input
-                  type="number"
-                  placeholder=""
-                  name="sortorder"
-                  value={this.state.sortorder}
-                  onChange={this.changeHandler}
-                />
               </FormGroup>
             </Col>
 

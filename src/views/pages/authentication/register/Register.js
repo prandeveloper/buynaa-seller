@@ -46,18 +46,12 @@ class Register extends React.Component {
 
       .then((response) => {
         console.log(response);
-        //localStorage.setItem("user", response.data.data._id);
-        localStorage.setItem("auth-adtoken", this.state.token);
-        localStorage.setItem("hasSubscribed", true); //change false with parameter
-        // const location = this.props.location;
-        // if (location.state && location.state.nextPathname) {
-        //   History.push("/login-register");
-        // } else {
-        //   History.push("/cart");
-        // }
-        // const history = useHistory();
-        // history.push("/cart");
 
+        localStorage.setItem("auth-adtoken", this.state.token);
+        localStorage.setItem(
+          "hasSubscribed",
+          response.data.user?.hasSubscribed
+        ); //change false with parameter
         this.props.history.push(`/app/myStore/addStorePage`);
       })
       .catch((error) => {

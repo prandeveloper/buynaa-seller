@@ -500,14 +500,14 @@ const navigationConfig = [
         permissions: ["admin", "editor"],
         navLink: "/app/products/brand/brandList",
       },
-      {
-        id: "taxList",
-        title: "GST Tax",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/tax/taxList",
-      },
+      // {
+      //   id: "taxList",
+      //   title: "GST Tax",
+      //   type: "item",
+      //   icon: <Icon.Circle size={12} />,
+      //   permissions: ["admin", "editor"],
+      //   navLink: "/app/tax/taxList",
+      // },
       {
         id: "unitList",
         title: "Unit",

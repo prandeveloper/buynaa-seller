@@ -17,14 +17,28 @@ import {
 import users from "../../../assets/img/logo/users.png";
 
 export default function ChoosePaymentOption() {
-  const [key, setKey] = useState("rzp_live_dX052iXb0Is1yu");
+  const [key, setKey] = useState("rzp_live_v3m3Bw265v7Rs9");
   const [orderId, setOrderId] = useState("");
   const [amount, setAmount] = useState("");
+  const [profile, setProfile] = useState("");
   const Razorpay = useRazorpay();
 
   useEffect(() => {
     console.log("useEffect");
-    Axios.get("http://35.154.86.59/api/admin/rapay/699")
+    Axios.get("http://35.154.86.59/api/admin/getoneseller", {
+      headers: {
+        "auth-adtoken": localStorage.getItem("auth-adtoken"),
+      },
+    })
+      .then((response) => {
+        console.log(response.data);
+        setProfile(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+
+    Axios.get("http://35.154.86.59/api/admin/rapay/2")
       .then((response) => {
         console.log(response.data);
         setOrderId(response.data?.order.id);
@@ -53,6 +67,7 @@ export default function ChoosePaymentOption() {
             sortorder: "",
             amount: sub_plan,
             description,
+            payment_id: res.payment_id,
             name,
             email,
             contact,
@@ -66,7 +81,8 @@ export default function ChoosePaymentOption() {
             .then((response) => {
               console.log("pranay", response);
               // response should be subscribed or not
-              localStorage.setItem("hasSubscribed", true);
+
+              //localStorage.setItem("hasSubscribed", true);
               history.push("/analyticsDashboard");
             })
             .catch((error) => {
@@ -162,12 +178,12 @@ export default function ChoosePaymentOption() {
                   onClick={() =>
                     handlePayment(
                       "Plan Active Period : 365 days",
-                      "Pranay Kumar",
-                      "p.kumar@gmail.com",
-                      "9876543210",
-                      "69900",
+                      profile.name,
+                      profile.email,
+                      profile.mobile,
+                      "200",
                       true,
-                      "370days"
+                      "365days"
                     )
                   }
                 >

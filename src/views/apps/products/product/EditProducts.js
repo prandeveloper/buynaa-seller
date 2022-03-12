@@ -33,27 +33,25 @@ class EditProduct extends React.Component {
       sku_no: "",
       hsn_sac_no: "",
       store: "",
-      discount_perc: 12,
       short_desc: "",
       long_desc: "",
+      brand: "",
+      tag: "",
+      color: "",
+      size: "",
+      material: "",
+      stock: "",
       productcategory: "",
       productsubcategory: "",
       qty: "",
       reorder_level: "",
       unit: "",
-      gstrate: "",
-      material: "",
       cost_price: "",
       sell_price: "",
-      stock: "",
-      size: "",
-      tag: "",
-      color: "",
-      brand: "",
+      discount_perc: "",
+      gstrate: "",
       product_img: "",
-      reorder_level: "",
       status: "",
-      sortorder: "",
       selectedFile: undefined,
       selectedName: "",
       pColour: [],
@@ -89,27 +87,26 @@ class EditProduct extends React.Component {
           product_name: response.data.data.product_name,
           sku_no: response.data.data.sku_no,
           hsn_sac_no: response.data.data.hsn_sac_no,
-          store: response.data.data.store,
-          discount_perc: response.data.data.discount_perc,
+          store: response.data.data.store.store_name,
           short_desc: response.data.data.short_desc,
           long_desc: response.data.data.long_desc,
+          brand: response.data.data.brand,
+          tag: response.data.data.tag,
+          color: response.data.data.color,
+          size: response.data.data.size,
+          material: response.data.data.material,
+          stock: response.data.data.stock,
           productcategory: response.data.data.productcategory,
           productsubcategory: response.data.data.productsubcategory,
           qty: response.data.data.qty,
+          reorder_level: response.data.data.reorder_level,
           unit: response.data.data.unit,
-          gstrate: response.data.data.gstrate,
-          material: response.data.data.material,
           cost_price: response.data.data.cost_price,
           sell_price: response.data.data.sell_price,
-          stock: response.data.data.stock,
-          brand: response.data.data.brand,
-          tag: response.data.data.tag,
+          discount_perc: response.data.data.discount_perc,
+          gstrate: response.data.data.gstrate,
           product_img: response.data.data.product_img,
           status: response.data.data.status,
-          sortorder: response.data.data.sortorder,
-          color: response.data.data.color,
-          size: response.data.data.size,
-          reorder_level: response.data.data.reorder_level,
         });
         // let resultarray = [];
         // for (let i = 0; i < response.data.data.color.length; i++) {
@@ -394,7 +391,6 @@ class EditProduct extends React.Component {
     data.append("qty", this.state.qty);
     data.append("reorder_level", this.state.reorder_level);
     data.append("status", this.state.status);
-    data.append("sortorder", this.state.sortorder);
     if (this.state.selectedFile) {
       for (const file of this.state.selectedFile) {
         if (this.state.selectedFile !== null) {
@@ -460,7 +456,7 @@ class EditProduct extends React.Component {
               <FormGroup>
                 <Label>SKU Code</Label>
                 <Input
-                  type="number"
+                  type="text"
                   placeholder="SKU Code"
                   name="sku_no"
                   value={this.state.sku_no}
@@ -472,7 +468,7 @@ class EditProduct extends React.Component {
               <FormGroup>
                 <Label>HSN / SAC Number</Label>
                 <Input
-                  type="number"
+                  type="text"
                   placeholder="HSN/SAC"
                   name="hsn_sac_no"
                   value={this.state.hsn_sac_no}
@@ -757,7 +753,7 @@ class EditProduct extends React.Component {
               <FormGroup>
                 <Label>Discount Percent</Label>
                 <Input
-                  type="text"
+                  type="number"
                   placeholder="Discount Percent (In Percent %)"
                   name="discount_perc"
                   value={this.state.discount_perc}
@@ -808,18 +804,6 @@ class EditProduct extends React.Component {
                     />
                   ))}
                 </div>
-              </FormGroup>
-            </Col>
-            <Col md="6" sm="12">
-              <FormGroup>
-                <Label>SortOrder</Label>
-                <Input
-                  type="number"
-                  placeholder=""
-                  name="sortorder"
-                  value={this.state.sortorder}
-                  onChange={this.changeHandler}
-                />
               </FormGroup>
             </Col>
 

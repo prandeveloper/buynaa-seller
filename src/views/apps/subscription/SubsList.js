@@ -177,23 +177,23 @@ class SubsList extends React.Component {
     ],
   };
 
-  async componentDidMount() {
-    await axiosConfig
-      .get("/orderbyseller", {
-        headers: {
-          "auth-adtoken": localStorage.getItem("auth-adtoken"),
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        let rowData = response.data.data;
+  // async componentDidMount() {
+  //   await axiosConfig
+  //     .get("/orderbyseller", {
+  //       headers: {
+  //         "auth-adtoken": localStorage.getItem("auth-adtoken"),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       let rowData = response.data.data;
 
-        this.setState({ rowData });
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  }
+  //       this.setState({ rowData });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response);
+  //     });
+  // }
 
   onGridReady = (params) => {
     this.gridApi = params.api;

@@ -40,7 +40,10 @@ class Login extends React.Component {
       .then((response) => {
         console.log(response);
         localStorage.setItem("auth-adtoken", response.data.token);
-        localStorage.setItem("hasSubscribed", true); //change false with ghvghfgh
+        localStorage.setItem(
+          "hasSubscribed",
+          response.data.user?.hasSubscribed
+        ); //change false with ghvghfgh
         history.push("/analyticsDashboard");
       })
       .catch((error) => {
