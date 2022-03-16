@@ -17,6 +17,7 @@ import { Check } from "react-feather";
 import glogo from "../../../../assets/img/pages/glogo.png";
 import axios from "axios";
 import { history } from "../../../../history";
+import swal from "sweetalert";
 
 class Register extends React.Component {
   constructor(props) {
@@ -48,10 +49,6 @@ class Register extends React.Component {
         console.log(response);
 
         localStorage.setItem("auth-adtoken", this.state.token);
-        localStorage.setItem(
-          "hasSubscribed",
-          response.data.user?.hasSubscribed
-        ); //change false with parameter
         this.props.history.push(`/app/myStore/addStorePage`);
       })
       .catch((error) => {
@@ -78,28 +75,54 @@ class Register extends React.Component {
       .post("http://35.154.86.59/api/admin/signup", this.state)
       .then((response) => {
         console.log(response);
-        // localStorage.setItem("token", response.data.token);
+        localStorage.setItem(
+          "hasSubscribed",
+          response.data.user?.hasSubscribed
+        );
         this.setState({
           token: response.data.token,
         });
-        //this.props.history.push("/");
+        if (
+          response.data.msg != "Already Exists" ||
+          response.data.msg !== "Already Exists"
+        ) {
+          axios
+            .post("http://35.154.86.59/api/admin/sendOtp", {
+              mobile: this.state.mobile,
+            })
+            .then((response) => {
+              console.log(response);
+              // localStorage.setItem("token", response.data.token);
+              // this.props.history.push("/");
+            })
+            .catch((error) => {
+              console.log(error.response);
+            });
+        }
       })
       .catch((error) => {
         console.log(error.response);
+        // if (
+        //   error.response.data.msg == "Already Exists" ||
+        //   error.response.data.msg === "Already Exists"
+        // ) {
+        //   this.props.history.push("/pages/login");
+        //   swal("Error!", "Number Already Exists", "error");
+        // }
       });
 
-    axios
-      .post("http://35.154.86.59/api/admin/sendOtp", {
-        mobile: this.state.mobile,
-      })
-      .then((response) => {
-        console.log(response);
-        // localStorage.setItem("token", response.data.token);
-        // this.props.history.push("/");
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    // axios
+    //   .post("http://35.154.86.59/api/admin/sendOtp", {
+    //     mobile: this.state.mobile,
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //     // localStorage.setItem("token", response.data.token);
+    //     // this.props.history.push("/");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response);
+    //   });
   };
 
   render() {

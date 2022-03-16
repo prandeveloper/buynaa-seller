@@ -17,7 +17,7 @@ import {
 import users from "../../../assets/img/logo/users.png";
 
 export default function ChoosePaymentOption() {
-  const [key, setKey] = useState("rzp_live_v3m3Bw265v7Rs9");
+  const [key, setKey] = useState("rzp_live_dX052iXb0Is1yu");
   const [orderId, setOrderId] = useState("");
   const [amount, setAmount] = useState("");
   const [profile, setProfile] = useState("");
@@ -67,7 +67,7 @@ export default function ChoosePaymentOption() {
             sortorder: "",
             amount: sub_plan,
             description,
-            payment_id: res.payment_id,
+            payment_id: res.razorpay_payment_id,
             name,
             email,
             contact,
@@ -79,10 +79,10 @@ export default function ChoosePaymentOption() {
             },
           })
             .then((response) => {
-              console.log("pranay", response);
+              console.log(response);
               // response should be subscribed or not
 
-              //localStorage.setItem("hasSubscribed", true);
+              localStorage.setItem("hasSubscribed", true);
               history.push("/analyticsDashboard");
             })
             .catch((error) => {

@@ -20,12 +20,12 @@ export class AddCoupons extends Component {
     super(props);
 
     this.state = {
-      CouponTitle: "",
+      coupon_title: "",
+      offer_code: "",
       product: "",
       description: "",
       startDate: "",
       expireOn: "",
-      usage_limit: "",
       amount: "",
       status: "",
     };
@@ -72,7 +72,7 @@ export class AddCoupons extends Component {
         this.props.history.push("/app/offerAndCoupon/coupons/couponsList");
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
   };
   render() {
@@ -103,8 +103,18 @@ export class AddCoupons extends Component {
                   <Label>Coupon Title </Label>
                   <Input
                     type="text"
-                    name="CouponTitle"
-                    value={this.state.CouponTitle}
+                    name="coupon_title"
+                    value={this.state.coupon_title}
+                    onChange={this.changeHandler}
+                  />
+                </Col>
+                <Col lg="6" md="6" className="mb-2">
+                  <Label>Offer Code </Label>
+                  <Input
+                    type="text"
+                    name="offer_code"
+                    placeholder="Offer Code"
+                    value={this.state.offer_code}
                     onChange={this.changeHandler}
                   />
                 </Col>
@@ -154,15 +164,6 @@ export class AddCoupons extends Component {
                   />
                 </Col>
 
-                <Col lg="6" md="6" className="mb-2">
-                  <Label>Usage Limit</Label>
-                  <Input
-                    type="text"
-                    name="usage_limit"
-                    value={this.state.usage_limit}
-                    onChange={this.changeHandler}
-                  />
-                </Col>
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Amount </Label>
                   <Input
