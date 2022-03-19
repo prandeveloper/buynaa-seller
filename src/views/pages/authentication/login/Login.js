@@ -24,6 +24,7 @@ class Login extends React.Component {
 
     this.state = {
       email: "",
+      mobile: "",
       password: "",
     };
   }
@@ -43,7 +44,7 @@ class Login extends React.Component {
         localStorage.setItem(
           "hasSubscribed",
           response.data.user?.hasSubscribed
-        ); //change false with ghvghfgh
+        );
         history.push("/analyticsDashboard");
       })
       .catch((error) => {
@@ -78,7 +79,7 @@ class Login extends React.Component {
                   <Label>Email</Label>
                   <FormGroup className="form-label-group position-relative has-icon-left">
                     <Input
-                      type="email"
+                      type="text"
                       name="email"
                       placeholder="E-mail"
                       value={this.state.email}

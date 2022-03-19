@@ -60,13 +60,27 @@ class couponsList extends React.Component {
       },
       {
         headerName: "Coupon Title",
-        field: "CouponTitle",
+        field: "coupon_title",
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="">
-              <span>{params.data.CouponTitle}</span>
+              <span>{params.data.coupon_title}</span>
+            </div>
+          );
+        },
+      },
+
+      {
+        headerName: "Product Name",
+        field: "coupon_title",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="">
+              <span>{params.data.product?.product_name}</span>
             </div>
           );
         },
@@ -179,7 +193,7 @@ class couponsList extends React.Component {
 
   async componentDidMount() {
     await axiosConfig
-      .get("/getcoupon", {
+      .get("/getcouponbyseller", {
         headers: {
           "auth-adtoken": localStorage.getItem("auth-adtoken"),
         },

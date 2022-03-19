@@ -20,12 +20,12 @@ export class EditCoupon extends Component {
     super(props);
 
     this.state = {
-      CouponTitle: "",
+      coupon_title: "",
+      offer_code: "",
       product: "",
       description: "",
       startDate: "",
       expireOn: "",
-      usage_limit: "",
       amount: "",
       status: "",
     };
@@ -45,12 +45,12 @@ export class EditCoupon extends Component {
       .then((response) => {
         console.log(response);
         this.setState({
-          CouponTitle: response.data.data.CouponTitle,
+          coupon_title: response.data.data.coupon_title,
+          offer_code: response.data.data.offer_code,
           product: response.data.data.product,
           description: response.data.data.description,
           startDate: response.data.data.startDate,
           expireOn: response.data.data.expireOn,
-          usage_limit: response.data.data.usage_limit,
           amount: response.data.data.amount,
           status: response.data.data.status,
         });
@@ -127,8 +127,18 @@ export class EditCoupon extends Component {
                   <Label>Coupon Title </Label>
                   <Input
                     type="text"
-                    name="CouponTitle"
-                    value={this.state.CouponTitle}
+                    name="coupon_title"
+                    value={this.state.coupon_title}
+                    onChange={this.changeHandler}
+                  />
+                </Col>
+                <Col lg="6" md="6" className="mb-2">
+                  <Label>Offer Code </Label>
+                  <Input
+                    type="text"
+                    name="offer_code"
+                    placeholder="Offer Code"
+                    value={this.state.offer_code}
                     onChange={this.changeHandler}
                   />
                 </Col>
@@ -175,15 +185,6 @@ export class EditCoupon extends Component {
                     type="date"
                     name="expireOn"
                     value={this.state.expireOn}
-                    onChange={this.changeHandler}
-                  />
-                </Col>
-                <Col lg="6" md="6" className="mb-2">
-                  <Label>Usage Limit</Label>
-                  <Input
-                    type="text"
-                    name="usage_limit"
-                    value={this.state.usage_limit}
                     onChange={this.changeHandler}
                   />
                 </Col>

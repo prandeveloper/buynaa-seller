@@ -365,11 +365,11 @@ class EditProduct extends React.Component {
     data.append("store", this.state.store);
     data.append("short_desc", this.state.short_desc);
     data.append("long_desc", this.state.long_desc);
-    data.append("brand", this.state.brand._id);
+    data.append("brand", this.state.brand);
     data.append("tag", this.state.tag);
-    data.append("productcategory", this.state.productcategory._id);
-    data.append("productsubcategory", this.state.productsubcategory._id);
-    data.append("unit", this.state.unit._id);
+    data.append("productcategory", this.state.productcategory);
+    data.append("productsubcategory", this.state.productsubcategory);
+    data.append("unit", this.state.unit);
     data.append("gstrate", this.state.gstrate);
     data.append("discount_perc", this.state.discount_perc);
     data.append("cost_price", this.state.cost_price);
