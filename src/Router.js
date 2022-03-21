@@ -20,6 +20,10 @@ const ecommerceDashboard = lazy(() =>
   import("./views/dashboard/ecommerce/EcommerceDashboard")
 );
 const home = lazy(() => import("./views/pages/landingPage/Home"));
+const termOfUse = lazy(() => import("./views/pages/landingPage/TermOfUse"));
+const pricacyPolicy = lazy(() =>
+  import("./views/pages/landingPage/PricacyPolicy")
+);
 // const sellerDashboard = lazy(()=> import("./views/dashboard/seller/SellerDeshboard"));
 // My Component starts here
 
@@ -1037,7 +1041,16 @@ class AppRouter extends React.Component {
                     component={newPassword}
                     fullLayout
                   />
-
+                  <AppRoute
+                    path="/pages/landingPage/pricacyPolicy"
+                    component={pricacyPolicy}
+                    fullLayout
+                  />
+                  <AppRoute
+                    path="/pages/landingPage/termOfUse"
+                    component={termOfUse}
+                    fullLayout
+                  />
                   <AppRoute
                     path="/misc/error/404"
                     component={error404}

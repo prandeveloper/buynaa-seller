@@ -14,6 +14,7 @@ import {
 import { history } from "../../../history";
 import axiosConfig from "../../../axiosConfig";
 import swal from "sweetalert";
+
 export class AddStockAdjustment extends Component {
   constructor(props) {
     super(props);
@@ -255,7 +256,7 @@ export class AddStockAdjustment extends Component {
                   {this.state.addTextbox.map((item, index) => (
                     <div>
                       {/* {index ? ( */}
-                      <div id="btn">
+                      {/* <div id="btn">
                         <Row>
                           <Col
                             lg="6"
@@ -271,7 +272,7 @@ export class AddStockAdjustment extends Component {
                             </Button>
                           </Col>
                         </Row>
-                      </div>
+                      </div> */}
                       {/* ) : null} */}
 
                       <Row>
@@ -373,6 +374,20 @@ export class AddStockAdjustment extends Component {
                   ))}
                 </div>
               </Row>
+              <div id="btn">
+                <Row>
+                  <Col
+                    lg="12"
+                    md="12"
+                    sm="12"
+                    className="mb-2 d-flex align-items-sm-end justify-content-end"
+                  >
+                    <Button color="primary" onClick={() => this.addControls()}>
+                      Add
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
               <Row className="d-flex justify-content-end">
                 <Col lg="4">
                   <FormGroup>
