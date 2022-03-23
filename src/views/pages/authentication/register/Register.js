@@ -83,8 +83,9 @@ class Register extends React.Component {
           token: response.data.token,
         });
         if (
-          response.data.msg != "Already Exists" ||
-          response.data.msg !== "Already Exists"
+          response.data.msg != "Already Exists" &&
+          response.data.msg !== "Already Exists" &&
+          response.data.msg != undefined
         ) {
           axios
             .post("http://35.154.86.59/api/admin/sendOtp", {
@@ -102,13 +103,13 @@ class Register extends React.Component {
       })
       .catch((error) => {
         console.log(error.response);
-        // if (
-        //   error.response.data.msg == "Already Exists" ||
-        //   error.response.data.msg === "Already Exists"
-        // ) {
-        //   this.props.history.push("/pages/login");
-        //   swal("Error!", "Number Already Exists", "error");
-        // }
+        if (
+          error.response.data.msg == "Already Exists" &&
+          error.response.data.msg === "Already Exists"
+        ) {
+          this.props.history.push("/pages/login");
+          swal("Error!", "Email / Number Already Exists", "error");
+        }
       });
 
     // axios
