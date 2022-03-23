@@ -18,6 +18,8 @@ import { Check } from "react-feather";
 import glogo from "../../../../assets/img/pages/glogo.png";
 import { history } from "../../../../history";
 import axios from "axios";
+import swal from "sweetalert";
+import { tabsJustified } from "../../../../components/reactstrap/tabs/TabSourceCode";
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -82,7 +84,8 @@ class Login extends React.Component {
     axios
       .post("http://35.154.86.59/api/admin/sellerlogin", this.state)
       .then((response) => {
-        console.log(response);
+        console.log(response.data.msg);
+
         localStorage.setItem("auth-adtoken", response.data.token);
         localStorage.setItem(
           "hasSubscribed",
@@ -92,6 +95,18 @@ class Login extends React.Component {
       })
       .catch((error) => {
         console.log(error.response);
+        console.log(error.response.data.msg);
+        if (
+          error.response.data.msg !== "success" &&
+          error.response.data.msg != "success"
+        ) {
+          swal(
+            "Wrong UserName or Password",
+            "Enter Correct Email / Number or Password",
+            "error"
+          );
+          this.props.history.push("/pages/login");
+        }
       });
   };
   render() {

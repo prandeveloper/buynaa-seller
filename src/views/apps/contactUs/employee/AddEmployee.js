@@ -78,7 +78,7 @@ export class AddEmployee extends Component {
         this.props.history.push("/app/contactUs/employee/employeeList");
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
   };
   render() {

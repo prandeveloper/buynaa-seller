@@ -190,7 +190,7 @@ class SideMenuContent extends React.Component {
               item.id !== "subscription"
             ) {
               swal("Please Subscribe", "Subscribe To Access This Tab");
-              history.push("/analyticsDashboard");
+              history.push("/app/subscription/choosePaymentOption");
             } else {
               e.stopPropagation();
               if (item.type === "item") {

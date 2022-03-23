@@ -55,6 +55,18 @@ class AllUsers extends React.Component {
         },
       },
       {
+        headerName: "Dashboard",
+        field: "dashboard",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.dashboard ? "checked" : ""
+          } />`;
+        },
+      },
+      {
         headerName: "Store",
         field: "store",
         filter: true,
@@ -67,50 +79,26 @@ class AllUsers extends React.Component {
         },
       },
       {
-        headerName: "Employee",
-        field: "employee",
+        headerName: "Contacts",
+        field: "contacts",
         filter: true,
         editable: false,
         width: 120,
         cellRenderer: (params) => {
           return `<input type='checkbox' ${
-            params.data.employee ? "checked" : ""
+            params.data.contacts ? "checked" : ""
           } />`;
         },
       },
       {
-        headerName: "Customer",
-        field: "customer",
+        headerName: "Inventory",
+        field: "inventory",
         filter: true,
         editable: false,
         width: 120,
         cellRenderer: (params) => {
           return `<input type='checkbox' ${
-            params.data.customer ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Supplier",
-        field: "store",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.supplier ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Product",
-        field: "product",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.product ? "checked" : ""
+            params.data.inventory ? "checked" : ""
           } />`;
         },
       },
@@ -123,18 +111,6 @@ class AllUsers extends React.Component {
         cellRenderer: (params) => {
           return `<input type='checkbox' ${
             params.data.stockControl ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Offers",
-        field: "offers",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.offers ? "checked" : ""
           } />`;
         },
       },
@@ -188,13 +164,13 @@ class AllUsers extends React.Component {
       },
       {
         headerName: "Purcahse",
-        field: "purcahse",
+        field: "purchase",
         filter: true,
         editable: false,
         width: 120,
         cellRenderer: (params) => {
           return `<input type='checkbox' ${
-            params.data.purcahse ? "checked" : ""
+            params.data.purchase ? "checked" : ""
           } />`;
         },
       },
@@ -207,18 +183,6 @@ class AllUsers extends React.Component {
         cellRenderer: (params) => {
           return `<input type='checkbox' ${
             params.data.reports ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Notification",
-        field: "notification",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.notification ? "checked" : ""
           } />`;
         },
       },
@@ -287,11 +251,11 @@ class AllUsers extends React.Component {
 
   async componentDidMount() {
     await axios
-      .get("http://35.154.86.59/api/admin/allrole",{
-      headers:{
-        "auth-adtoken" : localStorage.getItem("auth-adtoken")
-      }
-    })
+      .get("http://35.154.86.59/api/admin/allrole", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
       .then((response) => {
         let rowData = response.data.data;
         this.setState({ rowData });
