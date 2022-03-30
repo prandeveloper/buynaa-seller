@@ -57,7 +57,6 @@ class Login extends React.Component {
           mobile: "",
           email: "",
         });
-        console.log("invalid Email");
       } else {
         // valid mail
         this.setState({
@@ -65,7 +64,6 @@ class Login extends React.Component {
           mobile: "",
           email: e.target.value.trim(),
         });
-        console.log("valid mail");
       }
     } else {
       //valid mobile
@@ -74,7 +72,6 @@ class Login extends React.Component {
         mobile: e.target.value.trim(),
         email: "",
       });
-      console.log("Valid Phone");
     }
   };
 

@@ -76,6 +76,7 @@ export class AddUnit extends Component {
                   <FormGroup>
                     <Label>Unit Title</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="Enter Unit Title"
                       name="units_title"
@@ -89,6 +90,7 @@ export class AddUnit extends Component {
                   <FormGroup>
                     <Label>Value</Label>
                     <Input
+                      required
                       type="number"
                       placeholder="Value"
                       name="value"
@@ -102,6 +104,7 @@ export class AddUnit extends Component {
                   <FormGroup>
                     <Label>Sort Order</Label>
                     <Input
+                      required
                       type="number"
                       placeholder="Sort Order"
                       name="sortorder"
@@ -115,6 +118,7 @@ export class AddUnit extends Component {
                   <FormGroup>
                     <Label>Description</Label>
                     <Input
+                      required
                       type="textarea"
                       placeholder="Description"
                       name="desc"

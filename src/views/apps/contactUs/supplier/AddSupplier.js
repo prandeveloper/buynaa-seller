@@ -30,11 +30,9 @@ export class AddSupplier extends Component {
       city: "",
       postcode: "",
       gst_no: "",
-      
     };
   }
 
-  
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -42,10 +40,10 @@ export class AddSupplier extends Component {
     e.preventDefault();
 
     axiosConfig
-      .post("/addsupplier", this.state,{
-        headers:{
-          "auth-adtoken" : localStorage.getItem("auth-adtoken")
-        }
+      .post("/addsupplier", this.state, {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
       })
       .then((response) => {
         console.log(response);
@@ -85,6 +83,7 @@ export class AddSupplier extends Component {
                   <FormGroup>
                     <Label>FirstName</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="First Name"
                       name="first_name"
@@ -97,6 +96,7 @@ export class AddSupplier extends Component {
                   <FormGroup>
                     <Label>LastName</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="Last Name"
                       name="last_name"
@@ -109,6 +109,7 @@ export class AddSupplier extends Component {
                   <FormGroup>
                     <Label>Supplier Email</Label>
                     <Input
+                      required
                       type="email"
                       placeholder="Supplier Email"
                       name="email"
@@ -121,6 +122,7 @@ export class AddSupplier extends Component {
                   <FormGroup>
                     <Label>Phone Number</Label>
                     <Input
+                      required
                       type="number"
                       placeholder="Phone Number"
                       name="phone_no"
@@ -133,6 +135,7 @@ export class AddSupplier extends Component {
                   <FormGroup>
                     <Label>Company</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="Company"
                       name="company"
@@ -145,6 +148,7 @@ export class AddSupplier extends Component {
                   <FormGroup>
                     <Label>Address 1</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="Address 1"
                       name="address_one"
@@ -157,6 +161,7 @@ export class AddSupplier extends Component {
                   <FormGroup>
                     <Label>Address 2</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="Address 2"
                       name="address_two"
@@ -169,6 +174,7 @@ export class AddSupplier extends Component {
                   <FormGroup>
                     <Label>State</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="State"
                       name="state"
@@ -181,6 +187,7 @@ export class AddSupplier extends Component {
                   <FormGroup>
                     <Label>City</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="City"
                       name="city"
@@ -193,6 +200,7 @@ export class AddSupplier extends Component {
                   <FormGroup>
                     <Label>Post Code</Label>
                     <Input
+                      required
                       type="number"
                       placeholder="Post Code"
                       name="postcode"
@@ -205,6 +213,7 @@ export class AddSupplier extends Component {
                   <FormGroup>
                     <Label>GST Number</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="Gst Number"
                       name="gst_no"
@@ -213,10 +222,6 @@ export class AddSupplier extends Component {
                     />
                   </FormGroup>
                 </Col>
-
-                
-
-               
               </Row>
               <Row>
                 <Button.Ripple
