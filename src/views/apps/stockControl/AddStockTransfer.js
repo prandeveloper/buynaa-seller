@@ -189,6 +189,7 @@ export class AddStockTransfer extends Component {
                 <Col lg="6" md="6">
                   <Label>Referance Number</Label>
                   <Input
+                    required
                     type="number"
                     name="reference_no"
                     value={this.state.reference_no}
@@ -198,6 +199,7 @@ export class AddStockTransfer extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Select From Warehouse</Label>
                   <CustomInput
+                    required
                     type="select"
                     name="from_warehouse"
                     value={this.state.from_warehouse}
@@ -213,6 +215,7 @@ export class AddStockTransfer extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Select To Warehouse</Label>
                   <CustomInput
+                    required
                     type="select"
                     name="to_warehouse"
                     value={this.state.to_warehouse}
@@ -228,6 +231,7 @@ export class AddStockTransfer extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Transfer Date</Label>
                   <Input
+                    required
                     type="date"
                     name="transfer_date"
                     value={this.state.transfer_date}
@@ -237,6 +241,7 @@ export class AddStockTransfer extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Delivery Due Date</Label>
                   <Input
+                    required
                     type="date"
                     name="delivery_duedate"
                     value={this.state.delivery_duedate}
@@ -246,6 +251,7 @@ export class AddStockTransfer extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Transfer Type</Label>
                   <CustomInput
+                    required
                     type="select"
                     name="transfer_type"
                     value={this.state.transfer_type}
@@ -260,6 +266,7 @@ export class AddStockTransfer extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Reason</Label>
                   <CustomInput
+                    required
                     type="select"
                     name="reason"
                     value={this.state.reason}
@@ -302,6 +309,7 @@ export class AddStockTransfer extends Component {
                           <FormGroup>
                             <Label> Product Name </Label>
                             <CustomInput
+                              required
                               type="select"
                               name="productG"
                               placeholder=" Product Name"
@@ -323,6 +331,7 @@ export class AddStockTransfer extends Component {
                           <FormGroup>
                             <Label> SKU </Label>
                             <Input
+                              required
                               type="number"
                               name="skuG"
                               placeholder="SKU"
@@ -337,6 +346,7 @@ export class AddStockTransfer extends Component {
                           <FormGroup>
                             <Label> HSN </Label>
                             <Input
+                              required
                               type="number"
                               rows="5"
                               name="hsmG"
@@ -352,6 +362,7 @@ export class AddStockTransfer extends Component {
                           <FormGroup>
                             <Label> Quantity </Label>
                             <Input
+                              required
                               type="number"
                               rows="5"
                               name="qtyG"
@@ -368,6 +379,7 @@ export class AddStockTransfer extends Component {
                           <FormGroup>
                             <Label> GST </Label>
                             <Input
+                              required
                               type="text"
                               rows="5"
                               name="gstG"
@@ -383,6 +395,7 @@ export class AddStockTransfer extends Component {
                           <FormGroup>
                             <Label> Amount </Label>
                             <Input
+                              required
                               type="number"
                               rows="5"
                               name="amountG"
@@ -416,6 +429,7 @@ export class AddStockTransfer extends Component {
                   <FormGroup>
                     <Label>Grand Total</Label>
                     <Input
+                      required
                       type="number"
                       name="grandTotal"
                       placeholder="Grand Total"

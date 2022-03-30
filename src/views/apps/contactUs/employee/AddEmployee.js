@@ -109,6 +109,7 @@ export class AddEmployee extends Component {
                   <FormGroup>
                     <Label>Employee Name</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="Employee Name"
                       name="name"
@@ -121,6 +122,7 @@ export class AddEmployee extends Component {
                   <FormGroup>
                     <Label>Phone Number</Label>
                     <Input
+                      required
                       type="number"
                       placeholder="Phone Number"
                       name="mobile"
@@ -133,6 +135,7 @@ export class AddEmployee extends Component {
                   <FormGroup>
                     <Label>Employee Email</Label>
                     <Input
+                      required
                       type="email"
                       placeholder="Employee Email"
                       name="email"
@@ -145,6 +148,7 @@ export class AddEmployee extends Component {
                   <FormGroup>
                     <Label>Password</Label>
                     <Input
+                      required
                       type="password"
                       name="password"
                       value={this.state.password}
@@ -156,6 +160,7 @@ export class AddEmployee extends Component {
                   <FormGroup>
                     <Label>Confirm Password</Label>
                     <Input
+                      required
                       type="password"
                       name="cnfrm_password"
                       value={this.state.cnfrm_password}
@@ -167,6 +172,7 @@ export class AddEmployee extends Component {
                   <FormGroup>
                     <Label>Role Name</Label>
                     <CustomInput
+                      required
                       type="select"
                       name="rolename"
                       value={this.state.rolename}
@@ -183,7 +189,11 @@ export class AddEmployee extends Component {
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Image</Label>
-                    <CustomInput type="file" onChange={this.onChangeHandler} />
+                    <CustomInput
+                      required
+                      type="file"
+                      onChange={this.onChangeHandler}
+                    />
                   </FormGroup>
                 </Col>
               </Row>

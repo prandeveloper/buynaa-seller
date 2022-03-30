@@ -102,6 +102,7 @@ export class AddCoupons extends Component {
                 <Col lg="6" md="6" className="mb-2">
                   <Label>Coupon Title </Label>
                   <Input
+                    required
                     type="text"
                     name="coupon_title"
                     value={this.state.coupon_title}
@@ -111,6 +112,7 @@ export class AddCoupons extends Component {
                 <Col lg="6" md="6" className="mb-2">
                   <Label>Offer Code </Label>
                   <Input
+                    required
                     type="text"
                     name="offer_code"
                     placeholder="Offer Code"
@@ -121,6 +123,7 @@ export class AddCoupons extends Component {
                 <Col lg="6" md="6" className="mb-2">
                   <Label>Product </Label>
                   <CustomInput
+                    required
                     type="select"
                     name="product"
                     value={this.state.product}
@@ -137,6 +140,7 @@ export class AddCoupons extends Component {
                 <Col lg="6" md="6" className="mb-2">
                   <Label>Description </Label>
                   <Input
+                    required
                     type="text"
                     name="description"
                     value={this.state.description}
@@ -147,6 +151,7 @@ export class AddCoupons extends Component {
                 <Col lg="6" md="6" className="mb-2">
                   <Label> Coupon Start Date</Label>
                   <Input
+                    required
                     type="date"
                     name="startDate"
                     value={this.state.startDate}
@@ -157,6 +162,7 @@ export class AddCoupons extends Component {
                 <Col lg="6" md="6" className="mb-2">
                   <Label>Coupon Expire date </Label>
                   <Input
+                    required
                     type="date"
                     name="expireOn"
                     value={this.state.expireOn}
@@ -167,6 +173,7 @@ export class AddCoupons extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Amount </Label>
                   <Input
+                    required
                     type="text"
                     name="amount"
                     value={this.state.amount}

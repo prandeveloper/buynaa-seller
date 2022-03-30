@@ -156,6 +156,7 @@ class NewPurchaseOrder extends React.Component {
               <FormGroup>
                 <Label> Select Supplier </Label>
                 <CustomInput
+                  required
                   type="select"
                   name="supplier"
                   placeholder="Select Supplier"
@@ -175,6 +176,7 @@ class NewPurchaseOrder extends React.Component {
               <FormGroup>
                 <Label> GSTIN </Label>
                 <Input
+                  required
                   type="text"
                   placeholder="GSTIN"
                   name="gstIn"
@@ -187,6 +189,7 @@ class NewPurchaseOrder extends React.Component {
               <FormGroup>
                 <Label> Amount </Label>
                 <Input
+                  required
                   type="number"
                   name="amount"
                   placeholder="Amount"
@@ -204,6 +207,7 @@ class NewPurchaseOrder extends React.Component {
               <FormGroup>
                 <Label> Stock Due </Label>
                 <Input
+                  required
                   type="number"
                   name="stock_due"
                   placeholder="Stock Due"
@@ -216,6 +220,7 @@ class NewPurchaseOrder extends React.Component {
               <FormGroup>
                 <Label> Payment Due </Label>
                 <Input
+                  required
                   type="number"
                   name="payment_due"
                   placeholder="Payment Due"
@@ -262,6 +267,7 @@ class NewPurchaseOrder extends React.Component {
                     <FormGroup>
                       <Label> Product Name </Label>
                       <CustomInput
+                        required
                         type="select"
                         name="productG"
                         placeholder=" Product Name"
@@ -283,6 +289,7 @@ class NewPurchaseOrder extends React.Component {
                     <FormGroup>
                       <Label> SKU </Label>
                       <Input
+                        required
                         type="number"
                         name="skuG"
                         placeholder="SKU"
@@ -297,6 +304,7 @@ class NewPurchaseOrder extends React.Component {
                     <FormGroup>
                       <Label> HSN </Label>
                       <Input
+                        required
                         type="number"
                         rows="5"
                         name="hsmG"
@@ -312,6 +320,7 @@ class NewPurchaseOrder extends React.Component {
                     <FormGroup>
                       <Label> Quantity </Label>
                       <Input
+                        required
                         type="number"
                         rows="5"
                         name="qtyG"
@@ -327,6 +336,7 @@ class NewPurchaseOrder extends React.Component {
                     <FormGroup>
                       <Label> Cost price </Label>
                       <Input
+                        required
                         type="number"
                         rows="5"
                         name="costG"
@@ -342,6 +352,7 @@ class NewPurchaseOrder extends React.Component {
                     <FormGroup>
                       <Label> GST </Label>
                       <Input
+                        required
                         type="text"
                         rows="5"
                         name="gstG"
@@ -357,6 +368,7 @@ class NewPurchaseOrder extends React.Component {
                     <FormGroup>
                       <Label> Discount </Label>
                       <Input
+                        required
                         type="number"
                         rows="5"
                         name="discountG"
@@ -382,6 +394,7 @@ class NewPurchaseOrder extends React.Component {
               <FormGroup>
                 <Label> Transportation Cost </Label>
                 <Input
+                  required
                   type="number"
                   name="transportation_cost"
                   placeholder="Transportation Cost"
@@ -394,6 +407,7 @@ class NewPurchaseOrder extends React.Component {
               <FormGroup>
                 <Label> Tax </Label>
                 <Input
+                  required
                   type="number"
                   placeholder="Tax"
                   name="gst"
@@ -407,6 +421,7 @@ class NewPurchaseOrder extends React.Component {
               <FormGroup>
                 <Label> Grand Total </Label>
                 <Input
+                  required
                   type="number"
                   placeholder="Grand Total"
                   name="grand_total"
@@ -420,6 +435,7 @@ class NewPurchaseOrder extends React.Component {
               <FormGroup>
                 <Label> Instructions </Label>
                 <Input
+                  required
                   type="text"
                   placeholder="Instructions"
                   name="instructions"
@@ -428,9 +444,6 @@ class NewPurchaseOrder extends React.Component {
                 />
               </FormGroup>
             </Col>
-
-            {/* <div id="btn">     <Button type="submit" class="btn btn-outline-primary">Back</Button>
-           <Button type="submit" class="btn btn-primary">Create Purchase order</Button></div>        */}
           </Row>
         ),
       },
@@ -455,55 +468,3 @@ class NewPurchaseOrder extends React.Component {
 }
 
 export default NewPurchaseOrder;
-
-{
-  /* <Col md="6" sm="12">
-              <FormGroup>
-                <Label> Grand Total </Label>
-                <CustomInput type="select" name="select" id="status">
-                  <option>Planning</option>
-                  <option>In Process</option>
-                  <option>Finished</option>
-                </CustomInput>
-              </FormGroup>
-            </Col> */
-}
-{
-  /* <Col md="6" sm="12">
-              <FormGroup>
-                <Label> Tax </Label>
-                <CustomInput type="select" name="select" id="location">
-                  <option>New York</option>
-                  <option>Chicago</option>
-                  <option>San Francisco</option>
-                  <option>Boston</option>
-                </CustomInput>
-              </FormGroup>
-            </Col> */
-}
-{
-  /* <Col md="6" sm="12">
-              <FormGroup>
-                <Label> Event Status </Label>
-                <Label className="mr-2">Requirements :</Label>
-                <div className="stacked-checkbox">
-                  <div className="d-inline-block mr-2">
-                    <Checkbox
-                      color="primary"
-                      icon={<Check className="vx-icon" size={16} />}
-                      label="Staffing"
-                      defaultChecked={false}
-                    />
-                  </div>
-                  <div className="d-inline-block">
-                    <Checkbox
-                      color="primary"
-                      icon={<Check className="vx-icon" size={16} />}
-                      label="Catering"
-                      defaultChecked={false}
-                    />
-                  </div>
-                </div>
-              </FormGroup>
-            </Col> */
-}
