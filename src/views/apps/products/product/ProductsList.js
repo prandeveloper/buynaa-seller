@@ -197,7 +197,7 @@ class ProductsList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex justify-content-center">
-              <span>{params.data.unit?.units_title}</span>
+              <span>{params.data.units_title}</span>
             </div>
           );
         },
