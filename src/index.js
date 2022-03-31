@@ -30,7 +30,6 @@ ReactDOM.render(
         </Layout>
       </Suspense>
     </Provider>
-    ,
   </Auth0Provider>,
   document.getElementById("root")
 );
