@@ -40,7 +40,7 @@ class EditProduct extends React.Component {
       color: "",
       size: "",
       material: "",
-      stock: "",
+      sell_mode: "",
       productcategory: "",
       productsubcategory: "",
       qty: "",
@@ -51,7 +51,6 @@ class EditProduct extends React.Component {
       discount_perc: "",
       gstrate: "",
       product_img: "",
-      status: "",
       selectedFile: undefined,
       selectedName: "",
       pColour: [],
@@ -95,7 +94,7 @@ class EditProduct extends React.Component {
           color: response.data.data.color,
           size: response.data.data.size,
           material: response.data.data.material,
-          stock: response.data.data.stock,
+          sell_mode: response.data.data.sell_mode,
           productcategory: response.data.data.productcategory,
           productsubcategory: response.data.data.productsubcategory,
           qty: response.data.data.qty,
@@ -106,7 +105,6 @@ class EditProduct extends React.Component {
           discount_perc: response.data.data.discount_perc,
           gstrate: response.data.data.gstrate,
           product_img: response.data.data.product_img,
-          status: response.data.data.status,
         });
         // let resultarray = [];
         // for (let i = 0; i < response.data.data.color.length; i++) {
@@ -322,11 +320,8 @@ class EditProduct extends React.Component {
     console.log(event.target.files);
   };
 
-  changeHandler1 = (e) => {
-    this.setState({ status: e.target.value });
-  };
   changeHandler2 = (e) => {
-    this.setState({ stock: e.target.value });
+    this.setState({ sell_mode: e.target.value });
   };
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -387,10 +382,9 @@ class EditProduct extends React.Component {
     //data.append("color", JSON.stringify(this.state.color));
     //data.append("size", JSON.stringify(this.state.size));
     data.append("material", this.state.material);
-    data.append("stock", this.state.stock);
+    data.append("sell_mode", this.state.sell_mode);
     data.append("qty", this.state.qty);
     data.append("reorder_level", this.state.reorder_level);
-    data.append("status", this.state.status);
     if (this.state.selectedFile) {
       for (const file of this.state.selectedFile) {
         if (this.state.selectedFile !== null) {
@@ -601,35 +595,6 @@ class EditProduct extends React.Component {
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col md="6" sm="12">
-              <FormGroup>
-                <Label className="mb-1">Stock Available</Label>
-                <div
-                  className="form-label-group"
-                  onChange={(e) => this.changeHandler2(e)}
-                >
-                  <input
-                    style={{ marginRight: "3px" }}
-                    type="checkbox"
-                    name="stock"
-                    value="Available"
-                  />
-                  <span style={{ marginRight: "20px", fontWeight: 800 }}>
-                    Available
-                  </span>
-
-                  <input
-                    style={{ marginRight: "3px" }}
-                    type="checkbox"
-                    name="stock"
-                    value="UnAvailable"
-                  />
-                  <span style={{ marginRight: "3px", fontWeight: 800 }}>
-                    UnAvailable
-                  </span>
-                </div>
-              </FormGroup>
-            </Col>
           </Row>
         ),
       },
@@ -806,44 +771,40 @@ class EditProduct extends React.Component {
                 </div>
               </FormGroup>
             </Col>
+            <Col md="6" sm="12">
+              <FormGroup>
+                <Label className="mb-1">Selling Mode</Label>
+                <div
+                  className="form-label-group"
+                  onChange={(e) => this.changeHandler2(e)}
+                >
+                  <input
+                    style={{ marginRight: "3px" }}
+                    type="checkbox"
+                    name="sell_mode"
+                    value="Online"
+                  />
+                  <span style={{ marginRight: "20px", fontWeight: 800 }}>
+                    Online
+                  </span>
 
-            <Col lg="6" md="6" sm="6" className="mb-2">
-              <Label className="mb-1">Status</Label>
-              <div
-                className="form-label-group"
-                onChange={(e) => this.changeHandler1(e)}
-              >
-                <input
-                  style={{ marginRight: "3px" }}
-                  type="radio"
-                  name="status"
-                  value="Active"
-                />
-                <span style={{ marginRight: "20px" }}>Active</span>
-
-                <input
-                  style={{ marginRight: "3px" }}
-                  type="radio"
-                  name="status"
-                  value="Inactive"
-                />
-                <span style={{ marginRight: "3px" }}>Inactive</span>
-              </div>
+                  <input
+                    style={{ marginRight: "3px" }}
+                    type="checkbox"
+                    name="sell_mode"
+                    value="Offline"
+                  />
+                  <span style={{ marginRight: "3px", fontWeight: 800 }}>
+                    Offline
+                  </span>
+                </div>
+              </FormGroup>
             </Col>
           </Row>
         ),
       },
     ];
 
-    // const colourOptions = [
-    //   { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
-    //   { value: "blue", label: "Blue", color: "#0052CC", isFixed: true },
-    //   { value: "purple", label: "Purple", color: "#5243AA", isFixed: true },
-    //   { value: "red", label: "Red", color: "#FF5630", isFixed: false },
-    //   { value: "orange", label: "Orange", color: "#FF8B00", isFixed: false },
-    //   { value: "yellow", label: "Yellow", color: "#FFC400", isFixed: false }
-    // ]
-    //
     return (
       <Card>
         <Row className="m-2">

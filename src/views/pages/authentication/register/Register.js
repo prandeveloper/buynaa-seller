@@ -42,6 +42,7 @@ class Register extends React.Component {
     axios
       .post("http://35.154.86.59/api/admin/verifyOtp", {
         mobile: this.state.mobile,
+        email: this.state.email,
         otp: this.state.otpnumber,
       })
 
@@ -90,6 +91,7 @@ class Register extends React.Component {
           axios
             .post("http://35.154.86.59/api/admin/sendOtp", {
               mobile: this.state.mobile,
+              email: this.state.email,
             })
             .then((response) => {
               console.log(response);
@@ -111,19 +113,6 @@ class Register extends React.Component {
           swal("Error!", "Email / Number Already Exists", "error");
         }
       });
-
-    // axios
-    //   .post("http://35.154.86.59/api/admin/sendOtp", {
-    //     mobile: this.state.mobile,
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     // localStorage.setItem("token", response.data.token);
-    //     // this.props.history.push("/");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
   };
 
   render() {

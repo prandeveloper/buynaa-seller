@@ -40,7 +40,7 @@ class AddMyProduct extends React.Component {
       color: "",
       size: "",
       material: "",
-      stock: "",
+      sell_mode: "",
       productcategory: "",
       productsubcategory: "",
       qty: "",
@@ -51,7 +51,6 @@ class AddMyProduct extends React.Component {
       discount_perc: "",
       gstrate: "",
       product_img: "",
-      status: "",
       selectedFile: undefined,
       selectedName: "",
       pColour: [],
@@ -253,11 +252,8 @@ class AddMyProduct extends React.Component {
     console.log(event.target.files);
   };
 
-  changeHandler1 = (e) => {
-    this.setState({ status: e.target.value });
-  };
   changeHandler2 = (e) => {
-    this.setState({ stock: e.target.value });
+    this.setState({ sell_mode: e.target.value });
   };
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -306,7 +302,7 @@ class AddMyProduct extends React.Component {
       data.append("size", this.state.size[i]);
     }
     data.append("material", this.state.material);
-    data.append("stock", this.state.stock);
+    data.append("sell_mode", this.state.sell_mode);
     data.append("productcategory", this.state.productcategory);
     data.append("productsubcategory", this.state.productsubcategory);
     data.append("qty", this.state.qty);
@@ -318,7 +314,6 @@ class AddMyProduct extends React.Component {
     data.append("gstrate", this.state.gstrate);
     //data.append("color", JSON.stringify(this.state.color));
     //data.append("size", JSON.stringify(this.state.size));
-    data.append("status", this.state.status);
     for (const file of this.state.selectedFile) {
       if (this.state.selectedFile !== null) {
         data.append("product_img", file, file.name);
@@ -537,35 +532,6 @@ class AddMyProduct extends React.Component {
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col md="6" sm="12">
-              <FormGroup>
-                <Label className="mb-1">Stock Available</Label>
-                <div
-                  className="form-label-group"
-                  onChange={(e) => this.changeHandler2(e)}
-                >
-                  <input
-                    style={{ marginRight: "3px" }}
-                    type="checkbox"
-                    name="stock"
-                    value="Available"
-                  />
-                  <span style={{ marginRight: "20px", fontWeight: 800 }}>
-                    Available
-                  </span>
-
-                  <input
-                    style={{ marginRight: "3px" }}
-                    type="checkbox"
-                    name="stock"
-                    value="UnAvailable"
-                  />
-                  <span style={{ marginRight: "3px", fontWeight: 800 }}>
-                    UnAvailable
-                  </span>
-                </div>
-              </FormGroup>
-            </Col>
           </Row>
         ),
       },
@@ -760,29 +726,34 @@ class AddMyProduct extends React.Component {
                 </div>
               </FormGroup>
             </Col>
+            <Col md="6" sm="12">
+              <FormGroup>
+                <Label className="mb-1">Selling Mode</Label>
+                <div
+                  className="form-label-group"
+                  onChange={(e) => this.changeHandler2(e)}
+                >
+                  <input
+                    style={{ marginRight: "3px" }}
+                    type="checkbox"
+                    name="sell_mode"
+                    value="Online"
+                  />
+                  <span style={{ marginRight: "20px", fontWeight: 800 }}>
+                    Online
+                  </span>
 
-            <Col lg="6" md="6" sm="6" className="mb-2">
-              <Label className="mb-1">Status</Label>
-              <div
-                className="form-label-group"
-                onChange={(e) => this.changeHandler1(e)}
-              >
-                <input
-                  style={{ marginRight: "3px" }}
-                  type="radio"
-                  name="status"
-                  value="Active"
-                />
-                <span style={{ marginRight: "20px" }}>Active</span>
-
-                <input
-                  style={{ marginRight: "3px" }}
-                  type="radio"
-                  name="status"
-                  value="Inactive"
-                />
-                <span style={{ marginRight: "3px" }}>Inactive</span>
-              </div>
+                  <input
+                    style={{ marginRight: "3px" }}
+                    type="checkbox"
+                    name="sell_mode"
+                    value="Offline"
+                  />
+                  <span style={{ marginRight: "3px", fontWeight: 800 }}>
+                    Offline
+                  </span>
+                </div>
+              </FormGroup>
             </Col>
           </Row>
         ),
