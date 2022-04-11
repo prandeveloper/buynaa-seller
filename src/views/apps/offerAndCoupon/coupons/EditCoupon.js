@@ -20,14 +20,17 @@ export class EditCoupon extends Component {
     super(props);
 
     this.state = {
-      CouponTitle: "",
-
+      coupon_title: "",
+      offer_code: "",
+      product: "",
       description: "",
       startDate: "",
       expireOn: "",
-
       amount: "",
       status: "",
+    };
+    this.state = {
+      productS: [],
     };
   }
 
@@ -42,15 +45,30 @@ export class EditCoupon extends Component {
       .then((response) => {
         console.log(response);
         this.setState({
-          CouponTitle: response.data.data.CouponTitle,
+          coupon_title: response.data.data.coupon_title,
+          offer_code: response.data.data.offer_code,
           product: response.data.data.product,
           description: response.data.data.description,
           startDate: response.data.data.startDate,
           expireOn: response.data.data.expireOn,
-          usage_limit: response.data.data.usage_limit,
           amount: response.data.data.amount,
           status: response.data.data.status,
         });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    //Product List
+    axiosConfig
+      .get("/productbysellerbytoken", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ productS: response.data.data });
       })
       .catch((error) => {
         console.log(error);
@@ -109,10 +127,36 @@ export class EditCoupon extends Component {
                   <Label>Coupon Title </Label>
                   <Input
                     type="text"
-                    name="CouponTitle"
-                    value={this.state.CouponTitle}
+                    name="coupon_title"
+                    value={this.state.coupon_title}
                     onChange={this.changeHandler}
                   />
+                </Col>
+                <Col lg="6" md="6" className="mb-2">
+                  <Label>Offer Code </Label>
+                  <Input
+                    type="text"
+                    name="offer_code"
+                    placeholder="Offer Code"
+                    value={this.state.offer_code}
+                    onChange={this.changeHandler}
+                  />
+                </Col>
+                <Col lg="6" md="6" className="mb-2">
+                  <Label>Product </Label>
+                  <CustomInput
+                    type="select"
+                    name="product"
+                    value={this.state.product}
+                    onChange={this.changeHandler}
+                  >
+                    <option>Select Product</option>
+                    {this.state.productS.map((productH) => (
+                      <option key={productH._id} value={productH._id}>
+                        {productH.product_name}
+                      </option>
+                    ))}
+                  </CustomInput>
                 </Col>
 
                 <Col lg="6" md="6" className="mb-2">
@@ -195,7 +239,7 @@ export class EditCoupon extends Component {
                   type="submit"
                   color="primary"
                 >
-                  Add Coupon
+                  Update Coupon
                 </Button.Ripple>
               </Row>
             </Form>

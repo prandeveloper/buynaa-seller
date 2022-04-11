@@ -14,15 +14,31 @@ import {
   CardLink,
 } from "reactstrap";
 
+import users from "../../../assets/img/logo/users.png";
+
 export default function ChoosePaymentOption() {
   const [key, setKey] = useState("rzp_live_dX052iXb0Is1yu");
   const [orderId, setOrderId] = useState("");
   const [amount, setAmount] = useState("");
+  const [profile, setProfile] = useState("");
   const Razorpay = useRazorpay();
 
   useEffect(() => {
     console.log("useEffect");
-    Axios.get("http://35.154.86.59/api/admin/rapay/699")
+    Axios.get("http://35.154.86.59/api/admin/getoneseller", {
+      headers: {
+        "auth-adtoken": localStorage.getItem("auth-adtoken"),
+      },
+    })
+      .then((response) => {
+        console.log(response.data);
+        setProfile(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+
+    Axios.get("http://35.154.86.59/api/admin/rapay/2")
       .then((response) => {
         console.log(response.data);
         setOrderId(response.data?.order.id);
@@ -33,7 +49,7 @@ export default function ChoosePaymentOption() {
       });
   }, []);
   const handlePayment = useCallback(
-    async (description, name, email, contact, sub_plan, status, duration) => {
+    async (description, name, email, contact, sub_plan, duration) => {
       console.log(amount);
       const RazorpayOptions = {
         key: key,
@@ -47,10 +63,9 @@ export default function ChoosePaymentOption() {
           var data = {
             duration,
             sub_plan,
-            status,
-            sortorder: "",
             amount: sub_plan,
             description,
+            razorpay_payment_id: res.razorpay_payment_id,
             name,
             email,
             contact,
@@ -62,21 +77,13 @@ export default function ChoosePaymentOption() {
             },
           })
             .then((response) => {
-              console.log("pranay", response);
-              // response should be subscribed or not
+              console.log(response);
               localStorage.setItem("hasSubscribed", true);
               history.push("/analyticsDashboard");
             })
             .catch((error) => {
               console.log(error.response);
             });
-          // Axios.get("http://35.154.86.59/api/admin/rapay/2")
-          //   .then((response) => {
-          //     console.log(response.data);
-          //   })
-          //   .catch((error) => {
-          //     console.log(error.response);
-          //   });
         },
         prefill: {
           name: name,
@@ -86,7 +93,7 @@ export default function ChoosePaymentOption() {
         notes: {
           address: "BuyNaa Corporate Office",
         },
-        theme: { color: "#3399cc" },
+        theme: { color: "#0000FF" },
       };
 
       const rzpay = new Razorpay(RazorpayOptions);
@@ -106,39 +113,66 @@ export default function ChoosePaymentOption() {
     <Container className="d-flex justify-content-center align-items-center">
       <Row>
         <Col>
-          <Card className="">
+          <Card
+            className=" "
+            style={{
+              "--color-1": "deepskyblue",
+              "--color-2": "navy",
+              background: `
+      linear-gradient(
+        170deg,
+        var(--color-1),
+        var(--color-2) 80%
+      )
+    `,
+
+              // Unrelated styles:
+              color: "white",
+              textAlign: "center",
+              padding: 30,
+              borderRadius: 12,
+            }}
+          >
             <CardBody>
-              <CardHeader tag="h2" className="text-primary font-weight-bold">
-                SUBSCRIPTION PLAN
+              <CardHeader>
+                <CardTitle>
+                  <img src={users} style={{ width: 50, height: 50 }} />
+                </CardTitle>
+                <CardTitle
+                  tag="h2"
+                  className=" text-white font-weight-bold p-2"
+                >
+                  SUBSCRIPTION PLAN
+                </CardTitle>
               </CardHeader>
               <div className="m-3">
-                <CardTitle className="text-success font-weight-bold">
+                <CardTitle className=" text-white font-weight-bold">
                   Plan Price
                 </CardTitle>
-                <CardSubtitle className="text-danger font-weight-bold">
+                <CardSubtitle className="text-white font-weight-bold">
                   ₹699 Only/
                 </CardSubtitle>
               </div>
               <div className="m-3">
-                <CardTitle className="text-success font-weight-bold">
+                <CardTitle className="text-white font-weight-bold">
                   Plan Active Period
                 </CardTitle>
-                <CardSubtitle className="text-danger font-weight-bold">
-                  370 Days
+                <CardSubtitle className="text-white  font-weight-bold">
+                  365 Days
                 </CardSubtitle>
               </div>
               <CardFooter>
                 <CardLink
-                  className="text-danger font-weight-bolder"
+                  className="text-white font-weight-bolder "
                   onClick={() =>
                     handlePayment(
-                      "Plan Active Period : 370 days",
-                      "Pranay Kumar",
-                      "P.kumar@gmail.com",
-                      "9876543210",
-                      "69900",
+                      "Plan Active Period : 365 days",
+                      profile.name,
+                      profile.email,
+                      profile.mobile,
+                      "200",
                       true,
-                      "370days"
+                      "365days"
                     )
                   }
                 >

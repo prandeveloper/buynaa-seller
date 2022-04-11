@@ -56,7 +56,7 @@ class ViewStore extends React.Component {
                 <Col>
                   <Button
                     className=" btn btn-danger float-right"
-                    onClick={() => history.push("/app/store/stores/storesList")}
+                    onClick={() => history.push("/app/myStore/storeList")}
                   >
                     Back
                   </Button>

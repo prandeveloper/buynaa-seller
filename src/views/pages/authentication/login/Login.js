@@ -18,18 +18,61 @@ import { Check } from "react-feather";
 import glogo from "../../../../assets/img/pages/glogo.png";
 import { history } from "../../../../history";
 import axios from "axios";
+import swal from "sweetalert";
+import { tabsJustified } from "../../../../components/reactstrap/tabs/TabSourceCode";
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: "",
+      mobile: "",
       password: "",
+      username: "",
     };
   }
   handlechange = (e) => {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
+  };
+  checkHandler = (e) => {
+    e.preventDefault();
+    if (e.target.value.trim() == "") {
+      this.setState({
+        username: e.target.value.trim(),
+        mobile: "",
+        email: "",
+      });
+      return;
+    }
+    if (isNaN(e.target.value.trim())) {
+      if (
+        /^([A-Za-z0-9_\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(
+          e.target.value.trim()
+        ) === false
+      ) {
+        //invalid email
+        this.setState({
+          username: e.target.value.trim(),
+          mobile: "",
+          email: "",
+        });
+      } else {
+        // valid mail
+        this.setState({
+          username: e.target.value.trim(),
+          mobile: "",
+          email: e.target.value.trim(),
+        });
+      }
+    } else {
+      //valid mobile
+      this.setState({
+        username: e.target.value.trim(),
+        mobile: e.target.value.trim(),
+        email: "",
+      });
+    }
   };
 
   loginHandler = (e) => {
@@ -38,13 +81,29 @@ class Login extends React.Component {
     axios
       .post("http://35.154.86.59/api/admin/sellerlogin", this.state)
       .then((response) => {
-        console.log(response);
+        console.log(response.data.msg);
+
         localStorage.setItem("auth-adtoken", response.data.token);
-        localStorage.setItem("hasSubscribed", true); //change false with ghvghfgh
+        localStorage.setItem(
+          "hasSubscribed",
+          response.data.user?.hasSubscribed
+        );
         history.push("/analyticsDashboard");
       })
       .catch((error) => {
         console.log(error.response);
+        console.log(error.response.data.msg);
+        if (
+          error.response.data.msg !== "success" &&
+          error.response.data.msg != "success"
+        ) {
+          swal(
+            "Wrong UserName or Password",
+            "Enter Correct Email / Number or Password",
+            "error"
+          );
+          this.props.history.push("/pages/login");
+        }
       });
   };
   render() {
@@ -72,14 +131,14 @@ class Login extends React.Component {
                   Welcome back, please login to your account.
                 </h5>
                 <Form onSubmit={this.loginHandler}>
-                  <Label>Email</Label>
+                  <Label>Email / Phone</Label>
                   <FormGroup className="form-label-group position-relative has-icon-left">
                     <Input
-                      type="email"
-                      name="email"
-                      placeholder="E-mail"
-                      value={this.state.email}
-                      onChange={this.handlechange}
+                      type="text"
+                      name="username"
+                      placeholder="E-mail / Phone"
+                      value={this.state.username}
+                      onChange={this.checkHandler}
                       required
                     />
                   </FormGroup>

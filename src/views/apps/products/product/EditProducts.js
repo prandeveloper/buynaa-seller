@@ -32,26 +32,25 @@ class EditProduct extends React.Component {
       product_name: "",
       sku_no: "",
       hsn_sac_no: "",
-      discount_perc: 12,
+      store: "",
       short_desc: "",
       long_desc: "",
+      brand: "",
+      tag: "",
+      color: "",
+      size: "",
+      material: "",
+      sell_mode: "",
       productcategory: "",
       productsubcategory: "",
       qty: "",
+      reorder_level: "",
       unit: "",
-      gst: "",
-      material: "",
       cost_price: "",
       sell_price: "",
-      stock: "",
-      size: "",
-      tag: "",
-      color: "",
-      brand: "",
+      discount_perc: "",
+      gstrate: "",
       product_img: "",
-      reorder_level: "",
-      status: "",
-      sortorder: "",
       selectedFile: undefined,
       selectedName: "",
       pColour: [],
@@ -59,6 +58,7 @@ class EditProduct extends React.Component {
       pSize: [],
       pSizeselected: [],
       pBrand: [],
+      storeL: [],
       productC: [],
       productSC: [],
       units: [],
@@ -86,26 +86,25 @@ class EditProduct extends React.Component {
           product_name: response.data.data.product_name,
           sku_no: response.data.data.sku_no,
           hsn_sac_no: response.data.data.hsn_sac_no,
-          discount_perc: response.data.data.discount_perc,
+          store: response.data.data.store.store_name,
           short_desc: response.data.data.short_desc,
           long_desc: response.data.data.long_desc,
+          brand: response.data.data.brand,
+          tag: response.data.data.tag,
+          color: response.data.data.color,
+          size: response.data.data.size,
+          material: response.data.data.material,
+          sell_mode: response.data.data.sell_mode,
           productcategory: response.data.data.productcategory,
           productsubcategory: response.data.data.productsubcategory,
           qty: response.data.data.qty,
+          reorder_level: response.data.data.reorder_level,
           unit: response.data.data.unit,
-          gstrate: response.data.data.gstrate,
-          material: response.data.data.material,
           cost_price: response.data.data.cost_price,
           sell_price: response.data.data.sell_price,
-          stock: response.data.data.stock,
-          brand: response.data.data.brand,
-          tag: response.data.data.tag,
+          discount_perc: response.data.data.discount_perc,
+          gstrate: response.data.data.gstrate,
           product_img: response.data.data.product_img,
-          status: response.data.data.status,
-          sortorder: response.data.data.sortorder,
-          color: response.data.data.color,
-          size: response.data.data.size,
-          reorder_level: response.data.data.reorder_level,
         });
         // let resultarray = [];
         // for (let i = 0; i < response.data.data.color.length; i++) {
@@ -134,6 +133,21 @@ class EditProduct extends React.Component {
 
         // this.setState({ pSizeselected: newresultarray });
         // console.log(this.state.pSizeselected);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    //Store
+    axiosConfig
+      .get("/storebyseller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ storeL: response.data.data });
       })
       .catch((error) => {
         console.log(error);
@@ -306,11 +320,8 @@ class EditProduct extends React.Component {
     console.log(event.target.files);
   };
 
-  changeHandler1 = (e) => {
-    this.setState({ status: e.target.value });
-  };
   changeHandler2 = (e) => {
-    this.setState({ stock: e.target.value });
+    this.setState({ sell_mode: e.target.value });
   };
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -346,14 +357,16 @@ class EditProduct extends React.Component {
     data.append("product_name", this.state.product_name);
     data.append("sku_no", this.state.sku_no);
     data.append("hsn_sac_no", this.state.hsn_sac_no);
+    data.append("store", this.state.store);
     data.append("short_desc", this.state.short_desc);
     data.append("long_desc", this.state.long_desc);
-    data.append("brand", this.state.brand._id);
+    data.append("brand", this.state.brand);
     data.append("tag", this.state.tag);
-    data.append("productcategory", this.state.productcategory._id);
-    data.append("productsubcategory", this.state.productsubcategory._id);
-    data.append("unit", this.state.unit._id);
+    data.append("productcategory", this.state.productcategory);
+    data.append("productsubcategory", this.state.productsubcategory);
+    data.append("unit", this.state.unit);
     data.append("gstrate", this.state.gstrate);
+    data.append("discount_perc", this.state.discount_perc);
     data.append("cost_price", this.state.cost_price);
     data.append("sell_price", this.state.sell_price);
     for (var i = 0; i < this.state.color.length; i++) {
@@ -369,11 +382,9 @@ class EditProduct extends React.Component {
     //data.append("color", JSON.stringify(this.state.color));
     //data.append("size", JSON.stringify(this.state.size));
     data.append("material", this.state.material);
-    data.append("stock", this.state.stock);
+    data.append("sell_mode", this.state.sell_mode);
     data.append("qty", this.state.qty);
     data.append("reorder_level", this.state.reorder_level);
-    data.append("status", this.state.status);
-    data.append("sortorder", this.state.sortorder);
     if (this.state.selectedFile) {
       for (const file of this.state.selectedFile) {
         if (this.state.selectedFile !== null) {
@@ -439,7 +450,7 @@ class EditProduct extends React.Component {
               <FormGroup>
                 <Label>SKU Code</Label>
                 <Input
-                  type="number"
+                  type="text"
                   placeholder="SKU Code"
                   name="sku_no"
                   value={this.state.sku_no}
@@ -451,12 +462,32 @@ class EditProduct extends React.Component {
               <FormGroup>
                 <Label>HSN / SAC Number</Label>
                 <Input
-                  type="number"
+                  type="text"
                   placeholder="HSN/SAC"
                   name="hsn_sac_no"
                   value={this.state.hsn_sac_no}
                   onChange={this.changeHandler}
                 />
+              </FormGroup>
+            </Col>
+            <Col md="6" sm="12">
+              <FormGroup>
+                <Label>Store</Label>
+                <CustomInput
+                  type="select"
+                  name="store"
+                  placeholder="Store"
+                  value={this.state.store}
+                  onChange={this.changeHandler}
+                  required
+                >
+                  <option>Select Store.....</option>
+                  {this.state.storeL?.map((stor) => (
+                    <option value={stor?._id} key={stor?._id}>
+                      {stor?.store_name}
+                    </option>
+                  ))}
+                </CustomInput>
               </FormGroup>
             </Col>
             <Col md="6" sm="12">
@@ -562,35 +593,6 @@ class EditProduct extends React.Component {
                     </option>
                   ))}
                 </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col md="6" sm="12">
-              <FormGroup>
-                <Label className="mb-1">Stock Available</Label>
-                <div
-                  className="form-label-group"
-                  onChange={(e) => this.changeHandler2(e)}
-                >
-                  <input
-                    style={{ marginRight: "3px" }}
-                    type="checkbox"
-                    name="stock"
-                    value="Available"
-                  />
-                  <span style={{ marginRight: "20px", fontWeight: 800 }}>
-                    Available
-                  </span>
-
-                  <input
-                    style={{ marginRight: "3px" }}
-                    type="checkbox"
-                    name="stock"
-                    value="UnAvailable"
-                  />
-                  <span style={{ marginRight: "3px", fontWeight: 800 }}>
-                    UnAvailable
-                  </span>
-                </div>
               </FormGroup>
             </Col>
           </Row>
@@ -712,7 +714,18 @@ class EditProduct extends React.Component {
                 </InputGroup>
               </FormGroup>
             </Col>
-
+            <Col md="6" sm="12">
+              <FormGroup>
+                <Label>Discount Percent</Label>
+                <Input
+                  type="number"
+                  placeholder="Discount Percent (In Percent %)"
+                  name="discount_perc"
+                  value={this.state.discount_perc}
+                  onChange={this.changeHandler}
+                />
+              </FormGroup>
+            </Col>
             <Col lg="6" md="6" sm="6" className="mb-2">
               <Label>GST Rate</Label>
               <CustomInput
@@ -760,54 +773,38 @@ class EditProduct extends React.Component {
             </Col>
             <Col md="6" sm="12">
               <FormGroup>
-                <Label>SortOrder</Label>
-                <Input
-                  type="number"
-                  placeholder=""
-                  name="sortorder"
-                  value={this.state.sortorder}
-                  onChange={this.changeHandler}
-                />
+                <Label className="mb-1">Selling Mode</Label>
+                <div
+                  className="form-label-group"
+                  onChange={(e) => this.changeHandler2(e)}
+                >
+                  <input
+                    style={{ marginRight: "3px" }}
+                    type="checkbox"
+                    name="sell_mode"
+                    value="Online"
+                  />
+                  <span style={{ marginRight: "20px", fontWeight: 800 }}>
+                    Online
+                  </span>
+
+                  <input
+                    style={{ marginRight: "3px" }}
+                    type="checkbox"
+                    name="sell_mode"
+                    value="Offline"
+                  />
+                  <span style={{ marginRight: "3px", fontWeight: 800 }}>
+                    Offline
+                  </span>
+                </div>
               </FormGroup>
-            </Col>
-
-            <Col lg="6" md="6" sm="6" className="mb-2">
-              <Label className="mb-1">Status</Label>
-              <div
-                className="form-label-group"
-                onChange={(e) => this.changeHandler1(e)}
-              >
-                <input
-                  style={{ marginRight: "3px" }}
-                  type="radio"
-                  name="status"
-                  value="Active"
-                />
-                <span style={{ marginRight: "20px" }}>Active</span>
-
-                <input
-                  style={{ marginRight: "3px" }}
-                  type="radio"
-                  name="status"
-                  value="Inactive"
-                />
-                <span style={{ marginRight: "3px" }}>Inactive</span>
-              </div>
             </Col>
           </Row>
         ),
       },
     ];
 
-    // const colourOptions = [
-    //   { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
-    //   { value: "blue", label: "Blue", color: "#0052CC", isFixed: true },
-    //   { value: "purple", label: "Purple", color: "#5243AA", isFixed: true },
-    //   { value: "red", label: "Red", color: "#FF5630", isFixed: false },
-    //   { value: "orange", label: "Orange", color: "#FF8B00", isFixed: false },
-    //   { value: "yellow", label: "Yellow", color: "#FFC400", isFixed: false }
-    // ]
-    //
     return (
       <Card>
         <Row className="m-2">

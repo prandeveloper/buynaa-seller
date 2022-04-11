@@ -60,10 +60,10 @@ export class AddBrand extends Component {
     //     console.log(value);
     //  }
     axiosConfig
-      .post("/addbrand", data ,{
-        headers:{
-          "auth-adtoken" : localStorage.getItem("auth-adtoken")
-        }
+      .post("/addbrand", data, {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
       })
       .then((response) => {
         console.log(response);
@@ -100,6 +100,7 @@ export class AddBrand extends Component {
                   <FormGroup>
                     <Label>Brand Name</Label>
                     <Input
+                      required
                       type="text"
                       placeholder="Brand Name"
                       name="name"
@@ -113,6 +114,7 @@ export class AddBrand extends Component {
                   <FormGroup>
                     <Label>Sort Order</Label>
                     <Input
+                      required
                       type="number"
                       placeholder="Sort Order"
                       name="sortorder"
@@ -126,6 +128,7 @@ export class AddBrand extends Component {
                   <FormGroup>
                     <Label>Description</Label>
                     <Input
+                      required
                       type="textarea"
                       placeholder="Description"
                       name="desc"
@@ -138,7 +141,11 @@ export class AddBrand extends Component {
                 <Col lg="6" md="6">
                   <FormGroup>
                     <Label>Brand Image / Logo</Label>
-                    <CustomInput type="file" onChange={this.onChangeHandler} />
+                    <CustomInput
+                      required
+                      type="file"
+                      onChange={this.onChangeHandler}
+                    />
                   </FormGroup>
                 </Col>
 

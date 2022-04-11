@@ -26,13 +26,13 @@ export default function WonderNavbar(props) {
           className=""
         >
           {/* <h1 className="text-primary">Buynaa</h1> */}
-          <a href="/analyticsDashboard">
+          <a href="/">
             <img src={glogo} alt="" className="st-logo" width={150} />
           </a>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} className="st-tog" />
         <Collapse isOpen={isOpen} navbar>
-          <Nav navbar style={{ marginLeft: "30rem" }}>
+          <Nav navbar style={{ marginLeft: "40rem" }}>
             <NavItem>
               <NavLink className="st-nav" href="/pages/register/register">
                 <Button color="primary">REGISTER NOW</Button>

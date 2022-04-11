@@ -20,22 +20,19 @@ export default class AddUsers extends Component {
 
     this.state = {
       addemp: "",
-      emp:"",
+      emp: "",
       tabs: {
+        dashboard: false,
         store: false,
-        employee: false,
-        customer: false,
-        supplier: false,
-        product: false,
+        contacts: false,
+        inventory: false,
         stockControl: false,
-        offers: false,
         coupons: false,
-        subscribe: false,
+        subscription: false,
         billing: false,
         order: false,
-        purcahse: false,
+        purchase: false,
         reports: false,
-        notification: false,
         rolesPermission: false,
         setting: false,
       },
@@ -78,17 +75,17 @@ export default class AddUsers extends Component {
     e.preventDefault();
     console.log(this.state);
     axiosConfig
-      .post("/addrole", this.state,{
-        headers:{
-          "auth-adtoken" : localStorage.getItem("auth-adtoken")
-        }
+      .post("/addrole", this.state, {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
       })
       .then((response) => {
         console.log(response);
         this.props.history.push("/app/roleAndPermission/roleList");
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
   };
   render() {
@@ -128,6 +125,7 @@ export default class AddUsers extends Component {
                           onChange={this.changeHandler}
                           value={this.state.emp}
                         >
+                          <option>Select Employee....</option>
                           {this.state.employeeD?.map((emp) => (
                             <option key={emp?._id} value={emp?._id}>
                               {emp?.name}
@@ -138,6 +136,17 @@ export default class AddUsers extends Component {
                     </Col>
                   </Row>
                   <Row className="m-2">
+                    <Col lg="3" className="m-1">
+                      <div>
+                        <input
+                          checked={this.state.tabs.dashboard}
+                          onChange={this.handleClick}
+                          type="checkbox"
+                          name="dashboard"
+                        />{" "}
+                        Dashboard
+                      </div>
+                    </Col>
                     <Col lg="3" className="m-1">
                       <div>
                         <input
@@ -152,45 +161,24 @@ export default class AddUsers extends Component {
                     <Col lg="3" className="m-1">
                       <div>
                         <input
-                          checked={this.state.tabs.employee}
+                          checked={this.state.tabs.contacts}
                           onChange={this.handleClick}
                           type="checkbox"
-                          name="employee"
+                          name="contacts"
                         />{" "}
-                        Employee
+                        Contacts
                       </div>
                     </Col>
+
                     <Col lg="3" className="m-1">
                       <div>
                         <input
-                          checked={this.state.tabs.customer}
+                          checked={this.state.tabs.inventory}
                           onChange={this.handleClick}
                           type="checkbox"
-                          name="customer"
+                          name="inventory"
                         />{" "}
-                        Customer
-                      </div>
-                    </Col>
-                    <Col lg="3" className="m-1">
-                      <div>
-                        <input
-                          checked={this.state.tabs.supplier}
-                          onChange={this.handleClick}
-                          type="checkbox"
-                          name="supplier"
-                        />{" "}
-                        Supplier
-                      </div>
-                    </Col>
-                    <Col lg="3" className="m-1">
-                      <div>
-                        <input
-                          checked={this.state.tabs.product}
-                          onChange={this.handleClick}
-                          type="checkbox"
-                          name="product"
-                        />{" "}
-                        Product
+                        Inventory
                       </div>
                     </Col>
                     <Col lg="3" className="m-1">
@@ -207,17 +195,6 @@ export default class AddUsers extends Component {
                     <Col lg="3" className="m-1">
                       <div>
                         <input
-                          checked={this.state.tabs.offers}
-                          onChange={this.handleClick}
-                          type="checkbox"
-                          name="offers"
-                        />{" "}
-                        Offers
-                      </div>
-                    </Col>
-                    <Col lg="3" className="m-1">
-                      <div>
-                        <input
                           checked={this.state.tabs.coupons}
                           onChange={this.handleClick}
                           type="checkbox"
@@ -229,12 +206,12 @@ export default class AddUsers extends Component {
                     <Col lg="3" className="m-1">
                       <div>
                         <input
-                          checked={this.state.tabs.subscribe}
+                          checked={this.state.tabs.subscription}
                           onChange={this.handleClick}
                           type="checkbox"
-                          name="subscribe"
+                          name="subscription"
                         />{" "}
-                        Subscribe
+                        Subscription
                       </div>
                     </Col>
                     <Col lg="3" className="m-1">
@@ -262,12 +239,12 @@ export default class AddUsers extends Component {
                     <Col lg="3" className="m-1">
                       <div>
                         <input
-                          checked={this.state.tabs.purcahse}
+                          checked={this.state.tabs.purchase}
                           onChange={this.handleClick}
                           type="checkbox"
-                          name="purcahse"
+                          name="purchase"
                         />{" "}
-                        Purcahse
+                        Purchase
                       </div>
                     </Col>
                     <Col lg="3" className="m-1">
@@ -279,17 +256,6 @@ export default class AddUsers extends Component {
                           name="reports"
                         />{" "}
                         Reports
-                      </div>
-                    </Col>
-                    <Col lg="3" className="m-1">
-                      <div>
-                        <input
-                          checked={this.state.tabs.notification}
-                          onChange={this.handleClick}
-                          type="checkbox"
-                          name="notification"
-                        />{" "}
-                        Notification
                       </div>
                     </Col>
                     <Col lg="3" className="m-1">

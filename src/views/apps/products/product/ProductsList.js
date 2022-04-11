@@ -263,7 +263,7 @@ class ProductsList extends React.Component {
           return (
             <div className="d-flex justify-content-center">
               {params.data.size.map((i) => (
-                <span>{i.sizeName}</span>
+                <span>{i.sizeName + ","}</span>
               ))}
             </div>
           );
@@ -278,14 +278,14 @@ class ProductsList extends React.Component {
           return (
             <div className="d-flex justify-content-center">
               {params.data.color.map((i) => (
-                <span>{i.colorName}</span>
+                <span>{i.colorName + ","}</span>
               ))}
             </div>
           );
         },
       },
       {
-        headerName: "Stk Quantity",
+        headerName: "Stock Quantity",
         field: "qty",
         filter: true,
         width: 150,
@@ -298,14 +298,14 @@ class ProductsList extends React.Component {
         },
       },
       {
-        headerName: "Stock Avilable",
-        field: "stock",
+        headerName: "Selling Mode",
+        field: "sell_mode",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex justify-content-center">
-              <span>{params.data.stock}</span>
+              <span>{params.data.sell_mode}</span>
             </div>
           );
         },
@@ -324,23 +324,7 @@ class ProductsList extends React.Component {
           );
         },
       },
-      {
-        headerName: "Status",
-        field: "status",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return params.value === "Active" ? (
-            <div className="badge badge-pill badge-success">
-              {params.data.status}
-            </div>
-          ) : params.value === "Inactive" ? (
-            <div className="badge badge-pill badge-warning">
-              {params.data.status}
-            </div>
-          ) : null;
-        },
-      },
+
       {
         headerName: "Actions",
         field: "transactions",

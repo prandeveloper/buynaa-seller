@@ -103,7 +103,7 @@ export class AddSubCategory extends Component {
           <Row className="m-2">
             <Col>
               <h1 col-sm-6 className="float-left">
-                Add New Category
+                Add New Sub-Category
               </h1>
             </Col>
             <Col>
@@ -127,6 +127,7 @@ export class AddSubCategory extends Component {
                     value={this.state.productcategory}
                     onChange={this.changeHandler}
                   >
+                    <option>Select Sub-Category....</option>
                     {this.state.productC.map((prodCategory) => (
                       <option key={prodCategory._id} value={prodCategory._id}>
                         {prodCategory.name}

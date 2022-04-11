@@ -23,7 +23,7 @@ class ForgotPassword extends React.Component {
     super(props);
 
     this.state = {
-      email: "",
+      mobile: "",
       otp: true,
       otpnumber: "",
       token: "",
@@ -36,22 +36,13 @@ class ForgotPassword extends React.Component {
 
     axios
       .post("http://35.154.86.59/api/admin/verifyOtp", {
-        email: this.state.email,
+        mobile: this.state.mobile,
         otp: this.state.otpnumber,
       })
       .then((response) => {
         console.log(response);
         //localStorage.setItem("user", response.data.data._id);
-        localStorage.setItem("auth-adtoken", this.state.token || "null");
-        // const location = this.props.location;
-        // if (location.state && location.state.nextPathname) {
-        //   History.push("/login-register");
-        // } else {
-        //   History.push("/cart");
-        // }
-        // const history = useHistory();
-        // history.push("/cart");
-
+        //localStorage.setItem("auth-adtoken", this.state.token || "null");
         this.props.history.push(`/app/myStore/addStorePage`);
       })
       .catch((error) => {
@@ -122,14 +113,14 @@ class ForgotPassword extends React.Component {
                     <br />
                   </CardHeader>
                   <Form onSubmit={this.submitHandler}>
-                    <Label>Email</Label>
+                    <Label>Mobile No.</Label>
                     <FormGroup className="form-label-group">
                       <Input
-                        type="email"
-                        placeholder="E-mail"
+                        type="number"
+                        placeholder="Mobile No."
                         required
-                        name="email"
-                        value={this.state.email}
+                        name="mobile"
+                        value={this.state.mobile}
                         onChange={this.changeHandler}
                       />
                     </FormGroup>

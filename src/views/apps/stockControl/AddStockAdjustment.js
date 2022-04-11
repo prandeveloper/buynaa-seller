@@ -14,6 +14,7 @@ import {
 import { history } from "../../../history";
 import axiosConfig from "../../../axiosConfig";
 import swal from "sweetalert";
+
 export class AddStockAdjustment extends Component {
   constructor(props) {
     super(props);
@@ -185,6 +186,7 @@ export class AddStockAdjustment extends Component {
                 <Col lg="6" md="6">
                   <Label>Referance Number</Label>
                   <Input
+                    required
                     type="number"
                     name="reference_no"
                     value={this.state.reference_no}
@@ -194,6 +196,7 @@ export class AddStockAdjustment extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Warehouse</Label>
                   <CustomInput
+                    required
                     type="select"
                     name="warehouse"
                     value={this.state.warehouse}
@@ -209,6 +212,7 @@ export class AddStockAdjustment extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Adjustment Date</Label>
                   <Input
+                    required
                     type="date"
                     name="adjustment_date"
                     value={this.state.adjustment_date}
@@ -219,6 +223,7 @@ export class AddStockAdjustment extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Adjustment Qty</Label>
                   <Input
+                    required
                     type="text"
                     name="adjusted_qty"
                     value={this.state.adjusted_qty}
@@ -228,6 +233,7 @@ export class AddStockAdjustment extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Adjustment Value</Label>
                   <Input
+                    required
                     type="text"
                     name="adjusted_value"
                     value={this.state.adjusted_value}
@@ -237,6 +243,7 @@ export class AddStockAdjustment extends Component {
                 <Col lg="6" md="6" className="mb-1">
                   <Label>Reason</Label>
                   <CustomInput
+                    required
                     type="select"
                     name="reason"
                     value={this.state.reason}
@@ -255,7 +262,7 @@ export class AddStockAdjustment extends Component {
                   {this.state.addTextbox.map((item, index) => (
                     <div>
                       {/* {index ? ( */}
-                      <div id="btn">
+                      {/* <div id="btn">
                         <Row>
                           <Col
                             lg="6"
@@ -271,7 +278,7 @@ export class AddStockAdjustment extends Component {
                             </Button>
                           </Col>
                         </Row>
-                      </div>
+                      </div> */}
                       {/* ) : null} */}
 
                       <Row>
@@ -279,6 +286,7 @@ export class AddStockAdjustment extends Component {
                           <FormGroup>
                             <Label> Product Name </Label>
                             <CustomInput
+                              required
                               type="select"
                               name="productG"
                               placeholder=" Product Name"
@@ -300,6 +308,7 @@ export class AddStockAdjustment extends Component {
                           <FormGroup>
                             <Label> Available Qty </Label>
                             <Input
+                              required
                               type="number"
                               name="availableqtyG"
                               placeholder="Available Qty"
@@ -314,6 +323,7 @@ export class AddStockAdjustment extends Component {
                           <FormGroup>
                             <Label> Quantity </Label>
                             <Input
+                              required
                               type="number"
                               rows="5"
                               name="qtyG"
@@ -329,6 +339,7 @@ export class AddStockAdjustment extends Component {
                           <FormGroup>
                             <Label> Value </Label>
                             <Input
+                              required
                               type="text"
                               rows="5"
                               name="valueG"
@@ -344,6 +355,7 @@ export class AddStockAdjustment extends Component {
                           <FormGroup>
                             <Label> Comment </Label>
                             <Input
+                              required
                               type="text"
                               rows="5"
                               name="commentG"
@@ -373,11 +385,26 @@ export class AddStockAdjustment extends Component {
                   ))}
                 </div>
               </Row>
+              <div id="btn">
+                <Row>
+                  <Col
+                    lg="12"
+                    md="12"
+                    sm="12"
+                    className="mb-2 d-flex align-items-sm-end justify-content-end"
+                  >
+                    <Button color="primary" onClick={() => this.addControls()}>
+                      Add
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
               <Row className="d-flex justify-content-end">
                 <Col lg="4">
                   <FormGroup>
                     <Label>Grand Total</Label>
                     <Input
+                      required
                       type="number"
                       name="grandTotal"
                       placeholder="Grand Total"

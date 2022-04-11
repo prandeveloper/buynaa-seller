@@ -32,26 +32,30 @@ class AddMyProduct extends React.Component {
       product_name: "",
       sku_no: "",
       hsn_sac_no: "",
-      discount_perc: 12,
+      store: "",
       short_desc: "",
       long_desc: "",
-      productcategory: "",
-      productsubcategory: "",
-      unit: "",
-      gstrate: "",
-      material: "",
-      stock: "",
-      size: "",
-      color: "",
       brand: "",
       tag: "",
+      color: "",
+      size: "",
+      material: "",
+      sell_mode: "",
+      productcategory: "",
+      productsubcategory: "",
+      qty: "",
+      reorder_level: "",
+      unit: "",
+      cost_price: "",
+      sell_price: "",
+      discount_perc: "",
+      gstrate: "",
       product_img: "",
-      status: "",
-      sortorder: "",
       selectedFile: undefined,
       selectedName: "",
       pColour: [],
       pBrand: [],
+      storeL: [],
       productC: [],
       productSC: [],
       units: [],
@@ -65,6 +69,21 @@ class AddMyProduct extends React.Component {
     this.onChangeHandler = this.onChangeHandler.bind(this);
   }
   async componentDidMount() {
+    //Store
+    axiosConfig
+      .get("/storebyseller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({ storeL: response.data.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     //Product Category
     axiosConfig
       .get("/allcatByseller", {
@@ -233,11 +252,8 @@ class AddMyProduct extends React.Component {
     console.log(event.target.files);
   };
 
-  changeHandler1 = (e) => {
-    this.setState({ status: e.target.value });
-  };
   changeHandler2 = (e) => {
-    this.setState({ stock: e.target.value });
+    this.setState({ sell_mode: e.target.value });
   };
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -274,30 +290,30 @@ class AddMyProduct extends React.Component {
     data.append("product_name", this.state.product_name);
     data.append("sku_no", this.state.sku_no);
     data.append("hsn_sac_no", this.state.hsn_sac_no);
+    data.append("store", this.state.store);
     data.append("short_desc", this.state.short_desc);
     data.append("long_desc", this.state.long_desc);
     data.append("brand", this.state.brand);
     data.append("tag", this.state.tag);
-    data.append("productcategory", this.state.productcategory);
-    data.append("productsubcategory", this.state.productsubcategory);
-    data.append("unit", this.state.unit);
-    data.append("gstrate", this.state.gstrate);
-    data.append("cost_price", this.state.cost_price);
-    data.append("sell_price", this.state.sell_price);
     for (var i = 0; i < this.state.color.length; i++) {
       data.append("color", this.state.color[i]);
     }
     for (var i = 0; i < this.state.size.length; i++) {
       data.append("size", this.state.size[i]);
     }
-    //data.append("color", JSON.stringify(this.state.color));
-    //data.append("size", JSON.stringify(this.state.size));
     data.append("material", this.state.material);
-    data.append("stock", this.state.stock);
+    data.append("sell_mode", this.state.sell_mode);
+    data.append("productcategory", this.state.productcategory);
+    data.append("productsubcategory", this.state.productsubcategory);
     data.append("qty", this.state.qty);
     data.append("reorder_level", this.state.reorder_level);
-    data.append("status", this.state.status);
-    data.append("sortorder", this.state.sortorder);
+    data.append("unit", this.state.unit);
+    data.append("cost_price", this.state.cost_price);
+    data.append("sell_price", this.state.sell_price);
+    data.append("discount_perc", this.state.discount_perc);
+    data.append("gstrate", this.state.gstrate);
+    //data.append("color", JSON.stringify(this.state.color));
+    //data.append("size", JSON.stringify(this.state.size));
     for (const file of this.state.selectedFile) {
       if (this.state.selectedFile !== null) {
         data.append("product_img", file, file.name);
@@ -320,7 +336,7 @@ class AddMyProduct extends React.Component {
       .then((response) => {
         console.log(response);
         swal("Success!", "Submitted SuccessFull!", "success");
-        this.props.history.push("/app/products/product/productList");
+        this.props.history.push("/app/products/product/productsList");
       })
       .catch((error) => {
         console.log(error);
@@ -360,7 +376,8 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>SKU Code</Label>
                 <Input
-                  type="number"
+                  required
+                  type="text"
                   placeholder="SKU Code"
                   name="sku_no"
                   value={this.state.sku_no}
@@ -372,7 +389,8 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>HSN / SAC Number</Label>
                 <Input
-                  type="number"
+                  required
+                  type="text"
                   placeholder="HSN/SAC"
                   name="hsn_sac_no"
                   value={this.state.hsn_sac_no}
@@ -382,8 +400,29 @@ class AddMyProduct extends React.Component {
             </Col>
             <Col md="6" sm="12">
               <FormGroup>
+                <Label>Store</Label>
+                <CustomInput
+                  type="select"
+                  name="store"
+                  placeholder="Store"
+                  value={this.state.store}
+                  onChange={this.changeHandler}
+                  required
+                >
+                  <option>Select Store.....</option>
+                  {this.state.storeL?.map((stor) => (
+                    <option value={stor?._id} key={stor?._id}>
+                      {stor?.store_name}
+                    </option>
+                  ))}
+                </CustomInput>
+              </FormGroup>
+            </Col>
+            <Col md="6" sm="12">
+              <FormGroup>
                 <Label>Short Description</Label>
                 <Input
+                  required
                   type="textarea"
                   name="short_desc"
                   placeholder="Short Description"
@@ -396,6 +435,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Long Description</Label>
                 <Input
+                  required
                   type="textarea"
                   name="long_desc"
                   placeholder="Long Description"
@@ -415,6 +455,7 @@ class AddMyProduct extends React.Component {
                   onChange={this.changeHandler}
                   required
                 >
+                  <option>Select Brand.....</option>
                   {this.state.pBrand?.map((brandp) => (
                     <option value={brandp?._id} key={brandp?._id}>
                       {brandp?.name}
@@ -445,6 +486,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Colour</Label>
                 <Select
+                  required
                   isMulti
                   name="color"
                   className="React"
@@ -459,6 +501,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Size</Label>
                 <Select
+                  required
                   isMulti
                   className="React"
                   classNamePrefix="size"
@@ -473,47 +516,20 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Material</Label>
                 <CustomInput
+                  required
                   type="select"
                   placeholder="Material"
                   name="material"
                   value={this.state.material}
                   onChange={this.changeHandler}
                 >
+                  <option>Select Material.....</option>
                   {this.state.pMaterial?.map((materialp) => (
                     <option value={materialp.materialname} key={materialp._id}>
                       {materialp.materialname}
                     </option>
                   ))}
                 </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col md="6" sm="12">
-              <FormGroup>
-                <Label className="mb-1">Stock Available</Label>
-                <div
-                  className="form-label-group"
-                  onChange={(e) => this.changeHandler2(e)}
-                >
-                  <input
-                    style={{ marginRight: "3px" }}
-                    type="checkbox"
-                    name="stock"
-                    value="Available"
-                  />
-                  <span style={{ marginRight: "20px", fontWeight: 800 }}>
-                    Available
-                  </span>
-
-                  <input
-                    style={{ marginRight: "3px" }}
-                    type="checkbox"
-                    name="stock"
-                    value="UnAvailable"
-                  />
-                  <span style={{ marginRight: "3px", fontWeight: 800 }}>
-                    UnAvailable
-                  </span>
-                </div>
               </FormGroup>
             </Col>
           </Row>
@@ -527,12 +543,14 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Product Category</Label>
                 <CustomInput
+                  required
                   type="select"
                   name="productcategory"
                   placeholder="category"
                   value={this.state.productcategory}
                   onChange={this.changeHandler}
                 >
+                  <option>Select Category.....</option>
                   {this.state.productC.map((productCategory) => (
                     <option
                       value={productCategory._id}
@@ -548,12 +566,14 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Product Sub Category</Label>
                 <CustomInput
+                  required
                   type="select"
                   name="productsubcategory"
                   placeholder="Subcategory"
                   value={this.state.productsubcategory}
                   onChange={this.changeHandler}
                 >
+                  <option>Select SubCategory.....</option>
                   {this.state.productSC.map((productSCategory) => (
                     <option
                       value={productSCategory._id}
@@ -569,6 +589,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Stock Quantity</Label>
                 <Input
+                  required
                   type="number"
                   placeholder="Stock Quantity"
                   name="qty"
@@ -581,8 +602,9 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Re-Order Level</Label>
                 <Input
+                  required
                   type="number"
-                  placeholder="Stock Quantity"
+                  placeholder="Re-Order"
                   name="reorder_level"
                   value={this.state.reorder_level}
                   onChange={this.changeHandler}
@@ -593,6 +615,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Units</Label>
                 <CustomInput
+                  required
                   type="select"
                   placeholder="Unit"
                   name="unit"
@@ -615,6 +638,7 @@ class AddMyProduct extends React.Component {
                 <InputGroup>
                   <InputGroupText>₹</InputGroupText>
                   <Input
+                    required
                     type="number"
                     name="cost_price"
                     placeholder="Cost Price"
@@ -630,6 +654,7 @@ class AddMyProduct extends React.Component {
                 <InputGroup>
                   <InputGroupText>₹</InputGroupText>
                   <Input
+                    required
                     type="number"
                     name="sell_price"
                     placeholder="Selling Price"
@@ -639,16 +664,31 @@ class AddMyProduct extends React.Component {
                 </InputGroup>
               </FormGroup>
             </Col>
+            <Col md="6" sm="12">
+              <FormGroup>
+                <Label>Discount Percent</Label>
+                <Input
+                  required
+                  type="number"
+                  placeholder="Discount Percent (In Percent %)"
+                  name="discount_perc"
+                  value={this.state.discount_perc}
+                  onChange={this.changeHandler}
+                />
+              </FormGroup>
+            </Col>
 
             <Col lg="6" md="6" sm="6" className="mb-2">
               <Label>GST Rate</Label>
               <CustomInput
+                required
                 type="select"
                 placeholder="GST Rate"
                 name="gstrate"
                 value={this.state.gstrate}
                 onChange={this.changeHandler}
               >
+                <option>Select GST.....</option>
                 {this.state.gsts.map((dGsts) => (
                   <option key={dGsts._id} value={dGsts._id}>
                     {dGsts.gst_title}
@@ -667,6 +707,7 @@ class AddMyProduct extends React.Component {
               <FormGroup>
                 <Label>Product Image</Label>
                 <CustomInput
+                  required
                   type="file"
                   onChange={this.onChangeHandler}
                   multiple
@@ -687,39 +728,32 @@ class AddMyProduct extends React.Component {
             </Col>
             <Col md="6" sm="12">
               <FormGroup>
-                <Label>SortOrder</Label>
-                <Input
-                  type="number"
-                  placeholder=""
-                  name="sortorder"
-                  value={this.state.sortorder}
-                  onChange={this.changeHandler}
-                />
+                <Label className="mb-1">Selling Mode</Label>
+                <div
+                  className="form-label-group"
+                  onChange={(e) => this.changeHandler2(e)}
+                >
+                  <input
+                    style={{ marginRight: "3px" }}
+                    type="checkbox"
+                    name="sell_mode"
+                    value="Online"
+                  />
+                  <span style={{ marginRight: "20px", fontWeight: 800 }}>
+                    Online
+                  </span>
+
+                  <input
+                    style={{ marginRight: "3px" }}
+                    type="checkbox"
+                    name="sell_mode"
+                    value="Offline"
+                  />
+                  <span style={{ marginRight: "3px", fontWeight: 800 }}>
+                    Offline
+                  </span>
+                </div>
               </FormGroup>
-            </Col>
-
-            <Col lg="6" md="6" sm="6" className="mb-2">
-              <Label className="mb-1">Status</Label>
-              <div
-                className="form-label-group"
-                onChange={(e) => this.changeHandler1(e)}
-              >
-                <input
-                  style={{ marginRight: "3px" }}
-                  type="radio"
-                  name="status"
-                  value="Active"
-                />
-                <span style={{ marginRight: "20px" }}>Active</span>
-
-                <input
-                  style={{ marginRight: "3px" }}
-                  type="radio"
-                  name="status"
-                  value="Inactive"
-                />
-                <span style={{ marginRight: "3px" }}>Inactive</span>
-              </div>
             </Col>
           </Row>
         ),

@@ -1,383 +1,248 @@
-import React, { Component } from "react";
+import React from "react";
 import {
-  Col,
-  Row,
   Card,
   CardBody,
-  Form,
-  CustomInput,
-  Label,
+  Row,
+  Col,
+  Media,
+  Table,
+  InputGroup,
   Input,
+  InputGroupAddon,
   Button,
-  FormGroup
 } from "reactstrap";
+import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import axiosConfig from "../../../axiosConfig";
-//import { history } from "../../../history";
+import Moment from "react-moment";
+import "moment-timezone";
+import moment from "moment";
+import logo from "../../../assets/img/logo/ilogo.png";
+import { Mail, Phone, FileText, Download } from "react-feather";
+import "../../../assets/scss/pages/invoice.scss";
 
-export default class InvoiceDesign extends Component {
+const params = {
+  spaceBetween: 10,
+  centeredSlides: true,
+  autoplay: {
+    delay: 2500,
+    disableOnInteraction: false,
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+};
+class InvoiceDesign extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      item_name: "",
-      short_name: "",
-      desc: "",
-      code: "",
-      hsn_code: "",
-      productcategory: "",
-      productsubcategory: "",
-      unit: "",
-      alt_unit: "",
-      gst_rate: "",
-      type_of_supply: "",
-      varient: "",
-      material: "",
-      stock_qty: "",
-      stock_clearance_limit: "",
-      //rate:"",
-      size: "",
-      colour: "",
-      brand: "",
-      barcode: "",
-      std_package: "",
-      inc_duty_tax: "",
-      product_img: "",
-      selectedFile: null,
-      selectedName: "",
-      // makecompany: "",
-      // mrp: "",
-      // for_dealer: {},
-    };
-    this.state = {
-      productC: [],
-      productSC: [],
-      units: [],
-      altUnits: [],
-      gstRate: [],
-      pBrand: [],
+      purchase: {},
     };
   }
 
   componentDidMount() {
-    //Product Category
+    let { id } = this.props.match.params;
     axiosConfig
-      .get("/allproductcategory")
-      .then((response) => {
-        console.log(response);
-        this.setState({ productC: response.data.data });
+      .get(`/getonepurchaseorder/${id}`, {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
       })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    //Product Sub Category
-    axiosConfig
-      .get("/allproductsubcategory")
       .then((response) => {
-        console.log(response);
-        this.setState({ productSC: response.data.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    //Units
-    axiosConfig
-      .get("/viewallunits")
-      .then((response) => {
-        console.log(response);
-        this.setState({ units: response.data.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    //Alternative Units
-    axiosConfig
-      .get("/allaltunit")
-      .then((response) => {
-        console.log(response);
-        this.setState({ altUnits: response.data.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    //Gst rate
-    axiosConfig
-      .get("/viewallgst")
-      .then((response) => {
-        console.log(response);
-        this.setState({ gstRate: response.data.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    //Brand
-    axiosConfig
-      .get("/allbrand")
-      .then((response) => {
-        console.log(response);
-        this.setState({ pBrand: response.data.data });
+        console.log(response.data.data);
+        this.setState({ purchase: response.data.data });
       })
       .catch((error) => {
         console.log(error);
       });
   }
 
-  //Image Submit Handler
-  onChangeHandler = (event) => {
-    this.setState({ selectedFile: event.target.files[0] });
-    this.setState({ selectedName: event.target.files[0].name });
-    console.log(event.target.files[0]);
-  };
-  changeHandler1 = (e) => {
-    this.setState({ status: e.target.value });
-  };
-  changeHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-  submitHandler = (e) => {
-    e.preventDefault();
-    //console.log(this.state);
-
-    const data = new FormData();
-    data.append("item_name", this.state.item_name);
-   
-    data.append("status", this.state.status);
-    data.append(
-      "product_img",
-      this.state.selectedFile,
-      this.state.selectedName
-    );
-
-    // for (var value of data.values()) {
-    //   console.log(value);
-    // }
-
-    // for (var key of data.keys()) {
-    //   console.log(key);
-    // }
-    axiosConfig
-      .post("/addproduct", data)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
   render() {
     return (
-      <div>
-        <Card>
-          <Row className="m-2">
-            <Col>
-              <h1 col-sm-6 className="float-left">
-              Invoice Design
-              </h1>
-            </Col>
-            {/* <Col>
-              <Button
-                className=" btn btn-danger float-right"
-                onClick={() => history.push("/app/product/productList")}
-              >
-                Back
-              </Button>
-            </Col> */}
-          </Row>
-          <CardBody>
-            <Form className="m-1" onSubmit={this.submitHandler}>
-            
-                <Col lg="6" md="6" sm="6" className="mb-2">
-                <FormGroup>
-                <Label>Show Logo in invoice :</Label>
-                  <div>
-                    <CustomInput 
-                    type="switch" 
-                    id="exampleCustomSwitch" 
-                    name="item_name"
-                    value={this.state.item_name}
-                    onChange={this.changeHandler}
-                    label="" />
-                  </div>
-                </FormGroup>
-                
-                <FormGroup>
-                <Label>Show QR in invoice :</Label>
-                  <div>
-                    <CustomInput 
-                    type="switch" 
-                    id="exampleCustomSwitch1" 
-                    name="item_name"
-                    value={this.state.item_name}
-                    onChange={this.changeHandler}
-                    label="" />
-                  </div>
-                </FormGroup>
-              </Col>
-              <Col lg="6" md="6" sm="6" className="mb-2">
-                <FormGroup>
-                <Label>Show VAT NO. in invoice :</Label>
-                  <div>
-                    <CustomInput 
-                    type="switch" 
-                    id="exampleCustomSwitch2" 
-                    name="item_name"
-                    value={this.state.item_name}
-                    onChange={this.changeHandler}
-                    label="" />
-                  </div>
-                </FormGroup>
-              </Col>
-              <Col lg="6" md="6" sm="6" className="mb-2">
-                <FormGroup>
-                <Label>Print default in Landscape mode :</Label>
-                  <div>
-                    <CustomInput 
-                    type="switch" 
-                    id="exampleCustomSwitch3" 
-                    name="item_name"
-                    value={this.state.item_name}
-                    onChange={this.changeHandler}
-                    label="" />
-                  </div>
-                </FormGroup>
-               
-              </Col>
-              <Row>
-              <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label>Border Color:</Label>
-                  <Input
-                    required
-                    type="text"
-                    placeholder="Name"
-                    name="short_name"
-                    value={this.state.short_name}
-                    onChange={this.changeHandler}
-                  />
-                </Col>
-                
-                <Col lg="6" md="6" sm="6" className="mb-2">
-                <Label for="exampleCustomSelect">Border Radius:</Label>
-                  <CustomInput
-                    type="select"
-                    id="exampleCustomSelect"
-                    name="Border"
-                    value={this.state.productcategory}
-                    onChange={this.changeHandler}
-                  >
-                     {this.state.productC.map((productCategory) => (
-                      <option
-                        value={productCategory._id}
-                        key={productCategory._id}
-                      >
-                        {productCategory.name}
-                      </option>
-                       ))}
-                  </CustomInput>
+      <React.Fragment>
+        <Breadcrumbs breadCrumbTitle="Invoice" />
+
+        <Row>
+          {/* <Col className="mb-1 invoice-header" md="5" sm="12">
+            <InputGroup>
+              <Input placeholder="Email" />
+              <InputGroupAddon addonType="append">
+                <Button.Ripple color="primary" outline>
+                  Send Invoice
+                </Button.Ripple>
+              </InputGroupAddon>
+            </InputGroup>
+          </Col> */}
+          <Col
+            className="d-flex flex-column flex-md-row justify-content-end invoice-header mb-1"
+            md="7"
+            sm="12"
+          >
+            <Button
+              className="mr-1 mb-md-0 mb-1"
+              color="primary"
+              onClick={() => window.print()}
+            >
+              <FileText size="15" />
+              <span className="align-middle ml-50">Print</span>
+            </Button>
+            {/* <Button.Ripple color="primary" outline>
+              <Download size="15" />
+              <span className="align-middle ml-50">Download</span>
+            </Button.Ripple> */}
+          </Col>
+          <Col className="invoice-wrapper" sm="12">
+            <Card className="invoice-page">
+              <CardBody>
+                <Row>
+                  <Col md="6" sm="12" className="pt-1">
+                    <Media className="pt-1">
+                      <img src={logo} alt="logo" />
+                    </Media>
                   </Col>
-              
-               
-            
-                {/* <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label>Border Radius:</Label>
-                  <CustomInput
-                    type="select"
-                    name="productcategory"
-                    value={this.state.productcategory}
-                    onChange={this.changeHandler}
-                  >
-                    {this.state.productC.map((productCategory) => (
-                      <option
-                        value={productCategory._id}
-                        key={productCategory._id}
-                      >
-                        {productCategory.name}
-                      </option>
-                    ))}
-                  </CustomInput>
-                </Col> */}
-           
-        
-     
-                <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label>Border Style:</Label>
-                  <CustomInput
-                    type="select"
-                    name="brand"
-                    value={this.state.brand}
-                    onChange={this.changeHandler}
-                  >
-                    {this.state.pBrand.map((brandp) => (
-                      <option value={brandp._id} key={brandp._id}>
-                        {brandp.name}
-                      </option>
-                    ))}
-                  </CustomInput>
-                </Col>
-                <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label>Invoice date format:</Label>
-                  <CustomInput
-                    type="select"
-                    name="type_of_supply"
-                    value={this.state.type_of_supply}
-                    onChange={this.changeHandler}
-                  >
-                    <option>Goods</option>
-                    <option>Services</option>
-                  </CustomInput>
-                </Col>
-               
-         
-               
-              
-               
-                {/* <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label>Product Image</Label>
-                  <Input required type="file" onChange={this.onChangeHandler} />
-                </Col> */}
+                  <Col md="6" sm="12" className="text-right">
+                    <h1>Invoice</h1>
+                    <div className="invoice-details mt-2">
+                      <h5 className="mt-2">ORDER ID</h5>
+                      <h6>{this.state.purchase?.orderId}</h6>
+                    </div>
+                    <div className="invoice-details mt-2">
+                      <h5 className="mt-2">INVOICE DATE</h5>
+                      <h6>{moment(this.data?.createdAt).format("ll")}</h6>
+                    </div>
+                  </Col>
+                </Row>
+                <Row className="pt-2">
+                  <Col md="6" sm="12">
+                    <h5>Recipient</h5>
+                    <div className="recipient-info my-2">
+                      <p>{this.state.purchase?.seller?.name}</p>
+                    </div>
+                    <div className="recipient-contact pb-2">
+                      <p>
+                        <Mail size={15} className="mr-50" />
+                        {this.state.purchase?.seller?.email}
+                      </p>
+                      <p>
+                        <Phone size={15} className="mr-50" />
+                        {this.state.purchase?.seller?.mobile}
+                      </p>
+                    </div>
+                    <div className="recipient-info my-2">
+                      <p>
+                        {this.state.data?.shipping_address?.address} ,
+                        {this.state.data?.shipping_address?.locality}
+                      </p>
+                    </div>
+                    <div className="recipient-info my-2">
+                      <p>
+                        {this.state.data?.shipping_address?.city} /
+                        {this.state.data?.shipping_address?.state}
+                      </p>
+                    </div>
+                    <div className="recipient-info my-2">
+                      <p>{this.state.data?.shipping_address?.pincode}</p>
+                    </div>
+                  </Col>
+                  <Col md="6" sm="12" className="text-right">
+                    <h5>{this.state.purchase?.supplier?.company}</h5>
+                    <div className="company-info my-2">
+                      <p>
+                        {this.state.purchase?.supplier?.address_one}{" "}
+                        {this.state.purchase?.supplier?.address_two}
+                      </p>
+                      <p>
+                        {this.state.purchase?.supplier?.city},
+                        {this.state.purchase?.supplier?.state}
+                      </p>
+                      <p>{this.state.purchase?.supplier?.postcode}</p>
+                    </div>
+                    <div className="company-contact">
+                      <p>
+                        <Mail size={15} className="mr-50" />
+                        {this.state.purchase?.supplier?.email}
+                      </p>
+                      <p>
+                        <Phone size={15} className="mr-50" />
+                        {this.state.purchase?.supplier?.phone_no}
+                      </p>
+                    </div>
+                  </Col>
+                </Row>
+                <div className="invoice-items-table pt-1">
+                  <Row>
+                    <Col sm="12">
+                      <Table responsive borderless>
+                        <thead>
+                          <tr>
+                            <th>Product Nane</th>
+                            <th>HSN</th>
+                            <th>QUANTITY</th>
+                            <th>DISCOUNT</th>
+                            <th>GST%</th>
+                            <th>COST PRICE</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {this.state.purchase?.product?.map((produ) => (
+                            <tr>
+                              <td>{produ?.productname}</td>
+                              <td>{produ?.hsn}</td>
+                              <td>{produ?.qty}</td>
+                              <td>{produ?.discount}</td>
+                              <td>{produ?.gst}</td>
+                              <td>{produ?.cost_price}</td>
+                            </tr>
+                          ))}
 
-            
-                {/* <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Label className="mb-1">Status</Label>
-                  <div
-                    className="form-label-group"
-                    onChange={(e) => this.changeHandler1(e)}
-                  >
-                    <input
-                      style={{ marginRight: "3px" }}
-                      type="radio"
-                      name="status"
-                      value="Active"
-                    />
-                    <span style={{ marginRight: "20px" }}>Active</span>
+                          {/* <tr>
+                            <td>Newsletter template design</td>
+                            <td>{this.state.data.product?.name}</td>
+                            <td>{this.state.data.product?.qty}</td>
+                            <td>{this.state.data.product?.cost}</td>
+                          </tr> */}
+                        </tbody>
+                      </Table>
+                    </Col>
+                  </Row>
+                </div>
+                <div className="invoice-total-table">
+                  <Row>
+                    <Col
+                      sm={{ size: 7, offset: 5 }}
+                      xs={{ size: 7, offset: 5 }}
+                    >
+                      <Table responsive borderless>
+                        <tbody>
+                          {/* <tr>
+                            <th>Sell Price</th>
+                            <td>114000 USD</td>
+                          </tr> */}
 
-                    <input
-                      style={{ marginRight: "3px" }}
-                      type="radio"
-                      name="status"
-                      value="Inactive"
-                    />
-                    <span style={{ marginRight: "3px" }}>Inactive</span>
-                  </div>
-                </Col> */}
-              </Row>
-              <Row>
-                <Col lg="6" md="6" sm="6" className="mb-2">
-                  <Button.Ripple
-                    color="primary"
-                    type="submit"
-                    className="mr-1 mb-1"
-                  >
-                    Add Product
-                  </Button.Ripple>
-                </Col>
-              </Row>
-            </Form>
-          </CardBody>
-        </Card>
-      </div>
+                          <tr>
+                            <th>Total Quantity</th>
+                            <td>{this.state.data?.product_qty}</td>
+                          </tr>
+                          <tr>
+                            <th>Grand Total</th>
+                            <td>{this.state.data?.product_price}</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </Col>
+                  </Row>
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </React.Fragment>
     );
   }
 }
+
+export default InvoiceDesign;

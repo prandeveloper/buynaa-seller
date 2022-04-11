@@ -226,23 +226,23 @@ class PurchaceInvoiceList extends React.Component {
         },
       },
 
-      // {
-      //   headerName: "Status",
-      //   field: "status",
-      //   filter: true,
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return params.value === "Active" ? (
-      //       <div className="badge badge-pill badge-success">
-      //         {params.data.status}
-      //       </div>
-      //     ) : params.value === "Inactive" ? (
-      //       <div className="badge badge-pill badge-warning">
-      //         {params.data.status}
-      //       </div>
-      //     ) : null;
-      //   },
-      // },
+      {
+        headerName: "Status",
+        field: "status",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return params.value === "Approve" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data.status}
+            </div>
+          ) : params.value === "Decline" ? (
+            <div className="badge badge-pill badge-warning">
+              {params.data.status}
+            </div>
+          ) : null;
+        },
+      },
 
       {
         headerName: "Actions",
@@ -343,7 +343,7 @@ class PurchaceInvoiceList extends React.Component {
                   Purchase Order Invoice List
                 </h1>
               </Col>
-              <Col>
+              {/* <Col>
                 <Button
                   className=" btn btn-danger float-right"
                   onClick={() =>
@@ -354,7 +354,7 @@ class PurchaceInvoiceList extends React.Component {
                 >
                   Add Purchase Invoice
                 </Button>
-              </Col>
+              </Col> */}
             </Row>
             <CardBody>
               {this.state.rowData === null ? null : (

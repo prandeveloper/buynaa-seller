@@ -20,6 +20,11 @@ const ecommerceDashboard = lazy(() =>
   import("./views/dashboard/ecommerce/EcommerceDashboard")
 );
 const home = lazy(() => import("./views/pages/landingPage/Home"));
+const termOfUse = lazy(() => import("./views/pages/landingPage/TermOfUse"));
+const faqPage = lazy(() => import("./views/pages/landingPage/FaqPage"));
+const pricacyPolicy = lazy(() =>
+  import("./views/pages/landingPage/PricacyPolicy")
+);
 // const sellerDashboard = lazy(()=> import("./views/dashboard/seller/SellerDeshboard"));
 // My Component starts here
 
@@ -141,6 +146,7 @@ const addSubscription = lazy(() =>
 const choosePaymentOption = lazy(() =>
   import("./views/apps/subscription/ChoosePaymentOption")
 );
+const subsList = lazy(() => import("./views/apps/subscription/SubsList"));
 
 const pageLayout = lazy(() => import("./views/apps/pageLayout/PageLayout"));
 const stockReport = lazy(() => import("./views/apps/report/StockReport"));
@@ -246,6 +252,9 @@ const Login = lazy(() => import("./views/pages/authentication/login/Login"));
 
 const forgotPassword = lazy(() =>
   import("./views/pages/authentication/ForgotPassword")
+);
+const newPassword = lazy(() =>
+  import("./views/pages/authentication/NewPassword")
 );
 const resetPassword = lazy(() =>
   import("./views/pages/authentication/ResetPassword")
@@ -729,7 +738,7 @@ class AppRouter extends React.Component {
                     component={newPurchaseOrder}
                   />
                   <AppRoute
-                    path="/app/purchase/editPurchaseOrder"
+                    path="/app/purchase/editPurchaseOrder/:id"
                     component={editPurchaseOrder}
                   />
                   <AppRoute
@@ -745,7 +754,7 @@ class AppRouter extends React.Component {
                     component={addpurchaseInvoice}
                   />
                   <AppRoute
-                    path="/app/purchase/invoiceDesign"
+                    path="/app/purchase/invoiceDesign/:id"
                     component={invoiceDesign}
                   />
                   <AppRoute
@@ -786,6 +795,10 @@ class AppRouter extends React.Component {
                   <AppRoute
                     path="/app/subscription/choosePaymentOption"
                     component={choosePaymentOption}
+                  />
+                  <AppRoute
+                    path="/app/subscription/subsList"
+                    component={subsList}
                   />
                   <AppRoute
                     path="/app/report/stockReport"
@@ -1015,14 +1028,35 @@ class AppRouter extends React.Component {
                 </>
               ) : (
                 <>
-                  <Redirect to="/pages/login" />
+                  {/* <Redirect to="/pages/login" /> */}
+                  <AppRoute exact={true} path="/" component={home} fullLayout />
                   <AppRoute path="/pages/login" component={Login} fullLayout />
+
                   <AppRoute
                     path="/pages/forgot-password"
                     component={forgotPassword}
                     fullLayout
                   />
-
+                  <AppRoute
+                    path="/pages/newPassword"
+                    component={newPassword}
+                    fullLayout
+                  />
+                  <AppRoute
+                    path="/pages/landingPage/pricacyPolicy"
+                    component={pricacyPolicy}
+                    fullLayout
+                  />
+                  <AppRoute
+                    path="/pages/landingPage/termOfUse"
+                    component={termOfUse}
+                    fullLayout
+                  />
+                  <AppRoute
+                    path="/pages/landingPage/faqPage"
+                    component={faqPage}
+                    fullLayout
+                  />
                   <AppRoute
                     path="/misc/error/404"
                     component={error404}

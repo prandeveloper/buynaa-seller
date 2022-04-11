@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../../assets/style/style.css";
+import glogo from "../../../assets/img/logo/glogo.png";
 
 const Footer = () => {
   return (
@@ -16,10 +17,13 @@ const Footer = () => {
       <div className="footer_section2">
         <div className="container">
           <div className="row">
-            <div className="col-xl-3 col-lg-4 col-md-6">
+            <div className="col-xl-3 col-lg-3 col-md-3">
               <div className="footer-widget">
-                <div className="footer_logo text-center">
-                  <h2 className="text-light font-weight-bold">Buynaa</h2>
+                <div className="footer_logo text-center ">
+                  {/* <h2 className="text-light font-weight-bold">Buynaa</h2> */}
+                  <a href="/">
+                    <img src={glogo} alt="" className="st-logo" width={150} />
+                  </a>
                 </div>
                 <div className="fw-text ">
                   <div className="footer-contact-list mt-20">
@@ -38,7 +42,7 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <div className="col-xl-2 col-lg-4 col-md-6">
+            {/* <div className="col-xl-2 col-lg-4 col-md-6">
               <div className="footer-widget">
                 <div className="fw-title mb-25 text-center">
                   <h5>Commuinity</h5>
@@ -57,37 +61,42 @@ const Footer = () => {
                   </ul>
                 </div>
               </div>
-            </div>
-            <div className="col-xl-2 col-lg-4 col-md-6">
+            </div> */}
+            <div className="col-lg-3 col-md-3 text-left"></div>
+            <div className="col-lg-3 col-md-3 text-left">
               <div className="footer-widget">
-                <div className="fw-title mb-25 text-center">
+                <div className="fw-title mb-25">
                   <h5>Legal</h5>
                 </div>
                 <div className="fw-links">
                   <ul className="quick">
                     <li>
-                      <Link to="/terms">Terms Of Use</Link>
+                      <Link to="/pages/landingPage/termOfUse">
+                        Terms Of Use
+                      </Link>
                     </li>
                     <li>
-                      <Link to="/policy">Privacy & policy</Link>
+                      <Link to="/pages/landingPage/pricacyPolicy">
+                        Privacy & policy
+                      </Link>
                     </li>
                     <li>
                       <a href="#"></a>
                     </li>
 
                     <li>
-                      <Link to="/contact">Contact Us</Link>
+                      <Link to="/pages/landingPage/faqPage">Faq</Link>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div className="col-xl-2 col-lg-4 col-md-6">
-              <div className="footer-widget">
-                <div className="fw-title mb-25 text-center">
+            <div className="col-lg-3 col-md-3 text-left">
+              <div className="footer-widget" style={{ textAling: "left" }}>
+                <div className="fw-title mb-25 ">
                   <h5>Help & Support</h5>
                 </div>
-                <div className="fw-links">
+                <div className="fw-links" style={{ textAling: "left" }}>
                   <ul className="quick">
                     <li>
                       <Link to="/become_teacher">Support</Link>
@@ -96,19 +105,19 @@ const Footer = () => {
                       <Link to="/become_teacher">Help Center</Link>
                     </li>
                     <li>
-                      <Link to="/become_teacher">Faq</Link>
+                      <Link to="/contact">Contact Us</Link>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center align-items-center">
+            {/* <div className="col-xl-3 col-lg-4 col-md-6 d-flex justify-content-center align-items-center">
               <div className="footer-widget ">
                 <div className="fw-title mb-25">
                   <h1>Subscribe Now</h1>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="w-100 footer_copyright">

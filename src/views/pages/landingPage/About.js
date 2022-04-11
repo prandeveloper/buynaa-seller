@@ -32,7 +32,7 @@ const About = () => {
         </Row>
         <CardGroup className="pcard">
           <Row>
-            <Col lg="4">
+            <Col lg="4" md="8" sm="12">
               <Card className="p-3 w-100 h-100">
                 <img
                   src={logo1}
@@ -48,7 +48,7 @@ const About = () => {
                 </CardBody>
               </Card>
             </Col>
-            <Col lg="4">
+            <Col lg="4" md="8" sm="12">
               <Card className="p-3 w-100 h-100">
                 <img
                   src={logo2}
@@ -64,7 +64,7 @@ const About = () => {
                 </CardBody>
               </Card>
             </Col>
-            <Col lg="4">
+            <Col lg="4" md="8" sm="12">
               <Card className="p-3 w-100 h-100">
                 <img
                   src={logo3}
@@ -79,7 +79,7 @@ const About = () => {
                 </CardBody>
               </Card>
             </Col>
-            <Col lg="4">
+            <Col lg="4" md="8" sm="12">
               <Card className="p-3 w-100 h-100">
                 <img
                   src={logo4}
@@ -95,7 +95,7 @@ const About = () => {
                 </CardBody>
               </Card>
             </Col>
-            <Col lg="4">
+            <Col lg="4" md="8" sm="12">
               <Card className="p-3 w-100 h-100">
                 <img
                   src={logo5}
@@ -108,7 +108,7 @@ const About = () => {
                 </CardBody>
               </Card>
             </Col>
-            <Col lg="4">
+            <Col lg="4" md="8" sm="12">
               <Card className="p-3 w-100 h-100">
                 <img
                   src={logo6}
@@ -124,7 +124,7 @@ const About = () => {
                 </CardBody>
               </Card>
             </Col>
-            <Col lg="4">
+            <Col lg="4" md="8" sm="12">
               <Card className="p-3 w-100 h-100">
                 <img
                   src={logo7}
@@ -140,7 +140,7 @@ const About = () => {
                 </CardBody>
               </Card>
             </Col>
-            <Col lg="4">
+            <Col lg="4" md="8" sm="12">
               <Card className="p-3 w-100 h-100">
                 <img
                   src={logo8}
@@ -155,7 +155,7 @@ const About = () => {
                 </CardBody>
               </Card>
             </Col>
-            <Col lg="4">
+            <Col lg="4" md="8" sm="12">
               <Card className="p-3 w-100 h-100">
                 <img
                   src={logo9}

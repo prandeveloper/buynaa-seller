@@ -5,20 +5,33 @@ import {
   Input,
   Row,
   Col,
+  Button,
   UncontrolledDropdown,
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
-  Button,
 } from "reactstrap";
-import axios from "axios";
+import axiosConfig from "../../../axiosConfig";
 import { ContextLayout } from "../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
-import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
+import {
+  Edit,
+  Trash2,
+  // Clipboard,
+  // Printer,
+  // Download,
+  ChevronDown,
+  Eye,
+} from "react-feather";
+//import classnames from "classnames";
 import { history } from "../../../history";
 import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../assets/scss/pages/users.scss";
-class AllUsers extends React.Component {
+import Moment from "react-moment";
+import "moment-timezone";
+import moment from "moment";
+
+class SubsList extends React.Component {
   state = {
     rowData: [],
     paginationPageSize: 20,
@@ -30,187 +43,105 @@ class AllUsers extends React.Component {
       resizable: true,
       suppressMenu: true,
     },
+
     columnDefs: [
       {
-        headerName: "S.No.",
-        field: "",
+        headerName: "S.No",
         valueGetter: "node.rowIndex + 1",
-        width: 110,
+        field: "node.rowIndex + 1",
+        width: 80,
         filter: true,
         // checkboxSelection: true,
         // headerCheckboxSelectionFilteredOnly: true,
         // headerCheckboxSelection: true,
       },
+
       {
-        headerName: "Employee Name",
-        field: "name",
+        headerName: "Order ID",
+        field: "cus_orderId",
         filter: true,
-        width: 120,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.emp?.name}</span>
+              <span>{params.data.cus_orderId}</span>
             </div>
           );
         },
       },
       {
-        headerName: "Dashboard",
-        field: "dashboard",
+        headerName: "Order Date",
+        field: "createdAt",
         filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.dashboard ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Store",
-        field: "store",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.store ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Contacts",
-        field: "contacts",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.contacts ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Inventory",
-        field: "inventory",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.inventory ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Stock Control",
-        field: "stockControl",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.stockControl ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Coupons",
-        field: "coupons",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.coupons ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Subscription",
-        field: "subscription",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.subscription ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Billing",
-        field: "billing",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.billing ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Order",
-        field: "order",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.order ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Purcahse",
-        field: "purchase",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.purchase ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Reports",
-        field: "reports",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.reports ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Permission",
-        field: "rolesPermission",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.rolesPermission ? "checked" : ""
-          } />`;
-        },
-      },
-      {
-        headerName: "Setting",
-        field: "setting",
-        filter: true,
-        editable: false,
-        width: 120,
-        cellRenderer: (params) => {
-          return `<input type='checkbox' ${
-            params.data.setting ? "checked" : ""
-          } />`;
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{moment(this.state.data?.createdAt).format("ll")}</span>
+            </div>
+          );
         },
       },
 
+      {
+        headerName: "Payment Type",
+        field: "orderId.payment_type",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center">
+              <span>{params.data?.payment_type}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Customer Name",
+        field: "cartId.customer.firstname",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div>
+              <span>
+                {params.data?.customer?.firstname}{" "}
+                {params.data?.customer?.lastname}
+              </span>
+            </div>
+          );
+        },
+      },
+
+      {
+        headerName: "Status",
+        field: "status",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return params.value === "Order Placed" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data.status}
+            </div>
+          ) : params.value === "Delivered" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data.status}
+            </div>
+          ) : params.value === "Pending" ? (
+            <div className="badge badge-pill badge-primary">
+              {params.data.status}
+            </div>
+          ) : params.value === "Cancelled" ? (
+            <div className="badge badge-pill badge-danger">
+              {params.data.status}
+            </div>
+          ) : params.value === "Completed" ? (
+            <div className="badge badge-pill badge-warning">
+              {params.data.status}
+            </div>
+          ) : null;
+        },
+      },
       {
         headerName: "Actions",
         field: "transactions",
@@ -218,27 +149,24 @@ class AllUsers extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              {/* <Eye
+              <Eye
                 className="mr-50"
                 size={20}
                 onClick={() =>
-                  history.push(
-                    `/app/users/roleAndPermission/viewRole/${params.data._id}`
-                  )
+                  history.push(`/app/order/viewOrder/${params.data._id}`)
                 }
-              /> */}
-              {/* <Edit
+              />
+              <Edit
                 className="mr-50"
                 size={20}
                 onClick={() =>
-                  history.push("/app/users/roleAndPermission/editRole")
+                  history.push(`/app/order/editOrder/${params.data._id}`)
                 }
-              /> */}
+              />
               <Trash2
                 size={20}
                 onClick={() => {
                   let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
                   this.gridApi.updateRowData({ remove: selectedData });
                 }}
               />
@@ -249,27 +177,23 @@ class AllUsers extends React.Component {
     ],
   };
 
-  async componentDidMount() {
-    await axios
-      .get("http://35.154.86.59/api/admin/allrole", {
-        headers: {
-          "auth-adtoken": localStorage.getItem("auth-adtoken"),
-        },
-      })
-      .then((response) => {
-        let rowData = response.data.data;
-        this.setState({ rowData });
-      });
-  }
+  // async componentDidMount() {
+  //   await axiosConfig
+  //     .get("/orderbyseller", {
+  //       headers: {
+  //         "auth-adtoken": localStorage.getItem("auth-adtoken"),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       let rowData = response.data.data;
 
-  async runthisfunction(id) {
-    console.log(id);
-    await axios
-      .get(`http://35.154.86.59/api/admin/del_role/${id}`)
-      .then((response) => {
-        console.log(response);
-      });
-  }
+  //       this.setState({ rowData });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response);
+  //     });
+  // }
 
   onGridReady = (params) => {
     this.gridApi = params.api;
@@ -294,7 +218,6 @@ class AllUsers extends React.Component {
       });
     }
   };
-
   render() {
     const { rowData, columnDefs, defaultColDef } = this.state;
     return (
@@ -305,17 +228,17 @@ class AllUsers extends React.Component {
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                  All User Roles
+                  Subscription
                 </h1>
               </Col>
-              <Col>
+              {/* <Col>
                 <Button
                   className=" btn btn-danger float-right"
-                  onClick={() => history.push("/app/roleAndPermission/addRole")}
+                  onClick={() => history.push("/app/order/addorder")}
                 >
-                  Add New User
+                  Add New Order
                 </Button>
-              </Col>
+              </Col> */}
             </Row>
             <CardBody>
               {this.state.rowData === null ? null : (
@@ -413,4 +336,5 @@ class AllUsers extends React.Component {
     );
   }
 }
-export default AllUsers;
+
+export default SubsList;

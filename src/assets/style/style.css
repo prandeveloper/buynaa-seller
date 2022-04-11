@@ -80,6 +80,9 @@ Section Title Area Style*/
 .footer_section2 h5 {
   color: white;
 }
+ul.quick {
+  padding: 0px;
+}
 .quick li {
   list-style: none;
 }
