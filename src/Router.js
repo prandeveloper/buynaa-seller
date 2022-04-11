@@ -21,6 +21,7 @@ const ecommerceDashboard = lazy(() =>
 );
 const home = lazy(() => import("./views/pages/landingPage/Home"));
 const termOfUse = lazy(() => import("./views/pages/landingPage/TermOfUse"));
+const faqPage = lazy(() => import("./views/pages/landingPage/FaqPage"));
 const pricacyPolicy = lazy(() =>
   import("./views/pages/landingPage/PricacyPolicy")
 );
@@ -530,7 +531,7 @@ class AppRouter extends React.Component {
                     path="/ecommerce-dashboard"
                     component={ecommerceDashboard}
                   />
-                  {/* <AppRoute exact={true} path="/" component={home} fullLayout /> */}
+                  <AppRoute exact={true} path="/" component={home} fullLayout />
                   {/* <AppRoute path="/pages/home" component={home} fullLayout /> */}
                   {/* <AppRoute exact path="/seller-dashboard" component={sellerDashboard} /> */}
                   {/* My components starts all my app components*/}
@@ -1049,6 +1050,11 @@ class AppRouter extends React.Component {
                   <AppRoute
                     path="/pages/landingPage/termOfUse"
                     component={termOfUse}
+                    fullLayout
+                  />
+                  <AppRoute
+                    path="/pages/landingPage/faqPage"
+                    component={faqPage}
                     fullLayout
                   />
                   <AppRoute

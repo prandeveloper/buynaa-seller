@@ -32,7 +32,7 @@ export default function WonderNavbar(props) {
         </NavbarBrand>
         <NavbarToggler onClick={toggle} className="st-tog" />
         <Collapse isOpen={isOpen} navbar>
-          <Nav navbar style={{ marginLeft: "30rem" }}>
+          <Nav navbar style={{ marginLeft: "40rem" }}>
             <NavItem>
               <NavLink className="st-nav" href="/pages/register/register">
                 <Button color="primary">REGISTER NOW</Button>

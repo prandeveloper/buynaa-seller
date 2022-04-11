@@ -28,7 +28,7 @@ export class Home extends Component {
         <section className="bg-light">
           <Container fluid>
             <Row>
-              <Col lg="4">
+              <Col lg="4" md="6" sm="12">
                 <div className="" style={{}}>
                   <div className="slider-item">
                     <div
@@ -51,7 +51,7 @@ export class Home extends Component {
                   </div>
                 </div>
               </Col>
-              <Col lg="8">
+              <Col lg="8" md="6" sm="12">
                 {" "}
                 <div>
                   <img

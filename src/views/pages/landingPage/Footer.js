@@ -85,7 +85,7 @@ const Footer = () => {
                     </li>
 
                     <li>
-                      <Link to="/contact">Contact Us</Link>
+                      <Link to="/pages/landingPage/faqPage">Faq</Link>
                     </li>
                   </ul>
                 </div>
@@ -105,7 +105,7 @@ const Footer = () => {
                       <Link to="/become_teacher">Help Center</Link>
                     </li>
                     <li>
-                      <Link to="/become_teacher">Faq</Link>
+                      <Link to="/contact">Contact Us</Link>
                     </li>
                   </ul>
                 </div>

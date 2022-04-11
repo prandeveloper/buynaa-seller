@@ -116,7 +116,6 @@ class NavbarUser extends React.PureComponent {
               <span className="user-name text-bold-600">
                 {this.state.data.name}
               </span>
-              <span className="user-status">Available</span>
             </div>
             <span data-tour="user">
               <img

@@ -89,7 +89,7 @@ export class UserProfile extends Component {
       })
       .then((response) => {
         console.log(response);
-        //this.props.history.push("/analyticsDashboard");
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error.response);
@@ -186,39 +186,6 @@ export class UserProfile extends Component {
                     </FormGroup>
                   </Col>
                 </Col>
-
-                {/* <Col lg="6" md="6">
-                  <FormGroup>
-                    <Label>Brand Image / Logo</Label>
-                    <Input type="file" onChange={this.onChangeHandler} />
-                  </FormGroup>
-                </Col>
-
-                <Col lg="6" md="6" sm="6" className="mb-2 mt-1">
-                  <FormGroup>
-                    <Label className="mb-1">Status</Label>
-                    <div
-                      className="form-label-group"
-                      onChange={(e) => this.changeHandler1(e)}
-                    >
-                      <input
-                        style={{ marginRight: "3px" }}
-                        type="radio"
-                        name="status"
-                        value="Active"
-                      />
-                      <span style={{ marginRight: "20px" }}>Active</span>
-
-                      <input
-                        style={{ marginRight: "3px" }}
-                        type="radio"
-                        name="status"
-                        value="Inactive"
-                      />
-                      <span style={{ marginRight: "3px" }}>Inactive</span>
-                    </div>
-                  </FormGroup>
-                </Col> */}
               </Row>
               <Row>
                 <Button.Ripple
