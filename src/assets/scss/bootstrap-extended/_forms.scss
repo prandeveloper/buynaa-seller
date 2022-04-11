@@ -54,8 +54,8 @@ textarea.form-control {
 
 // Form control Scscc
 .form-control {
-  border: 1px solid darken($body-bg, 12%);
-  color: darken($body-bg, 60%);
+  border: 1px solid darken($body-bg, 20%);
+  color: darken($body-bg, 100%);
 }
 // Used for Card - Check it and remove if not used
 .form-section {
@@ -152,6 +152,7 @@ select.form-control {
 
 // For customs-select remove double arrow && padding
 .custom-select {
+  fontsize: 22px;
   padding: 0.7rem 1.7rem 0.6rem 0.7rem;
   -moz-appearance: none; // For firefox
   -webkit-appearance: none; // for chorme
