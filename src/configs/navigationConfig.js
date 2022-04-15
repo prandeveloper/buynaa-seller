@@ -67,7 +67,7 @@ const navigationConfig = [
     icon: <Icon.ShoppingCart size={20} />,
     children: [
       {
-        id: "subscription",
+        id: "choosePaymentOption",
         title: "Add Subscriptions",
         type: "item",
         icon: <Icon.Circle size={12} />,
@@ -124,7 +124,7 @@ const navigationConfig = [
         navLink: "/app/contactUs/customer/customerList",
       },
       {
-        id: "Add supplier",
+        id: "addSupplier",
         title: "Add Supplier",
         type: "item",
         icon: <Icon.Circle size={12} />,
@@ -149,19 +149,11 @@ const navigationConfig = [
     icon: <Icon.ShoppingBag size={20} />,
     children: [
       {
-        id: "Products",
+        id: "products",
         title: "Products",
         type: "collapse",
         icon: <Icon.Circle size={20} />,
         children: [
-          {
-            id: "productsList",
-            title: "Product List",
-            type: "item",
-            icon: <Icon.Circle size={12} />,
-            permissions: ["admin", "editor"],
-            navLink: "/app/products/product/productsList",
-          },
           {
             id: "AddMyProduct",
             title: "Add Product",
@@ -170,48 +162,49 @@ const navigationConfig = [
             permissions: ["admin", "editor"],
             navLink: "/app/products/product/AddMyProduct",
           },
+          {
+            id: "productsList",
+            title: "Product List",
+            type: "item",
+            icon: <Icon.Circle size={12} />,
+            permissions: ["admin", "editor"],
+            navLink: "/app/products/product/productsList",
+          },
+        ],
+      },
+      {
+        id: "stockControl",
+        title: "Stock Control",
+        type: "collapse",
+        icon: <Icon.Layers size={20} />,
+        children: [
+          {
+            id: "stockTransferRequest",
+            title: "stock Transfer Request",
+            type: "item",
+            icon: <Icon.Circle size={12} />,
+            permissions: ["admin", "editor"],
+            navLink: "/app/stockControl/stockTransferRequest",
+          },
+          {
+            id: "stockAdjustment",
+            title: "stock Adjustment",
+            type: "item",
+            icon: <Icon.Circle size={12} />,
+            permissions: ["admin", "editor"],
+            navLink: "/app/stockControl/stockAdjustment",
+          },
         ],
       },
     ],
   },
-  {
-    id: "stockControl",
-    title: "Stock Control",
-    type: "collapse",
-    icon: <Icon.Layers size={20} />,
-    children: [
-      {
-        id: "stockTransferRequest",
-        title: "stock Transfer Request",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/stockControl/stockTransferRequest",
-      },
-      {
-        id: "stockAdjustment",
-        title: "stock Adjustment",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/stockControl/stockAdjustment",
-      },
-    ],
-  },
+
   {
     id: "coupons",
     title: "Coupons",
     type: "collapse",
     icon: <Icon.Gift size={20} />,
     children: [
-      //     // {
-      //     //   id: "specialOfferList",
-      //     //   title: "Offers",
-      //     //   type: "item",
-      //     //   icon: <Icon.Circle size={12} />,
-      //     //   permissions: ["admin", "editor"],
-      //     //   navLink: "/app/offerAndCoupon/specialOffer/specialOfferList",
-      //     // },
       {
         id: "couponsList",
         title: "Coupons",
@@ -296,7 +289,7 @@ const navigationConfig = [
     icon: <Icon.TrendingUp size={20} />,
     children: [
       {
-        id: "newPruchaseOrder",
+        id: "newPurchaseOrder",
         title: "New Purchase Order",
         type: "item",
         icon: <Icon.Circle size={12} />,
@@ -452,15 +445,6 @@ const navigationConfig = [
     ],
   },
 
-  // {
-  //   id: "notificationList",
-  //   title: "Notifications",
-  //   type: "item",
-  //   icon: <Icon.Circle size={12} />,
-  //   permissions: ["admin", "editor"],
-  //   navLink: "/app/notification/notificationList",
-  // },
-
   {
     id: "rolesPermission",
     title: "Permission",
@@ -525,7 +509,7 @@ const navigationConfig = [
         navLink: "/app/reason/reasonList",
       },
       {
-        id: "color",
+        id: "colourList",
         title: "Colour",
         type: "item",
         icon: <Icon.Circle size={12} />,
@@ -533,7 +517,7 @@ const navigationConfig = [
         navLink: "/app/colour/colourList",
       },
       {
-        id: "size",
+        id: "sizeList",
         title: "Size",
         type: "item",
         icon: <Icon.Circle size={12} />,

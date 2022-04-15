@@ -20,7 +20,7 @@ import axiosConfig from "../../../axiosConfig";
 import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../assets/scss/pages/users.scss";
 
-class NewPurchaseOrder extends React.Component {
+class EditPurchase extends React.Component {
   constructor(props) {
     super(props);
 
@@ -117,6 +117,33 @@ class NewPurchaseOrder extends React.Component {
   };
 
   async componentDidMount() {
+    //get one api
+    let { id } = this.props.match.params;
+    axiosConfig
+      .get(`/getonepurchaseorder/${id}`, {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        console.log(response.data.data);
+        this.setState({
+          supplier: response.data.data.supplier.company,
+          stock_due: response.data.data.stock_due,
+          gstIn: response.data.data.gstIn,
+          payment_due: response.data.data.payment_due,
+          amount: response.data.data.amount,
+          transportation_cost: response.data.data.transportation_cost,
+          grand_total: response.data.data.grand_total,
+          instructions: response.data.data.instructions,
+          costG: response.data.data.product?.cost_price[0],
+          grand_total: response.data.data.grand_total,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    ///get list
     axiosConfig
       .get("/Getsupplier", {
         headers: {
@@ -438,7 +465,7 @@ class NewPurchaseOrder extends React.Component {
     return (
       <Card>
         <CardHeader>
-          <h1>New Purchase Order</h1>
+          <h1>Edit Purchase Order</h1>
         </CardHeader>
         <CardBody>
           <Wizard enableAllSteps onFinish={this.submitHandler} steps={steps} />
@@ -454,4 +481,4 @@ class NewPurchaseOrder extends React.Component {
   }
 }
 
-export default NewPurchaseOrder;
+export default EditPurchase;

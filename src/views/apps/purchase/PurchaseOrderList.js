@@ -114,7 +114,7 @@ class PurchaseOrderList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              <Edit
+              <Eye
                 className="mr-50"
                 size="25px"
                 color="blue"
@@ -122,6 +122,14 @@ class PurchaseOrderList extends React.Component {
                   history.push(
                     `/app/purchase/editPurchaseOrder/${params.data._id}`
                   )
+                }
+              />
+              <Edit
+                className="mr-50"
+                size="25px"
+                color="blue"
+                onClick={() =>
+                  history.push(`/app/purchase/editPurchase/${params.data._id}`)
                 }
               />
             </div>

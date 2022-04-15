@@ -282,7 +282,7 @@ export class AddStockAdjustment extends Component {
                       {/* ) : null} */}
 
                       <Row>
-                        <Col md="2" sm="12">
+                        <Col lg="2" md="2" sm="12">
                           <FormGroup>
                             <Label> Product Name </Label>
                             <CustomInput
@@ -304,7 +304,7 @@ export class AddStockAdjustment extends Component {
                             </CustomInput>
                           </FormGroup>
                         </Col>
-                        <Col md="2" sm="12">
+                        <Col lg="2" md="2" sm="12">
                           <FormGroup>
                             <Label> Available Qty </Label>
                             <Input
@@ -319,7 +319,7 @@ export class AddStockAdjustment extends Component {
                             />
                           </FormGroup>
                         </Col>
-                        <Col md="2" sm="12">
+                        <Col lg="1" md="1" sm="12">
                           <FormGroup>
                             <Label> Quantity </Label>
                             <Input
@@ -335,7 +335,7 @@ export class AddStockAdjustment extends Component {
                             />
                           </FormGroup>
                         </Col>
-                        <Col md="1" sm="12">
+                        <Col lg="2" md="2" sm="12">
                           <FormGroup>
                             <Label> Value </Label>
                             <Input
@@ -351,7 +351,7 @@ export class AddStockAdjustment extends Component {
                             />
                           </FormGroup>
                         </Col>
-                        <Col md="2" sm="12">
+                        <Col lg="2" md="2" sm="12">
                           <FormGroup>
                             <Label> Comment </Label>
                             <Input
@@ -368,9 +368,10 @@ export class AddStockAdjustment extends Component {
                           </FormGroup>
                         </Col>
                         <Col
-                          md="1"
+                          lg="2"
+                          md="2"
                           sm="6"
-                          className="p-1 ml-4  d-flex justify-content-end"
+                          className="p-1 ml-3  d-flex justify-content-end"
                         >
                           <Button
                             className="ml-1"

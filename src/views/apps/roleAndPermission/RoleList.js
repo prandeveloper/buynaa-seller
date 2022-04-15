@@ -79,6 +79,30 @@ class AllUsers extends React.Component {
         },
       },
       {
+        headerName: "Add Store",
+        field: "addMyStore",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.addMyStore ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Store List",
+        field: "storeList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.storeList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
         headerName: "Contacts",
         field: "contacts",
         filter: true,
@@ -87,6 +111,78 @@ class AllUsers extends React.Component {
         cellRenderer: (params) => {
           return `<input type='checkbox' ${
             params.data.contacts ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Add Employee",
+        field: "addEmployee",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.addEmployee ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Employee List",
+        field: "employeeList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.employeeList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Add Customer",
+        field: "addCustomer",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.addCustomer ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Customer List",
+        field: "customerList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.customerList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Add Supplier",
+        field: "addSupplier",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.addSupplier ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Supplier List",
+        field: "supplierList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.supplierList ? "checked" : ""
           } />`;
         },
       },
@@ -103,6 +199,42 @@ class AllUsers extends React.Component {
         },
       },
       {
+        headerName: "Product",
+        field: "products",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.products ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Add Product",
+        field: "AddMyProduct",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.AddMyProduct ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Product List",
+        field: "productsList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.productsList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
         headerName: "Stock Control",
         field: "stockControl",
         filter: true,
@@ -111,6 +243,30 @@ class AllUsers extends React.Component {
         cellRenderer: (params) => {
           return `<input type='checkbox' ${
             params.data.stockControl ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Stock Transfer",
+        field: "stockTransferRequest",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.stockTransferRequest ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Stock Adjustment",
+        field: "stockAdjustment",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.stockAdjustment ? "checked" : ""
           } />`;
         },
       },
@@ -135,6 +291,30 @@ class AllUsers extends React.Component {
         cellRenderer: (params) => {
           return `<input type='checkbox' ${
             params.data.subscription ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Add Subscription",
+        field: "choosePaymentOption",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.choosePaymentOption ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Subscription List",
+        field: "subsList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.subsList ? "checked" : ""
           } />`;
         },
       },
@@ -175,6 +355,42 @@ class AllUsers extends React.Component {
         },
       },
       {
+        headerName: "New Purchase Order",
+        field: "newPurchaseOrder",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.newPurchaseOrder ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Purchase Order List",
+        field: "purchaseOrderList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.purchaseOrderList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Purchase Invoice List",
+        field: "purchaseInvoiceList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.purchaseInvoiceList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
         headerName: "Reports",
         field: "reports",
         filter: true,
@@ -199,6 +415,30 @@ class AllUsers extends React.Component {
         },
       },
       {
+        headerName: "Role List",
+        field: "roleList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.roleList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Add Role",
+        field: "addRole",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.addRole ? "checked" : ""
+          } />`;
+        },
+      },
+      {
         headerName: "Setting",
         field: "setting",
         filter: true,
@@ -207,6 +447,114 @@ class AllUsers extends React.Component {
         cellRenderer: (params) => {
           return `<input type='checkbox' ${
             params.data.setting ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Brand",
+        field: "brandList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.brandList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Tax",
+        field: "taxList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.taxList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Unit",
+        field: "unitList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.unitList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Reason",
+        field: "reasonList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.reasonList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Colour",
+        field: "colourList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.colourList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Size",
+        field: "sizeList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.sizeList ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Category",
+        field: "productCategory",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.productCategory ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Material",
+        field: "material",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.material ? "checked" : ""
+          } />`;
+        },
+      },
+      {
+        headerName: "Warehouse",
+        field: "warehouseList",
+        filter: true,
+        editable: false,
+        width: 120,
+        cellRenderer: (params) => {
+          return `<input type='checkbox' ${
+            params.data.warehouseList ? "checked" : ""
           } />`;
         },
       },
@@ -259,6 +607,7 @@ class AllUsers extends React.Component {
       .then((response) => {
         let rowData = response.data.data;
         this.setState({ rowData });
+        console.log(rowData);
       });
   }
 

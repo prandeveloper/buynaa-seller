@@ -101,7 +101,7 @@ class BillingInvoice extends React.Component {
                 <Row>
                   <Col md="6" sm="12" className="pt-1">
                     <Media className="pt-1">
-                      <img src={logo} alt="logo" />
+                      <img src={logo} alt="logo" width={150} />
                     </Media>
                   </Col>
                   <Col md="6" sm="12" className="text-right">

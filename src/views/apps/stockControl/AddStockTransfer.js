@@ -285,7 +285,7 @@ export class AddStockTransfer extends Component {
                   {this.state.addTextbox.map((item, index) => (
                     <div>
                       {/* {index ? ( */}
-                      <div id="btn">
+                      {/* <div id="btn">
                         <Row>
                           <Col
                             lg="6"
@@ -301,11 +301,11 @@ export class AddStockTransfer extends Component {
                             </Button>
                           </Col>
                         </Row>
-                      </div>
+                      </div> */}
                       {/* ) : null} */}
 
                       <Row>
-                        <Col md="2" sm="12">
+                        <Col lg="2" md="2" sm="12">
                           <FormGroup>
                             <Label> Product Name </Label>
                             <CustomInput
@@ -327,7 +327,7 @@ export class AddStockTransfer extends Component {
                             </CustomInput>
                           </FormGroup>
                         </Col>
-                        <Col md="2" sm="12">
+                        <Col lg="2" md="2" sm="12">
                           <FormGroup>
                             <Label> SKU </Label>
                             <Input
@@ -342,7 +342,7 @@ export class AddStockTransfer extends Component {
                             />
                           </FormGroup>
                         </Col>
-                        <Col md="2" sm="12">
+                        <Col lg="2" md="2" sm="12">
                           <FormGroup>
                             <Label> HSN </Label>
                             <Input
@@ -358,7 +358,7 @@ export class AddStockTransfer extends Component {
                             />
                           </FormGroup>
                         </Col>
-                        <Col md="1" sm="12">
+                        <Col lg="1" md="1" sm="12">
                           <FormGroup>
                             <Label> Quantity </Label>
                             <Input
@@ -375,7 +375,7 @@ export class AddStockTransfer extends Component {
                           </FormGroup>
                         </Col>
 
-                        <Col md="2" sm="12">
+                        <Col lg="1" md="1" sm="12">
                           <FormGroup>
                             <Label> GST </Label>
                             <Input
@@ -391,7 +391,7 @@ export class AddStockTransfer extends Component {
                             />
                           </FormGroup>
                         </Col>
-                        <Col md="2" sm="12">
+                        <Col lg="2" md="2" sm="12">
                           <FormGroup>
                             <Label> Amount </Label>
                             <Input
@@ -408,9 +408,10 @@ export class AddStockTransfer extends Component {
                           </FormGroup>
                         </Col>
                         <Col
+                          lg="1"
                           md="1"
                           sm="6"
-                          className="p-2 d-flex justify-content-end"
+                          className="p-1 ml-3 d-flex justify-content-end"
                         >
                           <Button
                             color="danger"
@@ -424,6 +425,20 @@ export class AddStockTransfer extends Component {
                   ))}
                 </div>
               </Row>
+              <div id="btn">
+                <Row>
+                  <Col
+                    lg="12"
+                    md="12"
+                    sm="12"
+                    className="mb-2 d-flex align-items-sm-end justify-content-end"
+                  >
+                    <Button color="primary" onClick={() => this.addControls()}>
+                      Add
+                    </Button>
+                  </Col>
+                </Row>
+              </div>
               <Row className="d-flex justify-content-end">
                 <Col lg="4">
                   <FormGroup>
