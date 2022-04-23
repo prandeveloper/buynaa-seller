@@ -90,10 +90,6 @@ class BillingInvoice extends React.Component {
               <FileText size="15" />
               <span className="align-middle ml-50">Print</span>
             </Button>
-            {/* <Button.Ripple color="primary" outline>
-              <Download size="15" />
-              <span className="align-middle ml-50">Download</span>
-            </Button.Ripple> */}
           </Col>
           <Col className="invoice-wrapper" sm="12">
             <Card className="invoice-page">
@@ -151,24 +147,30 @@ class BillingInvoice extends React.Component {
                       <p>{this.state.data?.shipping_address?.pincode}</p>
                     </div>
                   </Col>
-                  {/* <Col md="6" sm="12" className="text-right">
-                    <h5>Microsion Technologies Pvt. Ltd.</h5>
+                  <Col md="6" sm="12" className="text-right">
+                    <h5>{this.state.data?.product?.store?.store_name}</h5>
                     <div className="company-info my-2">
-                      <p>9 N. Sherwood Court</p>
-                      <p>Elyria, OH</p>
-                      <p>94203</p>
+                      <p>
+                        {this.state.data?.product?.store?.address_line1} ,{" "}
+                        {this.state.data?.product?.store?.address_line2}
+                      </p>
+                      <p>
+                        {this.state.data?.product?.store?.city},{" "}
+                        {this.state.data?.product?.store?.state}
+                      </p>
+                      <p>{this.state.data?.product?.store?.pincode}</p>
                     </div>
                     <div className="company-contact">
                       <p>
                         <Mail size={15} className="mr-50" />
-                        hello@pixinvent.net
+                        {this.state.data?.product?.store?.store_email}
                       </p>
                       <p>
                         <Phone size={15} className="mr-50" />
-                        +91 999 999 9999
+                        {this.state.data?.product?.store?.phone_no}
                       </p>
                     </div>
-                  </Col> */}
+                  </Col>
                 </Row>
                 <div className="invoice-items-table pt-1">
                   <Row>

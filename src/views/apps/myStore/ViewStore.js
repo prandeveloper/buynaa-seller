@@ -15,8 +15,6 @@ import { Edit, Trash } from "react-feather";
 import { Link } from "react-router-dom";
 import axiosConfig from "../../../axiosConfig";
 import Carousel from "react-elastic-carousel";
-//import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy";
-//import userImg from "../../../assets/img/portrait/small/avatar-s-18.jpg";
 import "../../../assets/scss/pages/users.scss";
 import { history } from "../../../history";
 
@@ -33,7 +31,6 @@ class ViewStore extends React.Component {
     axiosConfig
       .get(`/getonestore/${id}`)
       .then((response) => {
-        // console.log(response.data);
         console.log(response.data.data);
         this.setState({ data: response.data.data });
       })
@@ -70,6 +67,7 @@ class ViewStore extends React.Component {
                       src={i}
                       alt="user avatar"
                       height="400"
+                      width="700"
                     />
                   ))}
                 </Carousel>
@@ -80,11 +78,11 @@ class ViewStore extends React.Component {
                     <Media className="d-sm-flex d-block">
                       <Media className="mt-md-1 mt-0" left>
                         <Col className="mt-1 pl-0" sm="12">
-                          <h1 col-sm-6 className="float-left">
+                          <h2 col-sm-6 className="float-left">
                             Shop Logo
-                          </h1>
+                          </h2>
                         </Col>
-                        {this.state.data?.shoplogo?.map((logo) => (
+                        {this.state.data?.shoplogo_img?.map((logo) => (
                           <Col className="mt-1 pl-0" md="4" sm="12">
                             <Media
                               className="rounded mr-2"
@@ -97,95 +95,93 @@ class ViewStore extends React.Component {
                           </Col>
                         ))}
                         <Col className="mt-1 pl-0" sm="12">
-                          <h1 col-sm-6 className="float-left">
+                          <h2 col-sm-6 className="float-left">
                             GST Image
-                          </h1>
+                          </h2>
                         </Col>
+                        {this.state.data?.gstImg?.map((gst) => (
+                          <Col className="mt-1 pl-0" md="4" sm="12">
+                            <Media
+                              className="rounded mr-2"
+                              object
+                              src={gst}
+                              alt="Generic placeholder image"
+                              height="150"
+                              width="180"
+                            />
+                          </Col>
+                        ))}
                         <Col className="mt-1 pl-0" sm="12">
-                          <Media
-                            className="rounded mr-2"
-                            object
-                            src={this.state.data.gstImg}
-                            alt="Generic placeholder image"
-                            height="150"
-                            width="180"
-                          />
-                        </Col>
-                        <Col className="mt-1 pl-0" sm="12">
-                          <h1 col-sm-6 className="float-left">
+                          <h2 col-sm-6 className="float-left">
                             Store PAN Image
-                          </h1>
+                          </h2>
                         </Col>
+                        {this.state.data?.storepan_img?.map((pan) => (
+                          <Col className="mt-1 pl-0" md="4" sm="12">
+                            <Media
+                              className="rounded mr-2"
+                              object
+                              src={pan}
+                              alt="Generic placeholder image"
+                              height="150"
+                              width="180"
+                            />
+                          </Col>
+                        ))}
                         <Col className="mt-1 pl-0" sm="12">
-                          <Media
-                            className="rounded mr-2"
-                            object
-                            src={this.state.data.storepan_img}
-                            alt="Generic placeholder image"
-                            height="150"
-                            width="180"
-                          />
-                        </Col>
-                        <Col className="mt-1 pl-0" sm="12">
-                          <h1 col-sm-6 className="float-left">
+                          <h2 col-sm-6 className="float-left">
                             Tradelicence Image
-                          </h1>
+                          </h2>
                         </Col>
+                        {this.state.data?.tradelicence_img?.map((trade) => (
+                          <Col className="mt-1 pl-0" md="4" sm="12">
+                            <Media
+                              className="rounded mr-2"
+                              object
+                              src={trade}
+                              alt="Generic placeholder image"
+                              height="150"
+                              width="180"
+                            />
+                          </Col>
+                        ))}
                         <Col className="mt-1 pl-0" sm="12">
-                          <Media
-                            className="rounded mr-2"
-                            object
-                            src={this.state.data.tradelicence_img}
-                            alt="Generic placeholder image"
-                            height="150"
-                            width="180"
-                          />
-                        </Col>
-                        <Col className="mt-1 pl-0" sm="12">
-                          <h1 col-sm-6 className="float-left">
+                          <h2 col-sm-6 className="float-left">
                             Company PAN Image
-                          </h1>
+                          </h2>
                         </Col>
+                        {this.state.data?.companypan_img?.map((coimg) => (
+                          <Col className="mt-1 pl-0" md="4" sm="12">
+                            <Media
+                              className="rounded mr-2"
+                              object
+                              src={coimg}
+                              alt="Generic placeholder image"
+                              height="150"
+                              width="180"
+                            />
+                          </Col>
+                        ))}
                         <Col className="mt-1 pl-0" sm="12">
-                          <Media
-                            className="rounded mr-2"
-                            object
-                            src={this.state.data.companypan_img}
-                            alt="Generic placeholder image"
-                            height="150"
-                            width="180"
-                          />
-                        </Col>
-                        <Col className="mt-1 pl-0" sm="12">
-                          <h1 col-sm-6 className="float-left">
+                          <h2 col-sm-6 className="float-left">
                             Adress Proof Image
-                          </h1>
+                          </h2>
                         </Col>
-                        <Col className="mt-1 pl-0" sm="12">
-                          <Media
-                            className="rounded mr-2"
-                            object
-                            src={this.state.data.address_proof_img}
-                            alt="Generic placeholder image"
-                            height="150"
-                            width="180"
-                          />
-                        </Col>
+                        {this.state.data?.address_proof_img?.map((address) => (
+                          <Col className="mt-1 pl-0" md="4" sm="12">
+                            <Media
+                              className="rounded mr-2"
+                              object
+                              src={address}
+                              alt="Generic placeholder image"
+                              height="150"
+                              width="180"
+                            />
+                          </Col>
+                        ))}
                       </Media>
                     </Media>
                   </Col>
-                  {/* <Col className="mt-1 pl-0" sm="12">
-                    <Button.Ripple className="mr-1" color="primary" outline>
-                      <Link to="/app/store/stores/editStore">
-                        <Edit size={15} />
-                        <span className="align-middle ml-50">Edit</span>
-                      </Link>
-                    </Button.Ripple>
-                    <Button.Ripple color="danger" outline>
-                      <Trash size={15} />
-                      <span className="align-middle ml-50">Delete</span>
-                    </Button.Ripple>
-                  </Col> */}
                 </Row>
               </CardBody>
             </Card>
@@ -350,12 +346,6 @@ class ViewStore extends React.Component {
                           Address Proof
                         </div>
                         <div>{this.state.data.address_proof}</div>
-                      </div>
-                      <div className="d-flex user-info">
-                        <div className="user-info-title font-weight-bold">
-                          short Order
-                        </div>
-                        <div>{this.state.data.sortorder}</div>
                       </div>
                     </div>
                   </Col>

@@ -155,13 +155,14 @@ class Login extends React.Component {
                   </FormGroup>
 
                   <div className="m-2">
-                    <h6
+                    <a
+                      className="font-weight-bolder"
                       onClick={() => {
                         history.push("/pages/forgot-password");
                       }}
                     >
-                      Forget Password
-                    </h6>
+                      Forget Password ?
+                    </a>
                   </div>
 
                   <div className="d-flex justify-content-between">

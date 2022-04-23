@@ -71,7 +71,7 @@ export default function ChoosePaymentOption() {
             contact,
           };
           console.log(res);
-          Axios.post("http://35.154.86.59/api/admin/addSubscription", data, {
+          Axios.post("http://35.154.86.59/api/admin/addSubscriptions", data, {
             headers: {
               "auth-adtoken": localStorage.getItem("auth-adtoken"),
             },
