@@ -24,15 +24,20 @@ import {
 const About = () => {
   return (
     <div>
-      <Container className="pt-5 ">
+      <Container className="pt-5">
         <Row>
-          <Col lg="12" className="d-flex justify-content-center pb-5">
+          <Col
+            lg="12"
+            md="12"
+            sm="12"
+            className="d-flex justify-content-center align-items-center pb-5"
+          >
             <h1>Why Use Buynaa Stock Management Solution ?</h1>
           </Col>
         </Row>
         <CardGroup className="pcard">
           <Row>
-            <Col lg="4" md="8" sm="12">
+            <Col lg="4" md="8" xs="12">
               <Card className="p-3 w-100 h-100">
                 <img
                   src={logo1}
