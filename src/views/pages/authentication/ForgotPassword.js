@@ -41,9 +41,14 @@ class ForgotPassword extends React.Component {
       })
       .then((response) => {
         console.log(response);
-        //localStorage.setItem("user", response.data.data._id);
-        //localStorage.setItem("auth-adtoken", this.state.token || "null");
-        this.props.history.push(`/app/myStore/addStorePage`);
+        if (
+          response.data.token != null &&
+          response.data.token !== "" &&
+          response.data.token != undefined
+        ) {
+          localStorage.setItem("auth-adtoken", response.data.token);
+          this.props.history.push("/pages/newPassword");
+        }
       })
       .catch((error) => {
         console.log(error.status);
@@ -65,23 +70,9 @@ class ForgotPassword extends React.Component {
     e.preventDefault();
 
     this.setState({ otp: false });
-    // axios
-    //   .post("http://35.154.86.59/api/admin/signup", this.state)
-    //   .then((response) => {
-    //     console.log(response);
-    //     // localStorage.setItem("token", response.data.token);
-    //     this.setState({
-    //       "auth-adtoken": response.data.token,
-    //     });
-    //     //this.props.history.push("/");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //   });
-
     axios
       .post("http://35.154.86.59/api/admin/sendotp", {
-        email: this.state.email,
+        mobile: this.state.mobile,
       })
       .then((response) => {
         console.log(response);

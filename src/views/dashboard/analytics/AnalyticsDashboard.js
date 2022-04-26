@@ -56,24 +56,23 @@ class AnalyticsDashboard extends React.Component {
     this.state = {
       product: {},
       store: {},
-      customer:{},
+      customer: {},
       staff: {},
-      supplier:{},
+      supplier: {},
       brand: {},
-      coupons:{},
+      coupons: {},
     };
   }
 
   componentDidMount() {
     axiosConfig
-      .get("/totalproductbyseller",{
-        headers:{
-          "auth-adtoken" : localStorage.getItem("auth-adtoken")
-        }
+      .get("/totalproductbyseller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
       })
       .then((response) => {
-        console.log(response.data);
-        //console.log(response.data.data);
+        //console.log(response.data);
         this.setState({ product: response.data });
       })
       .catch((error) => {
@@ -81,28 +80,27 @@ class AnalyticsDashboard extends React.Component {
       });
 
     axiosConfig
-      .get("/totalstorebyseller",{
-        headers:{
-          "auth-adtoken" : localStorage.getItem("auth-adtoken")
-        }
+      .get("/totalstorebyseller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
       })
       .then((response) => {
-        console.log(response.data);
-        //console.log(response.data.data);
+        //console.log(response.data);
         this.setState({ store: response.data });
       })
       .catch((error) => {
         console.log(error);
       });
 
-      axios.get("http://35.154.86.59/api/user/totalcustomerbyseller",{
-        headers:{
-          "auth-adtoken" : localStorage.getItem("auth-adtoken")
-        }
+    axios
+      .get("http://35.154.86.59/api/user/totalcustomerbyseller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
       })
       .then((response) => {
-        console.log(response.data);
-        //console.log(response.data.data);
+        //console.log(response.data);
         this.setState({ customer: response.data });
       })
       .catch((error) => {
@@ -110,29 +108,27 @@ class AnalyticsDashboard extends React.Component {
       });
 
     axiosConfig
-      .get("/totalempbyseller",{
-        headers:{
-          "auth-adtoken" : localStorage.getItem("auth-adtoken")
-        }
+      .get("/totalempbyseller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
       })
       .then((response) => {
-        console.log(response.data);
-        //console.log(response.data.data);
+        //console.log(response.data);
         this.setState({ staff: response.data });
       })
       .catch((error) => {
         console.log(error);
       });
 
-      axiosConfig
-      .get("/totalsupplierBytoken",{
-        headers:{
-          "auth-adtoken" : localStorage.getItem("auth-adtoken")
-        }
+    axiosConfig
+      .get("/totalsupplierBytoken", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
       })
       .then((response) => {
-        console.log(response.data);
-        //console.log(response.data.data);
+        //console.log(response.data);
         this.setState({ supplier: response.data });
       })
       .catch((error) => {
@@ -140,29 +136,27 @@ class AnalyticsDashboard extends React.Component {
       });
 
     axiosConfig
-      .get("/totalbrandbyseller",{
-        headers:{
-          "auth-adtoken" : localStorage.getItem("auth-adtoken")
-        }
+      .get("/totalbrandbyseller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
       })
       .then((response) => {
-        console.log(response.data);
-        //console.log(response.data.data);
+        //console.log(response.data);
         this.setState({ brand: response.data });
       })
       .catch((error) => {
         console.log(error);
       });
 
-      axiosConfig
-      .get("/totalCoupon",{
-        headers:{
-          "auth-adtoken" : localStorage.getItem("auth-adtoken")
-        }
+    axiosConfig
+      .get("/totalCoupon", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
       })
       .then((response) => {
-        console.log(response.data);
-        //console.log(response.data.data);
+        //console.log(response.data);
         this.setState({ coupons: response.data });
       })
       .catch((error) => {

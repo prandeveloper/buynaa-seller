@@ -13,6 +13,7 @@ import {
   CardFooter,
   CardLink,
 } from "reactstrap";
+import swal from "sweetalert";
 
 import users from "../../../assets/img/logo/users.png";
 
@@ -38,7 +39,7 @@ export default function ChoosePaymentOption() {
         console.log(error.response);
       });
 
-    Axios.get("http://35.154.86.59/api/admin/rapay/2")
+    Axios.get("http://35.154.86.59/api/admin/rapay/1")
       .then((response) => {
         console.log(response.data);
         setOrderId(response.data?.order.id);
@@ -78,8 +79,16 @@ export default function ChoosePaymentOption() {
           })
             .then((response) => {
               console.log(response);
-              localStorage.setItem("hasSubscribed", true);
-              history.push("/analyticsDashboard");
+              console.log(response.data);
+              console.log(response.data.seller.hasSubscribed);
+              localStorage.setItem(
+                hasSubscribed,
+                response.data.seller.hasSubscribed
+              );
+              let info = response.data.data.razorpay_payment_id;
+              if (info !== null && info !== "" && info !== undefined) {
+                swal("Success", "Payment Success", "success");
+              }
             })
             .catch((error) => {
               console.log(error.response);
@@ -170,7 +179,7 @@ export default function ChoosePaymentOption() {
                       profile.name,
                       profile.email,
                       profile.mobile,
-                      "200",
+                      "100",
                       true,
                       "365days"
                     )

@@ -24,10 +24,8 @@ class NewPassword extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      mobile: "",
       password: "",
-      username: "",
+      cnfrm_password: "",
     };
   }
   handlechange = (e) => {
@@ -37,33 +35,20 @@ class NewPassword extends React.Component {
 
   loginHandler = (e) => {
     e.preventDefault();
-
     axios
-      .post("http://35.154.86.59/api/admin/sellerlogin", this.state)
+      .post("http://35.154.86.59/api/admin/fogetpassword", this.state, {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
       .then((response) => {
-        console.log(response.data.msg);
-
-        localStorage.setItem("auth-adtoken", response.data.token);
-        localStorage.setItem(
-          "hasSubscribed",
-          response.data.user?.hasSubscribed
-        );
-        history.push("/analyticsDashboard");
+        console.log(response);
+        window.localStorage.removeItem("auth-adtoken");
+        swal("Success", "Password Updated Successfully", "success");
+        this.props.history.push("/pages/login");
       })
       .catch((error) => {
         console.log(error.response);
-        console.log(error.response.data.msg);
-        if (
-          error.response.data.msg !== "success" &&
-          error.response.data.msg != "success"
-        ) {
-          swal(
-            "Wrong UserName or Password",
-            "Enter Correct Email / Number or Password",
-            "error"
-          );
-          this.props.history.push("/pages/login");
-        }
       });
   };
   render() {
@@ -90,9 +75,9 @@ class NewPassword extends React.Component {
                   <FormGroup className="form-label-group position-relative has-icon-left">
                     <Input
                       type="text"
-                      name="username"
-                      placeholder="E-mail / Phone"
-                      value={this.state.username}
+                      name="password"
+                      placeholder="New Password"
+                      value={this.state.password}
                       onChange={this.handlechange}
                       required
                     />
@@ -100,17 +85,17 @@ class NewPassword extends React.Component {
                   <Label>Confirm Password</Label>
                   <FormGroup className="form-label-group position-relative has-icon-left">
                     <Input
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      value={this.state.password}
+                      type="text"
+                      name="cnfrm_password"
+                      placeholder="Confirm Password"
+                      value={this.state.cnfrm_password}
                       onChange={this.handlechange}
                       required
                     />
                   </FormGroup>
 
                   <div className="d-flex justify-content-between">
-                    <Button.Ripple
+                    {/* <Button.Ripple
                       color="primary"
                       outline
                       onClick={() => {
@@ -118,7 +103,7 @@ class NewPassword extends React.Component {
                       }}
                     >
                       Login
-                    </Button.Ripple>
+                    </Button.Ripple> */}
                     <Button.Ripple color="primary" type="submit">
                       Update
                     </Button.Ripple>

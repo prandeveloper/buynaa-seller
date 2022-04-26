@@ -1030,6 +1030,11 @@ class AppRouter extends React.Component {
                     component={resetPassword}
                     fullLayout
                   />
+                  <AppRoute
+                    path="/pages/newPassword"
+                    component={newPassword}
+                    fullLayout
+                  />
                 </>
               ) : (
                 <>
@@ -1042,11 +1047,11 @@ class AppRouter extends React.Component {
                     component={forgotPassword}
                     fullLayout
                   />
-                  <AppRoute
+                  {/* <AppRoute
                     path="/pages/newPassword"
                     component={newPassword}
                     fullLayout
-                  />
+                  /> */}
                   <AppRoute
                     path="/pages/landingPage/pricacyPolicy"
                     component={pricacyPolicy}

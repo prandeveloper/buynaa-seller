@@ -51,148 +51,118 @@ class SubsList extends React.Component {
         field: "node.rowIndex + 1",
         width: 80,
         filter: true,
-        // checkboxSelection: true,
-        // headerCheckboxSelectionFilteredOnly: true,
-        // headerCheckboxSelection: true,
       },
 
+      // {
+      //   headerName: "Order ID",
+      //   field: "cus_orderId",
+      //   filter: true,
+      //   width: 200,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="d-flex align-items-center cursor-pointer">
+      //         <span>{params.data.cus_orderId}</span>
+      //       </div>
+      //     );
+      //   },
+      // },
       {
-        headerName: "Order ID",
-        field: "cus_orderId",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.cus_orderId}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Order Date",
+        headerName: "Subs. Date",
         field: "createdAt",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{moment(this.state.data?.createdAt).format("ll")}</span>
+              <span>{moment(params.data?.createdAt).format("ll")}</span>
             </div>
           );
         },
       },
 
       {
-        headerName: "Payment Type",
-        field: "orderId.payment_type",
+        headerName: "Amount",
+        field: "sub_plan",
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center">
-              <span>{params.data?.payment_type}</span>
+              <span>{params.data?.sub_plan}</span>
             </div>
           );
         },
       },
       {
-        headerName: "Customer Name",
-        field: "cartId.customer.firstname",
+        headerName: "Description",
+        field: "description",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div>
               <span>
-                {params.data?.customer?.firstname}{" "}
-                {params.data?.customer?.lastname}
+                {params.data?.customer?.firstname} {params.data?.description}
               </span>
             </div>
           );
         },
       },
 
-      {
-        headerName: "Status",
-        field: "status",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return params.value === "Order Placed" ? (
-            <div className="badge badge-pill badge-success">
-              {params.data.status}
-            </div>
-          ) : params.value === "Delivered" ? (
-            <div className="badge badge-pill badge-success">
-              {params.data.status}
-            </div>
-          ) : params.value === "Pending" ? (
-            <div className="badge badge-pill badge-primary">
-              {params.data.status}
-            </div>
-          ) : params.value === "Cancelled" ? (
-            <div className="badge badge-pill badge-danger">
-              {params.data.status}
-            </div>
-          ) : params.value === "Completed" ? (
-            <div className="badge badge-pill badge-warning">
-              {params.data.status}
-            </div>
-          ) : null;
-        },
-      },
-      {
-        headerName: "Actions",
-        field: "transactions",
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="actions cursor-pointer">
-              <Eye
-                className="mr-50"
-                size={20}
-                onClick={() =>
-                  history.push(`/app/order/viewOrder/${params.data._id}`)
-                }
-              />
-              <Edit
-                className="mr-50"
-                size={20}
-                onClick={() =>
-                  history.push(`/app/order/editOrder/${params.data._id}`)
-                }
-              />
-              <Trash2
-                size={20}
-                onClick={() => {
-                  let selectedData = this.gridApi.getSelectedRows();
-                  this.gridApi.updateRowData({ remove: selectedData });
-                }}
-              />
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Actions",
+      //   field: "transactions",
+      //   width: 150,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="actions cursor-pointer">
+      //         {/* <Eye
+      //           className="mr-50"
+      //           size={20}
+      //           onClick={() =>
+      //             history.push(`/app/order/viewOrder/${params.data._id}`)
+      //           }
+      //         />
+      //         <Edit
+      //           className="mr-50"
+      //           size={20}
+      //           onClick={() =>
+      //             history.push(`/app/order/editOrder/${params.data._id}`)
+      //           }
+      //         />
+      //         <Trash2
+      //           size={20}
+      //           onClick={() => {
+      //             let selectedData = this.gridApi.getSelectedRows();
+      //             this.gridApi.updateRowData({ remove: selectedData });
+      //           }}
+      //         /> */}
+      //       </div>
+      //     );
+      //   },
+      // },
     ],
   };
 
-  // async componentDidMount() {
-  //   await axiosConfig
-  //     .get("/orderbyseller", {
-  //       headers: {
-  //         "auth-adtoken": localStorage.getItem("auth-adtoken"),
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       let rowData = response.data.data;
+  async componentDidMount() {
+    await axiosConfig
+      .get("/Getsubbytoken", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        let rowData = response.data.data;
+        this.setState({ rowData });
+        console.log(rowData);
+      });
+  }
 
-  //       this.setState({ rowData });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.response);
-  //     });
+  // async runthisfunction(id) {
+  //   console.log(id);
+  //   await axiosConfig.get(`/del_productcategory/${id}`).then((response) => {
+  //     console.log(response);
+  //   });
   // }
 
   onGridReady = (params) => {
