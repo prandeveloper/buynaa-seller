@@ -34,6 +34,10 @@ class EditPurchase extends React.Component {
       transportation_cost: "",
       grand_total: "",
       instructions: "",
+      status: "",
+      upload_Invoice: "",
+      selectedFile: null,
+      selectedName: "",
       supplierC: [],
       productC: [],
       productG: [""],
@@ -84,6 +88,12 @@ class EditPurchase extends React.Component {
     this.setState({ [e.target.name]: dum });
   };
 
+  onChangeHandler = (event) => {
+    this.setState({ selectedFile: event.target.files[0] });
+    this.setState({ selectedName: event.target.files[0].name });
+    console.log(event.target.files[0]);
+  };
+
   submitHandler = (e) => {
     e.preventDefault();
     var product = [];
@@ -98,11 +108,29 @@ class EditPurchase extends React.Component {
         cost_price: this.state.costG[i],
       });
     }
-    var option = this.state;
-    option.product = product;
-    console.log("Option", option);
+    // var option = this.state;
+    // option.product = product;
+    // console.log("Option", option);
+    const data = new FormData();
+    data.append("supplier", this.state.supplier);
+    data.append("stock_due", this.state.stock_due);
+    data.append("gstIn", this.state.gstIn);
+    data.append("payment_due", this.state.payment_due);
+    data.append("amount", this.state.amount);
+    data.append("transportation_cost", this.state.transportation_cost);
+    data.append("grand_total", this.state.grand_total);
+    data.append("instructions", this.state.instructions);
+    data.append("status", this.state.status);
+    if (this.state.selectedFile !== null) {
+      data.append(
+        "upload_Invoice",
+        this.state.selectedFile,
+        this.state.selectedName
+      );
+    }
+    let { id } = this.props.match.params;
     axiosConfig
-      .post("/addnewpurchaseorder", option, {
+      .post(`/editnewpurchaseorder/${id}`, data, {
         headers: {
           "auth-adtoken": localStorage.getItem("auth-adtoken"),
         },
@@ -116,7 +144,7 @@ class EditPurchase extends React.Component {
       });
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     //get one api
     let { id } = this.props.match.params;
     axiosConfig
@@ -128,20 +156,19 @@ class EditPurchase extends React.Component {
       .then((response) => {
         console.log(response.data.data);
         this.setState({
-          supplier: response.data.data.supplier.company,
-          stock_due: response.data.data.stock_due,
+          supplier: response.data.data.supplier._id,
           gstIn: response.data.data.gstIn,
           payment_due: response.data.data.payment_due,
           amount: response.data.data.amount,
+          stock_due: response.data.data.stock_due,
           transportation_cost: response.data.data.transportation_cost,
           grand_total: response.data.data.grand_total,
           instructions: response.data.data.instructions,
-          costG: response.data.data.product?.cost_price[0],
-          grand_total: response.data.data.grand_total,
+          status: response.data.data.status,
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
     ///get list
     axiosConfig
@@ -151,7 +178,7 @@ class EditPurchase extends React.Component {
         },
       })
       .then((response) => {
-        console.log(response.data.data);
+        //console.log(response.data.data);
         this.setState({ supplierC: response.data.data });
       })
       .catch((error) => {
@@ -165,7 +192,7 @@ class EditPurchase extends React.Component {
         },
       })
       .then((response) => {
-        console.log(response.data.data);
+        //console.log(response.data.data);
         this.setState({ productC: response.data.data });
       })
       .catch((error) => {
@@ -183,7 +210,6 @@ class EditPurchase extends React.Component {
               <FormGroup>
                 <Label> Select Supplier </Label>
                 <CustomInput
-                  required
                   type="select"
                   name="supplier"
                   placeholder="Select Supplier"
@@ -203,7 +229,6 @@ class EditPurchase extends React.Component {
               <FormGroup>
                 <Label> GSTIN </Label>
                 <Input
-                  required
                   type="text"
                   placeholder="GSTIN"
                   name="gstIn"
@@ -216,7 +241,6 @@ class EditPurchase extends React.Component {
               <FormGroup>
                 <Label> Amount </Label>
                 <Input
-                  required
                   type="number"
                   name="amount"
                   placeholder="Amount"
@@ -234,7 +258,6 @@ class EditPurchase extends React.Component {
               <FormGroup>
                 <Label> Stock Due </Label>
                 <Input
-                  required
                   type="number"
                   name="stock_due"
                   placeholder="Stock Due"
@@ -247,13 +270,34 @@ class EditPurchase extends React.Component {
               <FormGroup>
                 <Label> Payment Due </Label>
                 <Input
-                  required
                   type="number"
                   name="payment_due"
                   placeholder="Payment Due"
                   value={this.state.payment_due}
                   onChange={this.changeHandler}
                 />
+              </FormGroup>
+            </Col>
+            <Col md="6" sm="12">
+              <FormGroup>
+                <Label> Status </Label>
+                <CustomInput
+                  type="select"
+                  name="status"
+                  placeholder="Payment Due"
+                  value={this.state.status}
+                  onChange={this.changeHandler}
+                >
+                  <option value="Pending">Pending</option>
+                  <option value="Approve">Approve</option>
+                  <option value="Decline">Decline</option>
+                </CustomInput>
+              </FormGroup>
+            </Col>
+            <Col lg="6" md="6" sm="12">
+              <FormGroup>
+                <Label>Upload Invoice</Label>
+                <CustomInput type="file" onChange={this.onChangeHandler} />
               </FormGroup>
             </Col>
           </Row>
@@ -294,7 +338,6 @@ class EditPurchase extends React.Component {
                     <FormGroup>
                       <Label> Product Name </Label>
                       <CustomInput
-                        required
                         type="select"
                         name="productG"
                         placeholder=" Product Name"
@@ -316,7 +359,6 @@ class EditPurchase extends React.Component {
                     <FormGroup>
                       <Label> SKU </Label>
                       <Input
-                        required
                         type="number"
                         name="skuG"
                         placeholder="SKU"
@@ -331,7 +373,6 @@ class EditPurchase extends React.Component {
                     <FormGroup>
                       <Label> HSN </Label>
                       <Input
-                        required
                         type="number"
                         rows="5"
                         name="hsmG"
@@ -347,7 +388,6 @@ class EditPurchase extends React.Component {
                     <FormGroup>
                       <Label> Quantity </Label>
                       <Input
-                        required
                         type="number"
                         rows="5"
                         name="qtyG"
@@ -363,7 +403,6 @@ class EditPurchase extends React.Component {
                     <FormGroup>
                       <Label> Cost price </Label>
                       <Input
-                        required
                         type="number"
                         rows="5"
                         name="costG"
@@ -379,7 +418,6 @@ class EditPurchase extends React.Component {
                     <FormGroup>
                       <Label> GST </Label>
                       <Input
-                        required
                         type="text"
                         rows="5"
                         name="gstG"
@@ -395,7 +433,6 @@ class EditPurchase extends React.Component {
                     <FormGroup>
                       <Label> Discount </Label>
                       <Input
-                        required
                         type="number"
                         rows="5"
                         name="discountG"
@@ -421,7 +458,6 @@ class EditPurchase extends React.Component {
               <FormGroup>
                 <Label> Transportation Cost </Label>
                 <Input
-                  required
                   type="number"
                   name="transportation_cost"
                   placeholder="Transportation Cost"
@@ -435,7 +471,6 @@ class EditPurchase extends React.Component {
               <FormGroup>
                 <Label> Grand Total </Label>
                 <Input
-                  required
                   type="number"
                   placeholder="Grand Total"
                   name="grand_total"
@@ -449,7 +484,6 @@ class EditPurchase extends React.Component {
               <FormGroup>
                 <Label> Instructions </Label>
                 <Input
-                  required
                   type="text"
                   placeholder="Instructions"
                   name="instructions"

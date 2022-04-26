@@ -135,7 +135,7 @@ class EditPurchaseOrder extends React.Component {
                   </Col>
                 </Row>
                 <Form onSubmit={this.submitHandler}>
-                  <Row className="my-3">
+                  {/* <Row className="my-3">
                     <Col md="6" sm="12">
                       <FormGroup>
                         <Label>Change Order Status</Label>
@@ -167,7 +167,7 @@ class EditPurchaseOrder extends React.Component {
                         Update
                       </Button>
                     </Col>
-                  </Row>
+                  </Row> */}
                 </Form>
 
                 <Card>
