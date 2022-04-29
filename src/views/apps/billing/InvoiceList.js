@@ -229,17 +229,14 @@ class InvoiceList extends React.Component {
       })
       .then((response) => {
         let rowData = response.data.data;
-        console.log(rowData);
         this.setState({ rowData });
       });
   }
 
   // async runthisfunction(id) {
-  //   console.log(id);
   //   await axiosConfig
   //     .get(`http://35.154.86.59/api/user/delcustomer/${id}`)
   //     .then(response => {
-  //       console.log(response);
   //     });
   // }
   onGridReady = (params) => {

@@ -458,7 +458,11 @@ class EditStore extends React.Component {
     }
     let { id } = this.props.match.params;
     axiosConfig
-      .post(`/editstore/${id}`, data)
+      .post(`/editstore/${id}`, data, {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
       .then((response) => {
         console.log(response);
         swal("Success!", "Submitted SuccessFull!", "success");
@@ -466,7 +470,7 @@ class EditStore extends React.Component {
       })
       .catch((error) => {
         swal("Error!", "Error Received", "error");
-        console.log(error);
+        console.log(error.response);
       });
   };
 

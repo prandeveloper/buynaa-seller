@@ -85,12 +85,9 @@ class NavbarUser extends React.PureComponent {
         },
       })
       .then((response) => {
-        //console.log(response);
         this.setState({ data: response.data.data });
       })
-      .catch((error) => {
-        console.log(error.response);
-      });
+      .catch((error) => {});
   }
 
   removeItem = (id) => {

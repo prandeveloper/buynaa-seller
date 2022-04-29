@@ -54,7 +54,6 @@ export class AddCategory extends Component {
       );
     }
     //   for (var value of data.values()) {
-    //     console.log(value);
     //  }
     axiosConfig
       .post("/addproductcategory", data, {
@@ -63,11 +62,10 @@ export class AddCategory extends Component {
         },
       })
       .then((response) => {
-        console.log(response);
         this.props.history.push("/app/category/categoryList");
       })
       .catch((error) => {
-        console.log(error);
+        error;
       });
   };
   render() {

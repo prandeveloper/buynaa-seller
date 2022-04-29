@@ -97,7 +97,11 @@ class BillingInvoice extends React.Component {
                 <Row>
                   <Col md="6" sm="12" className="pt-1">
                     <Media className="pt-1">
-                      <img src={logo} alt="logo" width={150} />
+                      <img
+                        src={this.state.data?.product?.store?.shoplogo_img}
+                        alt="logo"
+                        width={150}
+                      />
                     </Media>
                   </Col>
                   <Col md="6" sm="12" className="text-right">
@@ -195,13 +199,6 @@ class BillingInvoice extends React.Component {
                             <td>{this.state.data?.product_qty}</td>
                             <td>{this.state.data?.product_price}</td>
                           </tr>
-
-                          {/* <tr>
-                            <td>Newsletter template design</td>
-                            <td>{this.state.data.product?.name}</td>
-                            <td>{this.state.data.product?.qty}</td>
-                            <td>{this.state.data.product?.cost}</td>
-                          </tr> */}
                         </tbody>
                       </Table>
                     </Col>
@@ -223,6 +220,13 @@ class BillingInvoice extends React.Component {
                           <tr>
                             <th>Total Quantity</th>
                             <td>{this.state.data?.product_qty}</td>
+                          </tr>
+                          <tr>
+                            <th>Total GST</th>
+                            <td>
+                              {this.state.data?.product?.gstrate?.value *
+                                this.state.data?.product_qty}
+                            </td>
                           </tr>
                           <tr>
                             <th>Grand Total</th>

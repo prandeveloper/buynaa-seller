@@ -52,13 +52,49 @@ class PurchaseOrderList extends React.Component {
         field: "orderId",
         //filter: true,
         filter: "agSetColumnFilter",
-        width: 200,
+        width: 250,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
               <div className="">
                 <span>
                   <span>{params.data.orderId}</span>
+                </span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Supplier First Name",
+        field: "supplier.first_name",
+        //filter: true,
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>
+                  <span>{params.data.supplier?.first_name}</span>
+                </span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Supplier Last Name",
+        field: "supplier.last_name",
+        //filter: true,
+        filter: "agSetColumnFilter",
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <div className="">
+                <span>
+                  <span>{params.data.supplier?.last_name}</span>
                 </span>
               </div>
             </div>
@@ -87,30 +123,30 @@ class PurchaseOrderList extends React.Component {
         },
       },
 
-      {
-        headerName: "Invoice",
-        field: "invoice",
-        width: 250,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="actions cursor-pointer">
-              <Button
-                color="primary"
-                className="mr-2"
-                onClick={() =>
-                  history.push(`/app/purchase/invoiceDesign/${params.data._id}`)
-                }
-              >
-                Create Invoice
-              </Button>
-            </div>
-          );
-        },
-      },
+      // {
+      //   headerName: "Invoice",
+      //   field: "invoice",
+      //   width: 250,
+      //   cellRendererFramework: (params) => {
+      //     return (
+      //       <div className="actions cursor-pointer">
+      //         <Button
+      //           color="primary"
+      //           className="mr-2"
+      //           onClick={() =>
+      //             history.push(`/app/purchase/invoiceDesign/${params.data._id}`)
+      //           }
+      //         >
+      //           Create Invoice
+      //         </Button>
+      //       </div>
+      //     );
+      //   },
+      // },
       {
         headerName: "Action",
         field: "action",
-        width: 300,
+        width: 120,
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
@@ -132,6 +168,15 @@ class PurchaseOrderList extends React.Component {
                   history.push(`/app/purchase/editPurchase/${params.data._id}`)
                 }
               />
+              <Trash2
+                size="25px"
+                color="red"
+                onClick={() => {
+                  let selectedData = this.gridApi.getSelectedRows();
+                  this.runthisfunction(params.data._id);
+                  this.gridApi.updateRowData({ remove: selectedData });
+                }}
+              />
             </div>
           );
         },
@@ -149,15 +194,16 @@ class PurchaseOrderList extends React.Component {
       .then((response) => {
         let rowData = response.data.data;
         this.setState({ rowData });
+        console.log(rowData);
       });
   }
 
-  // async runthisfunction(id) {
-  //   console.log(id);
-  //   await axiosConfig.get(`/delprivacypolicy/${id}`).then((response) => {
-  //     console.log(response);
-  //   });
-  // }
+  async runthisfunction(id) {
+    console.log(id);
+    await axiosConfig.get(`/delpurchaseorder/${id}`).then((response) => {
+      console.log(response);
+    });
+  }
 
   onGridReady = (params) => {
     this.gridApi = params.api;

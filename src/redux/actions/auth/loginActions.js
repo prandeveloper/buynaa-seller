@@ -59,9 +59,7 @@ export const submitLoginWithFireBase = (email, password, remember) => {
           history.push("/");
         });
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 };
 
@@ -88,9 +86,7 @@ export const loginWithFB = () => {
         });
         if (user) history.push("/");
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 };
 
@@ -116,9 +112,7 @@ export const loginWithTwitter = () => {
         });
         history.push("/");
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+      .catch(function (error) {});
   };
 };
 
@@ -144,9 +138,7 @@ export const loginWithGoogle = () => {
         });
         history.push("/");
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+      .catch(function (error) {});
   };
 };
 
@@ -173,15 +165,12 @@ export const loginWithGithub = () => {
         });
         history.push("/");
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+      .catch(function (error) {});
   };
 };
 
 export const loginWithJWT = (user) => {
   return (dispatch) => {
-    console.log(user);
     axios
       .post("/api/authenticate/login/user", {
         email: user.email,

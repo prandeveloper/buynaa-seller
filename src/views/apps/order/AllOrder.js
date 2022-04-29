@@ -164,9 +164,11 @@ class AllOrder extends React.Component {
                 }
               />
               <Trash2
-                size={20}
+                size="25px"
+                color="red"
                 onClick={() => {
                   let selectedData = this.gridApi.getSelectedRows();
+                  this.runthisfunction(params.data._id);
                   this.gridApi.updateRowData({ remove: selectedData });
                 }}
               />
@@ -193,6 +195,13 @@ class AllOrder extends React.Component {
       .catch((error) => {
         console.log(error.response);
       });
+  }
+
+  async runthisfunction(id) {
+    console.log(id);
+    await axiosConfig.get(`/delpurchaseorder/${id}`).then((response) => {
+      console.log(response);
+    });
   }
 
   onGridReady = (params) => {

@@ -44,18 +44,18 @@ export class AddSubCategory extends Component {
         },
       })
       .then((response) => {
-        console.log(response);
+        response;
         this.setState({ productC: response.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        error;
       });
   }
 
   onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
     this.setState({ selectedName: event.target.files[0].name });
-    console.log(event.target.files[0]);
+    event.target.files[0];
   };
 
   changeHandler1 = (e) => {
@@ -80,7 +80,7 @@ export class AddSubCategory extends Component {
       );
     }
     //   for (var value of data.values()) {
-    //     console.log(value);
+    //     (value);
     //  }
     axiosConfig
       .post("/addproductsubcategory", data, {
@@ -89,11 +89,11 @@ export class AddSubCategory extends Component {
         },
       })
       .then((response) => {
-        console.log(response);
+        response;
         this.props.history.push("/app/category/subCategory");
       })
       .catch((error) => {
-        console.log(error);
+        error;
       });
   };
   render() {

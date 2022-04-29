@@ -237,10 +237,20 @@ class ViewOrder extends React.Component {
                   </Row>
                   <Row className="mt-3">
                     <Col lg="10" md="10" sm="12">
-                      <h5 className="text-right">GRAND TOTAL</h5>
+                      <h5 className="text-right">GST Rate -</h5>
                     </Col>
                     <Col lg="2" md="2" sm="12">
-                      <h5 className="">{this.state.detail?.product_price}</h5>
+                      <h5 className="">
+                        {this.state.detail?.product?.gstrate?.value}
+                      </h5>
+                    </Col>
+                  </Row>
+                  <Row className="mt-3">
+                    <Col lg="10" md="10" sm="12">
+                      <h5 className="text-right">GRAND TOTAL -</h5>
+                    </Col>
+                    <Col lg="2" md="2" sm="12">
+                      <h5 className="">{this.state.detail?.gsttotal}</h5>
                     </Col>
                   </Row>
                 </Card>
