@@ -12,6 +12,7 @@ import {
   CardSubtitle,
   CardFooter,
   CardLink,
+  Button,
 } from "reactstrap";
 import swal from "sweetalert";
 
@@ -171,8 +172,10 @@ export default function ChoosePaymentOption() {
                 </CardSubtitle>
               </div>
               <CardFooter>
-                <CardLink
-                  className="text-white font-weight-bolder "
+                <Button
+                  color="info"
+                  classNaname=""
+                  style={{ borderRadius: "50px" }}
                   onClick={() =>
                     handlePayment(
                       "Plan Active Period : 365 days",
@@ -186,7 +189,7 @@ export default function ChoosePaymentOption() {
                   }
                 >
                   Subscribe Now
-                </CardLink>
+                </Button>
               </CardFooter>
             </CardBody>
           </Card>

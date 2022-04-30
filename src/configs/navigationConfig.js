@@ -108,6 +108,30 @@ const navigationConfig = [
         navLink: "/app/contactUs/employee/employeeList",
       },
       {
+        id: "rolesPermission",
+        title: "Permission",
+        type: "collapse",
+        icon: <Icon.Truck size={20} />,
+        children: [
+          {
+            id: "roleList",
+            title: "Permission List",
+            type: "item",
+            icon: <Icon.Circle size={12} />,
+            permissions: ["admin", "editor"],
+            navLink: "/app/roleAndPermission/roleList",
+          },
+          {
+            id: "addRole",
+            title: "Add Permissions",
+            type: "item",
+            icon: <Icon.Circle size={12} />,
+            permissions: ["admin", "editor"],
+            navLink: "/app/roleAndPermission/addRole",
+          },
+        ],
+      },
+      {
         id: "addCustomer",
         title: "Add Customer",
         type: "item",
@@ -222,22 +246,22 @@ const navigationConfig = [
     type: "collapse",
     icon: <Icon.Flag size={20} />,
     children: [
-      {
-        id: "createInvoice",
-        title: "Create Invoice",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/app/billing/createInvoice",
-      },
       // {
-      //   id: "invoiceList",
+      //   id: "createInvoice",
       //   title: "Invoice List",
       //   type: "item",
       //   icon: <Icon.Circle size={12} />,
       //   permissions: ["admin", "editor"],
-      //   navLink: "/app/billing/invoiceList",
+      //   navLink: "/app/billing/createInvoice",
       // },
+      {
+        id: "createInvoice",
+        title: "Invoice List",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/app/billing/invoiceList",
+      },
     ],
   },
 

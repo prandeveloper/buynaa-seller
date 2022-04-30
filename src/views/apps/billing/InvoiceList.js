@@ -11,6 +11,7 @@ import {
   DropdownToggle,
   Button,
 } from "reactstrap";
+
 import axiosConfig from "../../../axiosConfig";
 import { ContextLayout } from "../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
@@ -20,6 +21,7 @@ import { history } from "../../../history";
 // import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../assets/scss/pages/users.scss";
+import "moment-timezone";
 import moment from "moment";
 
 class InvoiceList extends React.Component {
@@ -38,7 +40,7 @@ class InvoiceList extends React.Component {
       {
         headerName: "S.No",
         valueGetter: "node.rowIndex + 1",
-        field: "node.rowIndex + 1",
+        field: "sortorder",
         width: 100,
         filter: true,
         // checkboxSelection: true,
@@ -46,173 +48,106 @@ class InvoiceList extends React.Component {
         // headerCheckboxSelection: true,
       },
       {
-        headerName: "Invoice No",
-        field: "customerId",
+        headerName: "Order ID",
+        field: "orderId",
         filter: true,
-        width: 150,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
-            <div className="mr-4">
-              <span>{params.data.orderId}</span>
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data.cus_orderId}</span>
             </div>
           );
         },
       },
-
       {
-        headerName: "Date",
-        field: "date",
+        headerName: "Order Date",
+        field: "createdAt",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{moment(this.state.data?.createdAt).format("ll")}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Payment Type",
+        field: "payment_type",
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
           return (
-            <div className="ml-2 mr-4">
-              <span>{moment(params.data.createdAt).format("ll")}</span>
+            <div className="d-flex align-items-center">
+              <span>{params.data?.payment_type}</span>
             </div>
           );
         },
       },
       {
         headerName: "Customer Name",
-        field: "customer_name",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="ml-2 mr-4">
-              <span>{params.data.customer_name}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Phone No",
-        field: "customer_phone",
+        field: "customer.firstname",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
-            <div className="ml-2 mr-4">
-              <span>{params.data.customer_phone}</span>
+            <div>
+              <span>
+                {params.data?.customer?.firstname}{" "}
+                {params.data?.customer?.lastname}
+              </span>
             </div>
           );
         },
       },
-      {
-        headerName: "Customer GSTIN",
-        field: "customer_email",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="ml-2 mr-4">
-              <span>{params.data.customer_email}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Order No",
-        field: "customer_email",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="ml-2 mr-4">
-              <span>{params.data.customer_email}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Quantity",
-        field: "total_qty",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="ml-2 mr-4">
-              <span>{params.data.total_qty}</span>
-            </div>
-          );
-        },
-      },
-      // {
-      //   headerName: "Subtotal",
-      //   field: "product?.amount",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="ml-2 mr-4">
-      //         <span>{params.data.product?.amount}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
-      // {
-      //   headerName: "Discount",
-      //   field: "product?.discount",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="ml-2 mr-4">
-      //         <span>{params.data.product?.discount}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
-      {
-        headerName: "Grand Total",
-        field: "total_amount",
-        filter: true,
-        width: 200,
-        cellRendererFramework: (params) => {
-          return (
-            <div className="ml-2 mr-4">
-              <span>{params.data.total_amount}</span>
-            </div>
-          );
-        },
-      },
-      // {
-      //   headerName: "Payment Mode",
-      //   field: "mobile_no",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="ml-2 mr-4">
-      //         <span>{params.data.mobile_no}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
 
+      {
+        headerName: "Status",
+        field: "status",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return params.value === "Order Placed" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data.status}
+            </div>
+          ) : params.value === "Delivered" ? (
+            <div className="badge badge-pill badge-success">
+              {params.data.status}
+            </div>
+          ) : params.value === "Pending" ? (
+            <div className="badge badge-pill badge-primary">
+              {params.data.status}
+            </div>
+          ) : params.value === "Cancelled" ? (
+            <div className="badge badge-pill badge-danger">
+              {params.data.status}
+            </div>
+          ) : params.value === "Completed" ? (
+            <div className="badge badge-pill badge-warning">
+              {params.data.status}
+            </div>
+          ) : null;
+        },
+      },
       {
         headerName: "Actions",
         field: "transactions",
-        width: 150,
+        width: 220,
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              {/* <Edit
-                className="mr-50"
-                size="20px"
-                color="blue"
+              <Button
+                color="primary"
+                className="mr-2"
                 onClick={() =>
-                history.push(`/app/contactUs/customer/editCustomer/${params.data._id}`)}
-              /> */}
-              <Trash2
-                size="20px"
-                color="red"
-                onClick={() => {
-                  let selectedData = this.gridApi.getSelectedRows();
-                  this.runthisfunction(params.data._id);
-                  this.gridApi.updateRowData({ remove: selectedData });
-                }}
-              />
+                  history.push(`/app/billing/billingInvoice/${params.data._id}`)
+                }
+              >
+                Create Invoice
+              </Button>
             </div>
           );
         },
@@ -222,21 +157,28 @@ class InvoiceList extends React.Component {
 
   async componentDidMount() {
     await axiosConfig
-      .get("/getorderProductbyseller", {
+      .get("/orderbyseller", {
         headers: {
           "auth-adtoken": localStorage.getItem("auth-adtoken"),
         },
       })
       .then((response) => {
+        console.log(response);
         let rowData = response.data.data;
+
         this.setState({ rowData });
+      })
+      .catch((error) => {
+        console.log(error.response);
       });
   }
 
   // async runthisfunction(id) {
+  //   console.log(id);
   //   await axiosConfig
-  //     .get(`http://35.154.86.59/api/user/delcustomer/${id}`)
+  //     .get(`/delcustomer/${id}`)
   //     .then(response => {
+  //       console.log(response);
   //     });
   // }
   onGridReady = (params) => {
@@ -262,7 +204,6 @@ class InvoiceList extends React.Component {
       });
     }
   };
-
   render() {
     const { rowData, columnDefs, defaultColDef } = this.state;
     return (
@@ -276,14 +217,16 @@ class InvoiceList extends React.Component {
                   Invoice List
                 </h1>
               </Col>
-              <Col>
+              {/* <Col>
                 <Button
                   className=" btn btn-danger float-right"
-                  onClick={() => history.push("/app/billing/createInvoice")}
+                  onClick={() =>
+                    history.push("/app/contactUs/customer/addCustomer")
+                  }
                 >
-                  Create New Invoice
+                  Add New Customer
                 </Button>
-              </Col>
+              </Col> */}
             </Row>
             <CardBody>
               {this.state.rowData === null ? null : (
