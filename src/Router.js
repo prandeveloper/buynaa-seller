@@ -148,6 +148,7 @@ const choosePaymentOption = lazy(() =>
   import("./views/apps/subscription/ChoosePaymentOption")
 );
 const subsList = lazy(() => import("./views/apps/subscription/SubsList"));
+const subInvoice = lazy(() => import("./views/apps/subscription/SubInvoice"));
 
 const pageLayout = lazy(() => import("./views/apps/pageLayout/PageLayout"));
 const stockReport = lazy(() => import("./views/apps/report/StockReport"));
@@ -804,6 +805,10 @@ class AppRouter extends React.Component {
                   <AppRoute
                     path="/app/subscription/subsList"
                     component={subsList}
+                  />
+                  <AppRoute
+                    path="/app/subscription/subInvoice"
+                    component={subInvoice}
                   />
                   <AppRoute
                     path="/app/report/stockReport"

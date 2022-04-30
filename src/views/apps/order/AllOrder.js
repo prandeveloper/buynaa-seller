@@ -199,7 +199,7 @@ class AllOrder extends React.Component {
 
   async runthisfunction(id) {
     console.log(id);
-    await axiosConfig.get(`/delpurchaseorder/${id}`).then((response) => {
+    await axiosConfig.get(`/deleteOrder/${id}`).then((response) => {
       console.log(response);
     });
   }

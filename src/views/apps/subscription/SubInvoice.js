@@ -36,7 +36,7 @@ const params = {
     prevEl: ".swiper-button-prev",
   },
 };
-class BillingInvoice extends React.Component {
+class SubInvoice extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,9 +45,8 @@ class BillingInvoice extends React.Component {
   }
 
   componentDidMount() {
-    let { id } = this.props.match.params;
     axiosConfig
-      .get(`/getoneorderbyseller/${id}`, {
+      .get(`/getoneSubscription`, {
         headers: {
           "auth-adtoken": localStorage.getItem("auth-adtoken"),
         },
@@ -64,8 +63,6 @@ class BillingInvoice extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Breadcrumbs breadCrumbTitle="Invoice" />
-
         <Row>
           {/* <Col className="mb-1 invoice-header" md="5" sm="12">
             <InputGroup>
@@ -97,11 +94,7 @@ class BillingInvoice extends React.Component {
                 <Row>
                   <Col md="6" sm="12" className="pt-1">
                     <Media className="pt-1">
-                      <img
-                        src={this.state.data?.product?.store?.shoplogo_img}
-                        alt="logo"
-                        width={150}
-                      />
+                      <img src={logo} alt="logo" width={150} />
                     </Media>
                   </Col>
                   <Col md="6" sm="12" className="text-right">
@@ -120,41 +113,23 @@ class BillingInvoice extends React.Component {
                   <Col md="6" sm="12">
                     <h5>Recipient</h5>
                     <div className="recipient-info my-2">
-                      <p>
-                        {this.state.data?.customer?.firstname}{" "}
-                        {this.state.data?.customer?.lastname}
-                      </p>
+                      <h6>{this.state.data?.seller?.name}</h6>
                     </div>
                     <div className="recipient-contact pb-2">
-                      <p>
+                      <h6>
                         <Mail size={15} className="mr-50" />
-                        {this.state.data?.customer?.email}
-                      </p>
-                      <p>
+                        {this.state.data?.seller?.email}
+                      </h6>
+                      <h6>
                         <Phone size={15} className="mr-50" />
-                        {this.state.data?.customer?.mobile}
-                      </p>
-                    </div>
-                    <div className="recipient-info my-2">
-                      <p>
-                        {this.state.data?.shipping_address?.address} ,
-                        {this.state.data?.shipping_address?.locality}
-                      </p>
-                    </div>
-                    <div className="recipient-info my-2">
-                      <p>
-                        {this.state.data?.shipping_address?.city} /
-                        {this.state.data?.shipping_address?.state}
-                      </p>
-                    </div>
-                    <div className="recipient-info my-2">
-                      <p>{this.state.data?.shipping_address?.pincode}</p>
+                        {this.state.data?.seller?.mobile}
+                      </h6>
                     </div>
                   </Col>
                   <Col md="6" sm="12" className="text-right">
-                    <h5>{this.state.data?.product?.store?.store_name}</h5>
+                    <h5>Buynaa Corporation</h5>
                     <div className="company-info my-2">
-                      <p>
+                      {/* <p>
                         {this.state.data?.product?.store?.address_line1} ,{" "}
                         {this.state.data?.product?.store?.address_line2}
                       </p>
@@ -172,7 +147,7 @@ class BillingInvoice extends React.Component {
                       <p>
                         <Phone size={15} className="mr-50" />
                         {this.state.data?.product?.store?.phone_no}
-                      </p>
+                      </p> */}
                     </div>
                   </Col>
                 </Row>
@@ -182,22 +157,35 @@ class BillingInvoice extends React.Component {
                       <Table responsive borderless>
                         <thead>
                           <tr>
-                            <th>Product Nane</th>
-                            <th>SKU NO.</th>
-                            <th>COLOR</th>
-                            <th>SIZE</th>
-                            <th>QUANTITY</th>
-                            <th>PRICE</th>
+                            <th>
+                              <h6>PRODUCT DESCRIPTION</h6>
+                            </th>
+                            <th>
+                              {" "}
+                              <h6>PAYMENT MODE</h6>
+                            </th>
+                            <th>
+                              <h6>VALIDITY</h6>
+                            </th>
+                            <th>
+                              <h6>AMOUNT</h6>
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td>{this.state.data?.product?.product_name}</td>
-                            <td>{this.state.data?.product?.sku_no}</td>
-                            <td>{this.state.data?.color}</td>
-                            <td>{this.state.data?.size}</td>
-                            <td>{this.state.data?.product_qty}</td>
-                            <td>{this.state.data?.product_price}</td>
+                            <td>
+                              <h6>Buynaa Seller Subscription</h6>
+                            </td>
+                            <td>
+                              <h6>ONLINE</h6>
+                            </td>
+                            <td>
+                              <h6>365 Days</h6>
+                            </td>
+                            <td>
+                              <h6>699</h6>
+                            </td>
                           </tr>
                         </tbody>
                       </Table>
@@ -212,25 +200,13 @@ class BillingInvoice extends React.Component {
                     >
                       <Table responsive borderless>
                         <tbody>
-                          {/* <tr>
-                            <th>Sell Price</th>
-                            <td>114000 USD</td>
-                          </tr> */}
-
                           <tr>
-                            <th>Total Quantity</th>
-                            <td>{this.state.data?.product_qty}</td>
-                          </tr>
-                          <tr>
-                            <th>Total GST</th>
+                            <th>
+                              <h6>Grand Total</h6>
+                            </th>
                             <td>
-                              {this.state.data?.product?.gstrate?.value *
-                                this.state.data?.product_qty}
+                              <h6>699.00 </h6>
                             </td>
-                          </tr>
-                          <tr>
-                            <th>Grand Total</th>
-                            <td>{this.state.data?.gsttotal}</td>
                           </tr>
                         </tbody>
                       </Table>
@@ -246,4 +222,4 @@ class BillingInvoice extends React.Component {
   }
 }
 
-export default BillingInvoice;
+export default SubInvoice;

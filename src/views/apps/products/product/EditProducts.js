@@ -51,7 +51,7 @@ class EditProduct extends React.Component {
       discount_perc: "",
       gstrate: "",
       product_img: "",
-      selectedFile: undefined,
+      selectedFile: null,
       selectedName: "",
       pColour: [],
       pColourselected: [],
@@ -86,7 +86,7 @@ class EditProduct extends React.Component {
           product_name: response.data.data.product_name,
           sku_no: response.data.data.sku_no,
           hsn_sac_no: response.data.data.hsn_sac_no,
-          store: response.data.data.store._id,
+          store: response.data.data.store,
           short_desc: response.data.data.short_desc,
           long_desc: response.data.data.long_desc,
           brand: response.data.data.brand._id,
@@ -364,7 +364,7 @@ class EditProduct extends React.Component {
     data.append("tag", this.state.tag);
     data.append("productcategory", this.state.productcategory);
     data.append("productsubcategory", this.state.productsubcategory);
-    data.append("unit", this.state.unit);
+    data.append("unit", this.state.unit._id);
     data.append("gstrate", this.state.gstrate);
     data.append("discount_perc", this.state.discount_perc);
     data.append("cost_price", this.state.cost_price);
@@ -379,8 +379,6 @@ class EditProduct extends React.Component {
         data.append("size", this.state.size[i]);
       }
     }
-    //data.append("color", JSON.stringify(this.state.color));
-    //data.append("size", JSON.stringify(this.state.size));
     data.append("material", this.state.material);
     data.append("sell_mode", this.state.sell_mode);
     data.append("qty", this.state.qty);
@@ -676,8 +674,8 @@ class EditProduct extends React.Component {
                   onChange={this.changeHandler}
                 >
                   {this.state.units?.map((dUnits) => (
-                    <option value={dUnits._id} key={dUnits._id}>
-                      {dUnits.units_title}
+                    <option value={dUnits?._id} key={dUnits?._id}>
+                      {dUnits?.units_title}
                     </option>
                   ))}
                 </CustomInput>

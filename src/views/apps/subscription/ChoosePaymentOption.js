@@ -39,7 +39,7 @@ export default function ChoosePaymentOption() {
         console.log(error.response);
       });
 
-    Axios.get("http://35.154.86.59/api/admin/rapay/1")
+    Axios.get("http://35.154.86.59/api/admin/rapay/699")
       .then((response) => {
         console.log(response.data);
         setOrderId(response.data?.order.id);
@@ -179,8 +179,8 @@ export default function ChoosePaymentOption() {
                       profile.name,
                       profile.email,
                       profile.mobile,
-                      "100",
-                      true,
+                      "69900",
+                      "365",
                       "365days"
                     )
                   }

@@ -53,24 +53,37 @@ class SubsList extends React.Component {
         filter: true,
       },
 
-      // {
-      //   headerName: "Order ID",
-      //   field: "cus_orderId",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="d-flex align-items-center cursor-pointer">
-      //         <span>{params.data.cus_orderId}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
+      {
+        headerName: "Order ID",
+        field: "cus_orderId",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Seller",
+        field: "cus_orderId",
+        filter: true,
+        width: 200,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="d-flex align-items-center cursor-pointer">
+              <span>{params.data.seller?.name}</span>
+            </div>
+          );
+        },
+      },
       {
         headerName: "Subs. Date",
         field: "createdAt",
         filter: true,
-        width: 200,
+        width: 180,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
@@ -84,7 +97,7 @@ class SubsList extends React.Component {
         headerName: "Amount",
         field: "sub_plan",
         filter: true,
-        width: 150,
+        width: 100,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center">
@@ -97,7 +110,7 @@ class SubsList extends React.Component {
         headerName: "Description",
         field: "description",
         filter: true,
-        width: 200,
+        width: 220,
         cellRendererFramework: (params) => {
           return (
             <div>
@@ -109,38 +122,38 @@ class SubsList extends React.Component {
         },
       },
 
-      // {
-      //   headerName: "Actions",
-      //   field: "transactions",
-      //   width: 150,
-      //   cellRendererFramework: (params) => {
-      //     return (
-      //       <div className="actions cursor-pointer">
-      //         {/* <Eye
-      //           className="mr-50"
-      //           size={20}
-      //           onClick={() =>
-      //             history.push(`/app/order/viewOrder/${params.data._id}`)
-      //           }
-      //         />
-      //         <Edit
-      //           className="mr-50"
-      //           size={20}
-      //           onClick={() =>
-      //             history.push(`/app/order/editOrder/${params.data._id}`)
-      //           }
-      //         />
-      //         <Trash2
-      //           size={20}
-      //           onClick={() => {
-      //             let selectedData = this.gridApi.getSelectedRows();
-      //             this.gridApi.updateRowData({ remove: selectedData });
-      //           }}
-      //         /> */}
-      //       </div>
-      //     );
-      //   },
-      // },
+      {
+        headerName: "Actions",
+        field: "transactions",
+        width: 180,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="actions cursor-pointer">
+              <Button
+                color="primary"
+                className="mr-50"
+                onClick={() => history.push("/app/subscription/subInvoice")}
+              >
+                Invoice
+              </Button>
+              {/* <Edit
+                className="mr-50"
+                size={20}
+                onClick={() =>
+                  history.push(`/app/order/editOrder/${params.data._id}`)
+                }
+              />
+              <Trash2
+                size={20}
+                onClick={() => {
+                  let selectedData = this.gridApi.getSelectedRows();
+                  this.gridApi.updateRowData({ remove: selectedData });
+                }}
+              /> */}
+            </div>
+          );
+        },
+      },
     ],
   };
 
