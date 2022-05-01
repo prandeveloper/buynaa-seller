@@ -91,12 +91,12 @@ class EditProduct extends React.Component {
           long_desc: response.data.data.long_desc,
           brand: response.data.data.brand._id,
           tag: response.data.data.tag,
-          color: response.data.data.color,
-          size: response.data.data.size,
+          //color: response.data.data.color,
+          //size: response.data.data.size,
           material: response.data.data.material,
           sell_mode: response.data.data.sell_mode,
-          productcategory: response.data.data.productcategory,
-          productsubcategory: response.data.data.productsubcategory,
+          //productcategory: response.data.data.productcategory,
+          //productsubcategory: response.data.data.productsubcategory,
           qty: response.data.data.qty,
           reorder_level: response.data.data.reorder_level,
           unit: response.data.data.unit,
@@ -106,33 +106,6 @@ class EditProduct extends React.Component {
           gstrate: response.data.data.gstrate,
           product_img: response.data.data.product_img,
         });
-        // let resultarray = [];
-        // for (let i = 0; i < response.data.data.color.length; i++) {
-        //   const element = response.data.data.color[i];
-        //   delete Object.assign(element, {
-        //     ["value"]: element["_id"],
-        //     ["label"]: element["colorName"],
-        //   })["colorName"];
-        //   resultarray.push(element);
-        //   //console.log(element)
-        // }
-
-        // this.setState({ pColourselected: resultarray });
-        // console.log(this.state.pColourselected);
-
-        // let newresultarray = [];
-        // for (let i = 0; i < response.data.data.size.length; i++) {
-        //   const element = response.data.data.size[i];
-        //   delete Object.assign(element, {
-        //     ["value"]: element["_id"],
-        //     ["label"]: element["sizeName"],
-        //   })["colorName"];
-        //   newresultarray.push(element);
-        //   //console.log(element)
-        // }
-
-        // this.setState({ pSizeselected: newresultarray });
-        // console.log(this.state.pSizeselected);
       })
       .catch((error) => {
         console.log(error);
@@ -325,6 +298,7 @@ class EditProduct extends React.Component {
   };
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+    console.log(e.target.value);
   };
 
   changeHandlersize = (e) => {
@@ -391,13 +365,13 @@ class EditProduct extends React.Component {
       }
     }
 
-    for (var key of data.keys()) {
-      console.log(key);
-    }
-    for (var value of data.values()) {
-      console.log(value);
-    }
-    console.log(data);
+    // for (var key of data.keys()) {
+    //   console.log(key);
+    // }
+    // for (var value of data.values()) {
+    //   console.log(value);
+    // }
+    //console.log(data);
     let { id } = this.props.match.params;
     axiosConfig
       .post(`/editproduct/${id}`, data, {

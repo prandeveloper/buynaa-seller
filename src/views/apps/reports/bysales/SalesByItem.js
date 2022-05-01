@@ -45,17 +45,16 @@ class SalesByItem extends React.Component {
         // headerCheckboxSelection: true,
 
         // Search Button, (Date, Product Name, SKU, HSN/SAC, Quantity Sold, Average Amount, Total Amount) - Column Table, Export Button - Excel, Print Option.
-
       },
       {
-        headerName: "Product Name",
-        field: "customerId",
+        headerName: "Oder ID",
+        field: "cus_orderId",
         filter: true,
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
-              <span>{params.data.customerId}</span>
+              <span>{params.data.cus_orderId}</span>
             </div>
           );
         },
@@ -65,7 +64,7 @@ class SalesByItem extends React.Component {
         field: "first_name",
         filter: true,
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.first_name}</span>
@@ -78,7 +77,7 @@ class SalesByItem extends React.Component {
         field: "last_name",
         filter: true,
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.last_name}</span>
@@ -91,7 +90,7 @@ class SalesByItem extends React.Component {
         field: "customer_email",
         filter: true,
         width: 200,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.customer_email}</span>
@@ -104,7 +103,7 @@ class SalesByItem extends React.Component {
         field: "mobile_no",
         filter: true,
         width: 200,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.mobile_no}</span>
@@ -117,7 +116,7 @@ class SalesByItem extends React.Component {
         field: "mobile_no",
         filter: true,
         width: 200,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.mobile_no}</span>
@@ -126,28 +125,28 @@ class SalesByItem extends React.Component {
         },
       },
 
-    //   {
-    //     headerName: "Status",
-    //     field: "status",
-    //     filter: true,
-    //     width: 150,
-    //     cellRendererFramework: params => {
-    //       return params.value === "Active" ? (
-    //         <div className="badge badge-pill badge-success ml-2">
-    //           {params.data.status}
-    //         </div>
-    //       ) : params.value === "Inactive" ? (
-    //         <div className="badge badge-pill badge-danger">
-    //           {params.data.status}
-    //         </div>
-    //       ) : null;
-    //     },
-    //   },
+      //   {
+      //     headerName: "Status",
+      //     field: "status",
+      //     filter: true,
+      //     width: 150,
+      //     cellRendererFramework: params => {
+      //       return params.value === "Active" ? (
+      //         <div className="badge badge-pill badge-success ml-2">
+      //           {params.data.status}
+      //         </div>
+      //       ) : params.value === "Inactive" ? (
+      //         <div className="badge badge-pill badge-danger">
+      //           {params.data.status}
+      //         </div>
+      //       ) : null;
+      //     },
+      //   },
       {
         headerName: "Actions",
         field: "transactions",
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
               <Edit
@@ -176,25 +175,29 @@ class SalesByItem extends React.Component {
     ],
   };
 
-  //   async componentDidMount() {
+  async componentDidMount() {
+    await axiosConfig
+      .get("/salesbyseller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        let rowData = response.data.data;
+        console.log(rowData);
+        this.setState({ rowData });
+      });
+  }
+
+  //   async runthisfunction(id) {
+  //     console.log(id);
   //     await axiosConfig
-  //       .get("http://35.154.86.59/api/user/allcustomer")
+  //       .get(`http://35.154.86.59/api/user/delcustomer/${id}`)
   //       .then(response => {
-  //         let rowData = response.data.data;
-  //         console.log(rowData);
-  //         this.setState({ rowData });
+  //         console.log(response);
   //       });
   //   }
-
-//   async runthisfunction(id) {
-//     console.log(id);
-//     await axiosConfig
-//       .get(`http://35.154.86.59/api/user/delcustomer/${id}`)
-//       .then(response => {
-//         console.log(response);
-//       });
-//   }
-  onGridReady = params => {
+  onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.setState({
@@ -204,11 +207,11 @@ class SalesByItem extends React.Component {
     });
   };
 
-  updateSearchQuery = val => {
+  updateSearchQuery = (val) => {
     this.gridApi.setQuickFilter(val);
   };
 
-  filterSize = val => {
+  filterSize = (val) => {
     if (this.gridApi) {
       this.gridApi.paginationSetPageSize(Number(val));
       this.setState({
@@ -228,15 +231,13 @@ class SalesByItem extends React.Component {
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                Sales By Item
+                  Sales By Item
                 </h1>
               </Col>
               <Col>
                 <Button
                   className=" btn btn-danger float-right"
-                  onClick={() =>
-                    history.push("/app/billing/createInvoice")
-                  }
+                  onClick={() => history.push("/app/billing/createInvoice")}
                 >
                   Create Sales By Item
                 </Button>
@@ -294,7 +295,9 @@ class SalesByItem extends React.Component {
                       <div className="table-input mr-1">
                         <Input
                           placeholder="search..."
-                          onChange={e => this.updateSearchQuery(e.target.value)}
+                          onChange={(e) =>
+                            this.updateSearchQuery(e.target.value)
+                          }
                           value={this.state.value}
                         />
                       </div>
@@ -309,7 +312,7 @@ class SalesByItem extends React.Component {
                     </div>
                   </div>
                   <ContextLayout.Consumer>
-                    {context => (
+                    {(context) => (
                       <AgGridReact
                         gridOptions={{}}
                         rowSelection="multiple"
@@ -337,7 +340,4 @@ class SalesByItem extends React.Component {
   }
 }
 
-
-
 export default SalesByItem;
-

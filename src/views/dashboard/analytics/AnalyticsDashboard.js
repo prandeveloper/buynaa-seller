@@ -61,6 +61,7 @@ class AnalyticsDashboard extends React.Component {
       supplier: {},
       brand: {},
       coupons: {},
+      order: {},
     };
   }
 
@@ -162,6 +163,20 @@ class AnalyticsDashboard extends React.Component {
       .catch((error) => {
         console.log(error);
       });
+    //order
+    axiosConfig
+      .get("/totalorderbySeller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        //console.log(response.data);
+        this.setState({ order: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   render() {
     return (
@@ -234,7 +249,7 @@ class AnalyticsDashboard extends React.Component {
               </CardTitle>
 
               <CardText tag="h3" style={{ color: "white" }}>
-                {this.state.brand.totalBrand}
+                {this.state.order.data}
               </CardText>
             </Card>
           </Col>

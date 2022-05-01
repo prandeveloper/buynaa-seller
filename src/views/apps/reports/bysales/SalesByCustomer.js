@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Card,
@@ -49,92 +48,105 @@ class SalesByCustomer extends React.Component {
       },
       {
         headerName: "Invoice ID",
-        field: "customerId",
+        field: "cus_orderId",
         filter: true,
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
-              <span>{params.data.customerId}</span>
+              <span>{params.data.cus_orderId}</span>
             </div>
           );
         },
       },
       {
-        headerName: "Customer Name",
-        field: "customer?.first_name, last_name",
+        headerName: "Customer FirstName",
+        field: "customer?.firstname",
         filter: true,
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
-              <span>{params.data.customer?.first_name} {params.data.customer?.last_name}</span>
+              <span>{params.data.customer?.firstname}</span>
             </div>
           );
         },
       },
       {
-        headerName: "Sales Amount",
-        field: "purchaseprice",
+        headerName: "Customer FirstName",
+        field: "customer?.lastname",
         filter: true,
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
-              <span>{params.data.purchaseprice}</span>
+              <span>{params.data.customer?.lastname}</span>
             </div>
           );
         },
       },
       {
-        headerName: "Sales Amount with GST",
-        field: "order_date",
+        headerName: "Product Name",
+        field: "product?.product_name",
+        filter: true,
+        width: 150,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="ml-2 mr-4">
+              <span>{params.data.product?.product_name}</span>
+            </div>
+          );
+        },
+      },
+      {
+        headerName: "Product Amount",
+        field: "product_price",
         filter: true,
         width: 200,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
-              <span>{params.data.order_date}</span>
+              <span>{params.data.product_price}</span>
             </div>
           );
         },
       },
-      // {
-      //   headerName: "Profit",
-      //   field: "mobile_no",
-      //   filter: true,
-      //   width: 200,
-      //   cellRendererFramework: params => {
-      //     return (
-      //       <div className="ml-2 mr-4">
-      //         <span>{params.data.mobile_no}</span>
-      //       </div>
-      //     );
-      //   },
-      // },
+      {
+        headerName: "Product Quantity",
+        field: "product_qty",
+        filter: true,
+        width: 100,
+        cellRendererFramework: (params) => {
+          return (
+            <div className="ml-2 mr-4">
+              <span>{params.data.product_qty}</span>
+            </div>
+          );
+        },
+      },
 
-    //   {
-    //     headerName: "Status",
-    //     field: "status",
-    //     filter: true,
-    //     width: 150,
-    //     cellRendererFramework: params => {
-    //       return params.value === "Active" ? (
-    //         <div className="badge badge-pill badge-success ml-2">
-    //           {params.data.status}
-    //         </div>
-    //       ) : params.value === "Inactive" ? (
-    //         <div className="badge badge-pill badge-danger">
-    //           {params.data.status}
-    //         </div>
-    //       ) : null;
-    //     },
-    //   },
+      //   {
+      //     headerName: "Status",
+      //     field: "status",
+      //     filter: true,
+      //     width: 150,
+      //     cellRendererFramework: params => {
+      //       return params.value === "Active" ? (
+      //         <div className="badge badge-pill badge-success ml-2">
+      //           {params.data.status}
+      //         </div>
+      //       ) : params.value === "Inactive" ? (
+      //         <div className="badge badge-pill badge-danger">
+      //           {params.data.status}
+      //         </div>
+      //       ) : null;
+      //     },
+      //   },
       {
         headerName: "Actions",
         field: "transactions",
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
               <Edit
@@ -163,14 +175,18 @@ class SalesByCustomer extends React.Component {
     ],
   };
 
-
   async componentDidMount() {
-    let { id } = this.props.match.params;
-    await axiosConfig.get(`/salesbyseller/${id}`).then((response) => {
-      const rowData = response.data.data;
-      console.log(rowData);
-      this.setState({ rowData });
-    });
+    await axiosConfig
+      .get("/salesbyseller", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        const rowData = response.data.data;
+        console.log(rowData);
+        this.setState({ rowData });
+      });
   }
   // async runthisfunction(id) {
   //   console.log(id);
@@ -183,7 +199,7 @@ class SalesByCustomer extends React.Component {
   //     }
   //   );
   // }
-  onGridReady = params => {
+  onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.setState({
@@ -193,11 +209,11 @@ class SalesByCustomer extends React.Component {
     });
   };
 
-  updateSearchQuery = val => {
+  updateSearchQuery = (val) => {
     this.gridApi.setQuickFilter(val);
   };
 
-  filterSize = val => {
+  filterSize = (val) => {
     if (this.gridApi) {
       this.gridApi.paginationSetPageSize(Number(val));
       this.setState({
@@ -211,23 +227,21 @@ class SalesByCustomer extends React.Component {
     const { rowData, columnDefs, defaultColDef } = this.state;
     return (
       <Row className="app-user-list">
-        <Col sm="12"></Col>                      
+        <Col sm="12"></Col>
         <Col sm="12">
           <Card>
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                Sales By Customer
+                  Sales By Customer
                 </h1>
               </Col>
               <Col>
                 <Button
                   className=" btn btn-danger float-right"
-                  onClick={() =>
-                    history.push("/app/billing/createInvoice")
-                  }
+                  onClick={() => history.push("/app/billing/createInvoice")}
                 >
-                  Create  Sales By Customer
+                  Create Sales By Customer
                 </Button>
               </Col>
             </Row>
@@ -283,7 +297,9 @@ class SalesByCustomer extends React.Component {
                       <div className="table-input mr-1">
                         <Input
                           placeholder="search..."
-                          onChange={e => this.updateSearchQuery(e.target.value)}
+                          onChange={(e) =>
+                            this.updateSearchQuery(e.target.value)
+                          }
                           value={this.state.value}
                         />
                       </div>
@@ -298,7 +314,7 @@ class SalesByCustomer extends React.Component {
                     </div>
                   </div>
                   <ContextLayout.Consumer>
-                    {context => (
+                    {(context) => (
                       <AgGridReact
                         gridOptions={{}}
                         rowSelection="multiple"
