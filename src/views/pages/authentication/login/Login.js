@@ -81,7 +81,7 @@ class Login extends React.Component {
     axios
       .post("http://35.154.86.59/api/admin/sellerlogin", this.state)
       .then((response) => {
-        console.log(response.data.msg);
+        console.log(response.data);
 
         localStorage.setItem("auth-adtoken", response.data.token);
         localStorage.setItem(
