@@ -236,14 +236,6 @@ class SalesByCustomer extends React.Component {
                   Sales By Customer
                 </h1>
               </Col>
-              <Col>
-                <Button
-                  className=" btn btn-danger float-right"
-                  onClick={() => history.push("/app/billing/createInvoice")}
-                >
-                  Create Sales By Customer
-                </Button>
-              </Col>
             </Row>
             <CardBody>
               {this.state.rowData === null ? null : (

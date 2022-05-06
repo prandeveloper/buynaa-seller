@@ -44,15 +44,15 @@ class PurchaseHistoryReportByItem extends React.Component {
         // headerCheckboxSelectionFilteredOnly: true,
         // headerCheckboxSelection: true,
 
-        // (PO ID, Supplier, Product Name, SKU, HSN/SAC, Quantity Ordered, Quantity Received, Cost Price,  GST, 
-//     Status) - Table Column, Export, Print
+        // (PO ID, Supplier, Product Name, SKU, HSN/SAC, Quantity Ordered, Quantity Received, Cost Price,  GST,
+        //     Status) - Table Column, Export, Print
       },
       {
         headerName: "PO ID",
         field: "customerId",
         filter: true,
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.customerId}</span>
@@ -65,7 +65,7 @@ class PurchaseHistoryReportByItem extends React.Component {
         field: "first_name",
         filter: true,
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.first_name}</span>
@@ -78,7 +78,7 @@ class PurchaseHistoryReportByItem extends React.Component {
         field: "last_name",
         filter: true,
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.last_name}</span>
@@ -91,7 +91,7 @@ class PurchaseHistoryReportByItem extends React.Component {
         field: "customer_email",
         filter: true,
         width: 200,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.customer_email}</span>
@@ -104,7 +104,7 @@ class PurchaseHistoryReportByItem extends React.Component {
         field: "mobile_no",
         filter: true,
         width: 200,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.mobile_no}</span>
@@ -117,7 +117,7 @@ class PurchaseHistoryReportByItem extends React.Component {
         field: "mobile_no",
         filter: true,
         width: 200,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.mobile_no}</span>
@@ -130,7 +130,7 @@ class PurchaseHistoryReportByItem extends React.Component {
         field: "mobile_no",
         filter: true,
         width: 200,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.mobile_no}</span>
@@ -143,7 +143,7 @@ class PurchaseHistoryReportByItem extends React.Component {
         field: "mobile_no",
         filter: true,
         width: 200,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.mobile_no}</span>
@@ -156,7 +156,7 @@ class PurchaseHistoryReportByItem extends React.Component {
         field: "mobile_no",
         filter: true,
         width: 200,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="ml-2 mr-4">
               <span>{params.data.mobile_no}</span>
@@ -169,7 +169,7 @@ class PurchaseHistoryReportByItem extends React.Component {
         field: "status",
         filter: true,
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return params.value === "Active" ? (
             <div className="badge badge-pill badge-success ml-2">
               {params.data.status}
@@ -185,7 +185,7 @@ class PurchaseHistoryReportByItem extends React.Component {
         headerName: "Actions",
         field: "transactions",
         width: 150,
-        cellRendererFramework: params => {
+        cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
               <Edit
@@ -214,25 +214,29 @@ class PurchaseHistoryReportByItem extends React.Component {
     ],
   };
 
-  //   async componentDidMount() {
+  async componentDidMount() {
+    await axiosConfig
+      .get("/purchaseHistory", {
+        headers: {
+          "auth-adtoken": localStorage.getItem("auth-adtoken"),
+        },
+      })
+      .then((response) => {
+        let rowData = response.data.data;
+        console.log(rowData);
+        this.setState({ rowData });
+      });
+  }
+
+  //   async runthisfunction(id) {
+  //     console.log(id);
   //     await axiosConfig
-  //       .get("http://35.154.86.59/api/user/allcustomer")
+  //       .get(`http://35.154.86.59/api/user/delcustomer/${id}`)
   //       .then(response => {
-  //         let rowData = response.data.data;
-  //         console.log(rowData);
-  //         this.setState({ rowData });
+  //         console.log(response);
   //       });
   //   }
-
-//   async runthisfunction(id) {
-//     console.log(id);
-//     await axiosConfig
-//       .get(`http://35.154.86.59/api/user/delcustomer/${id}`)
-//       .then(response => {
-//         console.log(response);
-//       });
-//   }
-  onGridReady = params => {
+  onGridReady = (params) => {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.setState({
@@ -242,11 +246,11 @@ class PurchaseHistoryReportByItem extends React.Component {
     });
   };
 
-  updateSearchQuery = val => {
+  updateSearchQuery = (val) => {
     this.gridApi.setQuickFilter(val);
   };
 
-  filterSize = val => {
+  filterSize = (val) => {
     if (this.gridApi) {
       this.gridApi.paginationSetPageSize(Number(val));
       this.setState({
@@ -266,17 +270,15 @@ class PurchaseHistoryReportByItem extends React.Component {
             <Row className="m-2">
               <Col>
                 <h1 col-sm-6 className="float-left">
-                Purchase History Report by item
+                  Purchase History Report
                 </h1>
               </Col>
               <Col>
                 <Button
                   className=" btn btn-danger float-right"
-                  onClick={() =>
-                    history.push("/app/billing/createInvoice")
-                  }
+                  onClick={() => history.push("/app/billing/createInvoice")}
                 >
-                  Create  New Invoice
+                  Create New Invoice
                 </Button>
               </Col>
             </Row>
@@ -332,7 +334,9 @@ class PurchaseHistoryReportByItem extends React.Component {
                       <div className="table-input mr-1">
                         <Input
                           placeholder="search..."
-                          onChange={e => this.updateSearchQuery(e.target.value)}
+                          onChange={(e) =>
+                            this.updateSearchQuery(e.target.value)
+                          }
                           value={this.state.value}
                         />
                       </div>
@@ -347,7 +351,7 @@ class PurchaseHistoryReportByItem extends React.Component {
                     </div>
                   </div>
                   <ContextLayout.Consumer>
-                    {context => (
+                    {(context) => (
                       <AgGridReact
                         gridOptions={{}}
                         rowSelection="multiple"

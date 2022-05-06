@@ -1,1 +1,0 @@
-  // (Daily Report, Weekly Report, Mothly Report) - Check Box, (Select Date, Select Dates, Select Month) - Check Box, View Button

@@ -71,13 +71,13 @@ class AllOrder extends React.Component {
       },
       {
         headerName: "Order Date",
-        field: "createdAt",
+        field: "date",
         filter: true,
         width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{moment(this.state.data?.createdAt).format("ll")}</span>
+              <span>{params.data.date}</span>
             </div>
           );
         },

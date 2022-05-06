@@ -177,7 +177,7 @@ class SalesByItem extends React.Component {
 
   async componentDidMount() {
     await axiosConfig
-      .get("/salesbyseller", {
+      .get("/salesbyitem", {
         headers: {
           "auth-adtoken": localStorage.getItem("auth-adtoken"),
         },
@@ -233,14 +233,6 @@ class SalesByItem extends React.Component {
                 <h1 col-sm-6 className="float-left">
                   Sales By Item
                 </h1>
-              </Col>
-              <Col>
-                <Button
-                  className=" btn btn-danger float-right"
-                  onClick={() => history.push("/app/billing/createInvoice")}
-                >
-                  Create Sales By Item
-                </Button>
               </Col>
             </Row>
             <CardBody>

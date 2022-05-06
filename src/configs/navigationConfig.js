@@ -425,23 +425,23 @@ const navigationConfig = [
       //     },
       //   ],
       // },
-      // {
-      //   id: "bypurchases&epenses",
-      //   title: "By Purchases & Epenses",
-      //   type: "collapse",
-      //   icon: <Icon.ArrowRight size={20} />,
-      //   children: [
-      //     {
-      //       id: "purchaseHistoryReportByItem",
-      //       title: "Purchases History Report By Item",
-      //       type: "item",
-      //       icon: <Icon.Circle size={12} />,
-      //       permissions: ["admin", "editor"],
-      //       navLink:
-      //         "/app/reports/bypurchases&epenses/purchaseHistoryReportByItem",
-      //     },
-      //   ],
-      // },
+      {
+        id: "bypurchases&epenses",
+        title: "By Purchases & Epenses",
+        type: "collapse",
+        icon: <Icon.ArrowRight size={20} />,
+        children: [
+          {
+            id: "purchaseHistoryReportByItem",
+            title: "Purchases History Report By Item",
+            type: "item",
+            icon: <Icon.Circle size={12} />,
+            permissions: ["admin", "editor"],
+            navLink:
+              "/app/reports/bypurchases&epenses/purchaseHistoryReportByItem",
+          },
+        ],
+      },
     ],
   },
 

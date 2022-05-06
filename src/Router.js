@@ -152,8 +152,6 @@ const subInvoice = lazy(() => import("./views/apps/subscription/SubInvoice"));
 
 const pageLayout = lazy(() => import("./views/apps/pageLayout/PageLayout"));
 const stockReport = lazy(() => import("./views/apps/report/StockReport"));
-// const salesReports = lazy(() => import("./views/apps/reports/bysales/InvoicedIncome"));
-// const byProducts = lazy(() => import("./views/apps/reports/product/ByProducts"));
 
 const stockAdjustment = lazy(() =>
   import("./views/apps/stockControl/StockAdjustment")
